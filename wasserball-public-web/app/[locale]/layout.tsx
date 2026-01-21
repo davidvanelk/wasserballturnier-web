@@ -33,11 +33,11 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <I18nProvider locale={locale ?? 'en'}>
           <Navbar />
-          {children}
+          <main className="flex-grow">{children}</main>
           <Footer />
         </I18nProvider>
       </body>

@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="text-center py-4 text-gray-600 text-sm">
-      <hr />
+      <hr className="border-t border-gray-300 my-4" />
       <p>
         &copy; 2026{' '}
         <a
