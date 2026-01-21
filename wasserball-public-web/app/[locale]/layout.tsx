@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navbar from '@/lib/components/Navbar';
+import Footer from '@/lib/components/Footer';
 import I18nProvider from '@/app/components/I18nProvider';
 
 import '@/app/globals.css';
@@ -37,6 +38,7 @@ export default async function RootLayout({
         <I18nProvider locale={locale ?? 'en'}>
           <Navbar />
           {children}
+          <Footer />
         </I18nProvider>
       </body>
     </html>
