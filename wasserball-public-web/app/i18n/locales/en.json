@@ -1,0 +1,14 @@
+{
+  "home": {
+    "welcome": "Welcome!",
+    "tournament": "At the Wasserball Turnier 2026",
+    "image_alt": "One picture of many."
+  },
+  "navbar": {
+    "title": "Wasserball",
+    "home": "Home",
+    "tournaments": "Tournaments",
+    "contact": "Contact",
+    "open_menu": "Open menu"
+  }
+}

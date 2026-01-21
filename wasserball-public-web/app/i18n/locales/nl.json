@@ -1,0 +1,14 @@
+{
+  "home": {
+    "welcome": "Welkom!",
+    "tournament": "Op het Wasserball Turnier 2026",
+    "image_alt": "Eén foto van velen."
+  },
+  "navbar": {
+    "title": "Waterpolo",
+    "home": "Home",
+    "tournaments": "Toernooien",
+    "contact": "Contact",
+    "open_menu": "Menu openen"
+  }
+}
