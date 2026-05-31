@@ -4,6 +4,28 @@
     "tournament": "Beim Wasserballturnier 2026",
     "image_alt": "Ein Bild von vielen."
   },
+  "landing": {
+    "eyebrow": "Wasserballturnier 2026",
+    "title": "Sommer, Wasser, Wettbewerb: Sei beim Turnier in Elten dabei.",
+    "subtitle": "Alle Infos rund um Spielplan, Teams und Kontakt auf einen Blick - schnell, klar und mobilfreundlich.",
+    "event_title": "Veranstaltungsdetails",
+    "event_location_label": "Veranstaltungsort",
+    "event_location_value": "Feld an der Haagsche Straße 2, 46446 Emmerich am Rhein",
+    "event_time_label": "Uhrzeit",
+    "event_time_value": "15.08.2026, 11:00 Uhr",
+    "cta_calendar": "In Kalender eintragen",
+    "cta_matches": "Zu den Spielen",
+    "cta_contact": "Kontakt aufnehmen",
+    "cta_route": "Route in Google Maps starten",
+    "route_hint": "Öffnet Google Maps und startet die Navigation zur Turnier-Location.",
+    "map_title": "Karte zum Veranstaltungsort",
+    "card_one_title": "Live Spielplan",
+    "card_one_text": "Bleib immer auf dem Laufenden: Ansetzungen, Zeiten und Begegnungen zentral auf einer Seite.",
+    "card_two_title": "Starke Teams",
+    "card_two_text": "Freu dich auf faire Matches, sportlichen Ehrgeiz und echte Turnier-Atmosphäre am Beckenrand.",
+    "card_three_title": "Schneller Kontakt",
+    "card_three_text": "Fragen zur Anmeldung oder Organisation? Schreib uns direkt über die Kontaktseite."
+  },
   "navbar": {
     "title": "Wasserball",
     "home": "Home",

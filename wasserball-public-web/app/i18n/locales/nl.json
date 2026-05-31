@@ -4,6 +4,28 @@
     "tournament": "Op het Wasserball Turnier 2026",
     "image_alt": "Eén foto van velen."
   },
+  "landing": {
+    "eyebrow": "Waterpolotoernooi 2026",
+    "title": "Zomer, water, competitie: doe mee aan het toernooi in Elten.",
+    "subtitle": "Alles over wedstrijden, teams en contact op een plek - snel, duidelijk en mobielvriendelijk.",
+    "event_title": "Evenementdetails",
+    "event_location_label": "Locatie",
+    "event_location_value": "Veld aan de Haagsche Straße 2, 46446 Emmerich am Rhein",
+    "event_time_label": "Tijd",
+    "event_time_value": "15-08-2026, 11:00 uur",
+    "cta_calendar": "Aan agenda toevoegen",
+    "cta_matches": "Bekijk wedstrijden",
+    "cta_contact": "Neem contact op",
+    "cta_route": "Route starten in Google Maps",
+    "route_hint": "Opent Google Maps en start de navigatie naar de toernooilocatie.",
+    "map_title": "Kaart van de evenementlocatie",
+    "card_one_title": "Live speelschema",
+    "card_one_text": "Blijf op de hoogte van indelingen, tijden en ontmoetingen op een centrale pagina.",
+    "card_two_title": "Sterke teams",
+    "card_two_text": "Geniet van eerlijke wedstrijden, sportieve ambitie en echte toernooisfeer aan het bad.",
+    "card_three_title": "Snel contact",
+    "card_three_text": "Vragen over inschrijving of organisatie? Neem direct contact op via de contactpagina."
+  },
   "navbar": {
     "title": "Waterpolo",
     "home": "Home",
