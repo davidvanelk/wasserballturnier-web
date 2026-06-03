@@ -10,29 +10,33 @@ export default async function LandingPage() {
   const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=51.877462%2C6.150263`;
 
   return (
-    <main className="relative overflow-hidden">
-      <section className="mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <main className="relative overflow-hidden grid grid-cols-1 gap-16 py-20">
+      <section className="md:text-center">
         <p className="text-sm uppercase tracking-[0.25em] text-cyan-700 font-semibold">
           {t('eyebrow')}
         </p>
-        <h1 className="mt-4 text-4xl sm:text-6xl font-black leading-tight text-slate-900 max-w-4xl">
+        <h1 className="mt-4 text-4xl sm:text-6xl font-black leading-tight text-slate-900">
           {t('title')}
+          <br />
+          {t('title_2')}
         </h1>
-        <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-2xl">
+        <p className="mt-6 text-lg sm:text-xl text-slate-700">
           {t('subtitle')}
         </p>
-        <p className="mt-4 text-lg sm:text-xl text-slate-700 max-w-2xl">
+        <p className="mt-4 text-lg sm:text-xl text-slate-700">
           {t('subtitle_2')}
         </p>
-        <p className="mt-4 text-lg sm:text-xl text-slate-700 max-w-2xl">
+        <p className="mt-4 text-lg sm:text-xl text-slate-700">
           {t('subtitle_3')}
         </p>
+      </section>
 
-        <div className="mt-8 rounded-2xl border border-cyan-100 bg-white/85 p-5 sm:p-6 shadow-sm">
+      <section>
+        <div className="rounded-2xl border border-cyan-100 bg-white/85 p-5 sm:p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-900">
             {t('event_title')}
           </h2>
-          <div className="grid md:grid-cols-3 items-start mt-4 gap-3">
+          <div className="grid md:grid-cols-3 items-start mt-4 gap-5">
             <div>
               <p className="text-xs uppercase tracking-wide text-slate-500">
                 {t('event_location_label')}
@@ -80,34 +84,8 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+      <section>
         <SponsorCarousel />
-      </section>
-
-      <section className="mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <article className="rounded-2xl border border-cyan-100 bg-white/80 backdrop-blur-sm p-6 shadow-sm">
-            <p className="text-sm font-semibold text-cyan-700">01</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
-              {t('card_one_title')}
-            </h2>
-            <p className="mt-2 text-slate-600">{t('card_one_text')}</p>
-          </article>
-          <article className="rounded-2xl border border-amber-100 bg-white/80 backdrop-blur-sm p-6 shadow-sm">
-            <p className="text-sm font-semibold text-amber-700">02</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
-              {t('card_two_title')}
-            </h2>
-            <p className="mt-2 text-slate-600">{t('card_two_text')}</p>
-          </article>
-          <article className="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm p-6 shadow-sm">
-            <p className="text-sm font-semibold text-slate-700">03</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
-              {t('card_three_title')}
-            </h2>
-            <p className="mt-2 text-slate-600">{t('card_three_text')}</p>
-          </article>
-        </div>
       </section>
     </main>
   );

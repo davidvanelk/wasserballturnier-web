@@ -18,7 +18,7 @@ const SponsorCarousel = async () => {
         <Image
           src={logo}
           alt={alt}
-          className="h-14 md:h-16 lg:h-24 object-contain mx-auto mb-3"
+          className="h-12 md:h-18 lg:h-30 object-contain mx-auto mb-3"
           width={150}
           height={150}
         />
@@ -32,7 +32,7 @@ const SponsorCarousel = async () => {
       <p className="text-lg text-slate-700 mt-4">{t('subtitle')}</p>
 
       <div
-        className="relative w-full overflow-x-hidden mt-4"
+        className="relative w-full overflow-x-hidden mt-6"
         style={{
           WebkitMaskImage:
             'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
@@ -41,8 +41,8 @@ const SponsorCarousel = async () => {
         }}
       >
         <div className="flex w-max animate-marquee">
-          <div className="flex gap-3 mx-6">{sponsorList(1)}</div>
-          <div className="flex gap-3 mx-6">{sponsorList(2)}</div>
+          <div className="flex gap-3">{sponsorList(1)}</div>
+          <div className="flex gap-3 ml-3">{sponsorList(2)}</div>
         </div>
       </div>
     </div>
