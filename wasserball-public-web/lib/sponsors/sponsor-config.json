@@ -1,0 +1,26 @@
+[
+  {
+    "sponsor": "Commodore Computers Ltd.",
+    "logo": "/assets/sponsors/Commodore-Logo_breit.svg.png",
+    "url": "https://www.commodore.com/",
+    "alt": "Commodore Logo",
+    "selector": "commodore",
+    "tokenMultiplier": 1
+  },
+  {
+    "sponsor": "Deutscher Schachbund",
+    "logo": "/assets/sponsors/Dsb-logo-2020_rgb.svg.png",
+    "alt": "Deutscher Schachbund Logo",
+    "url": "https://www.google.com",
+    "selector": "schachbund",
+    "tokenMultiplier": 2
+  },
+  {
+    "sponsor": "Eine andere GmbH",
+    "logo": "/assets/sponsors/logo_schmal.png",
+    "alt": "Eine andere GmbH Logo",
+    "url": "https://www.gidf.de",
+    "selector": "another_company",
+    "tokenMultiplier": 0
+  }
+]

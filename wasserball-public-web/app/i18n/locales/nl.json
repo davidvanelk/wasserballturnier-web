@@ -7,7 +7,9 @@
   "landing": {
     "eyebrow": "Waterpolotoernooi 2026",
     "title": "Zomer, water, competitie: doe mee aan het toernooi in Elten.",
-    "subtitle": "Alles over wedstrijden, teams en contact op een plek - snel, duidelijk en mobielvriendelijk.",
+    "subtitle": "Alle infos over de wedstrijd op één plek.",
+    "subtitle_2": "Kom langs en beleef spannende wedstrijden, sterke teams en een geweldige sfeer op het veld!",
+    "subtitle_3": "De brandweer van Elten kijkt ernaar uit je te zien!",
     "event_title": "Evenementdetails",
     "event_location_label": "Locatie",
     "event_location_value": "Veld aan de Haagsche Straße 2, 46446 Emmerich am Rhein",
@@ -16,7 +18,7 @@
     "cta_calendar": "Aan agenda toevoegen",
     "cta_matches": "Bekijk wedstrijden",
     "cta_contact": "Neem contact op",
-    "cta_route": "Route starten in Google Maps",
+    "cta_route": "Navigatie starten in Google Maps",
     "route_hint": "Opent Google Maps en start de navigatie naar de toernooilocatie.",
     "map_title": "Kaart van de evenementlocatie",
     "card_one_title": "Live speelschema",
@@ -32,5 +34,11 @@
     "matches": "Wedstrijden",
     "contact": "Contact",
     "open_menu": "Menu openen"
+  },
+  "sponsoring": {
+    "carousel": {
+      "title": "Sponsoren",
+      "subtitle": "Dit evenement wordt mogelijk gemaakt door onze sponsoren. Bedankt voor uw steun!"
+    }
   }
 }

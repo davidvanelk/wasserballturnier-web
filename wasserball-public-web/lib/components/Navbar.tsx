@@ -10,12 +10,15 @@ export default function Navbar() {
   const t = useScopedI18n('navbar');
 
   return (
-    <nav className="bg-background border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <nav className="bg-background border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/landing" className="text-xl font-bold text-foreground">
+              <Link
+                href="/landing"
+                className="text-xl font-bold text-foreground"
+              >
                 {t('title')}
               </Link>
             </div>

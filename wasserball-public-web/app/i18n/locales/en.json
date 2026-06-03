@@ -7,7 +7,9 @@
   "landing": {
     "eyebrow": "Wasserball Tournament 2026",
     "title": "Summer, water, competition: join the tournament in Elten.",
-    "subtitle": "Everything about matches, teams, and contact in one place - fast, clear, and mobile friendly.",
+    "subtitle": "Everything about the tournament at one place.",
+    "subtitle_2": "Come by and experience exciting games, strong teams, and great atmosphere at the field!",
+    "subtitle_3": "The Elten fire brigade looks forward to seeing you!",
     "event_title": "Event details",
     "event_location_label": "Venue",
     "event_location_value": "Field at Haagsche Straße 2, 46446 Emmerich am Rhein",
@@ -16,7 +18,7 @@
     "cta_calendar": "Add to calendar",
     "cta_matches": "View matches",
     "cta_contact": "Get in touch",
-    "cta_route": "Start route in Google Maps",
+    "cta_route": "Start navigation in Google Maps",
     "route_hint": "Opens Google Maps and starts navigation to the tournament location.",
     "map_title": "Map of the event location",
     "card_one_title": "Live Schedule",
@@ -32,5 +34,11 @@
     "matches": "Matches",
     "contact": "Contact",
     "open_menu": "Open menu"
+  },
+  "sponsoring": {
+    "carousel": {
+      "title": "Sponsors",
+      "subtitle": "This event is made possible by our sponsors. Thank you for your support!"
+    }
   }
 }

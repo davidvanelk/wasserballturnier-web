@@ -1,4 +1,5 @@
 import { getScopedI18n } from '@/app/i18n/server';
+import SponsorCarousel from '@/lib/components/SponsorCarousel';
 
 export default async function LandingPage() {
   const t = await getScopedI18n('landing');
@@ -10,11 +11,7 @@ export default async function LandingPage() {
 
   return (
     <main className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cyan-50 via-white to-amber-50" />
-      <div className="absolute top-[-120px] right-[-80px] h-72 w-72 rounded-full bg-cyan-200/40 blur-3xl -z-10" />
-      <div className="absolute bottom-[-100px] left-[-60px] h-64 w-64 rounded-full bg-amber-200/40 blur-3xl -z-10" />
-
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <section className="mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <p className="text-sm uppercase tracking-[0.25em] text-cyan-700 font-semibold">
           {t('eyebrow')}
         </p>
@@ -23,6 +20,12 @@ export default async function LandingPage() {
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-slate-700 max-w-2xl">
           {t('subtitle')}
+        </p>
+        <p className="mt-4 text-lg sm:text-xl text-slate-700 max-w-2xl">
+          {t('subtitle_2')}
+        </p>
+        <p className="mt-4 text-lg sm:text-xl text-slate-700 max-w-2xl">
+          {t('subtitle_3')}
         </p>
 
         <div className="mt-8 rounded-2xl border border-cyan-100 bg-white/85 p-5 sm:p-6 shadow-sm">
@@ -77,7 +80,11 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+      <section className="mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <SponsorCarousel />
+      </section>
+
+      <section className="mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <article className="rounded-2xl border border-cyan-100 bg-white/80 backdrop-blur-sm p-6 shadow-sm">
             <p className="text-sm font-semibold text-cyan-700">01</p>

@@ -37,6 +37,7 @@ export default async function RootLayout({
       >
         <I18nProvider locale={locale ?? 'en'}>
           <Navbar />
+          <div className="fixed inset-0 -z-10 bg-gradient-to-br from-cyan-100 via-white to-red-100" />
           <main className="flex-grow">{children}</main>
           <Footer />
         </I18nProvider>

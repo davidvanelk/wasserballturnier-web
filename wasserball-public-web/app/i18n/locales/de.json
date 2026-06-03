@@ -7,7 +7,9 @@
   "landing": {
     "eyebrow": "Wasserballturnier 2026",
     "title": "Sommer, Wasser, Wettbewerb: Sei beim Turnier in Elten dabei.",
-    "subtitle": "Alle Infos rund um Spielplan, Teams und Kontakt auf einen Blick - schnell, klar und mobilfreundlich.",
+    "subtitle": "Alle Infos rund um das Turnier auf einem Blick.",
+    "subtitle_2": "Komm vorbei und erlebe spannende Spiele, starke Teams und tolle Atmosphäre am Spielfeld!",
+    "subtitle_3": "Der Löschzug Elten freut sich auf dich!",
     "event_title": "Veranstaltungsdetails",
     "event_location_label": "Veranstaltungsort",
     "event_location_value": "Feld an der Haagsche Straße 2, 46446 Emmerich am Rhein",
@@ -16,7 +18,7 @@
     "cta_calendar": "In Kalender eintragen",
     "cta_matches": "Zu den Spielen",
     "cta_contact": "Kontakt aufnehmen",
-    "cta_route": "Route in Google Maps starten",
+    "cta_route": "Navigation in Google Maps starten",
     "route_hint": "Öffnet Google Maps und startet die Navigation zur Turnier-Location.",
     "map_title": "Karte zum Veranstaltungsort",
     "card_one_title": "Live Spielplan",
@@ -32,5 +34,11 @@
     "matches": "Spiele",
     "contact": "Kontakt",
     "open_menu": "Menü öffnen"
+  },
+  "sponsoring": {
+    "carousel": {
+      "title": "Sponsoren",
+      "subtitle": "Diese Veranstaltung wird von unseren Sponsoren möglich gemacht. Vielen Dank für die Unterstützung!"
+    }
   }
 }
