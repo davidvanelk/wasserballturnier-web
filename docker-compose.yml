@@ -1,0 +1,53 @@
+services:
+  web:
+    build:
+      context: ./wasserball-public-web
+      dockerfile: Dockerfile
+    env_file:
+      - wasserball-public-web/.env
+    container_name: wasserball-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MATOMO_URL: http://matomo
+      MATOMO_SITE_ID: 1
+    depends_on:
+      - matomo
+    ports:
+      - "80:3000"
+
+  matomo:
+    image: matomo:5
+    container_name: wasserball-matomo
+    restart: unless-stopped
+    environment:
+      MATOMO_DATABASE_HOST: matomo-db
+      MATOMO_DATABASE_ADAPTER: mysql
+      MATOMO_DATABASE_TABLES_PREFIX: matomo_
+      MATOMO_DATABASE_USERNAME: matomo
+      MATOMO_DATABASE_PASSWORD: matomo
+      MATOMO_DATABASE_DBNAME: matomo
+    depends_on:
+      - matomo-db
+    ports:
+      - "8080:80"
+    volumes:
+      - matomo-data:/var/www/html
+
+  matomo-db:
+    image: mariadb:12
+    container_name: wasserball-matomo-db
+    restart: unless-stopped
+    command: --max-allowed-packet=64MB --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: matomo
+      MYSQL_USER: matomo
+      MYSQL_PASSWORD: matomo
+    volumes:
+      - matomo-db:/var/lib/mysql
+
+volumes:
+  matomo-data:
+  matomo-db:

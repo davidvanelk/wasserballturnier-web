@@ -1,5 +1,38 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Docker Compose (Next.js + Matomo)
+
+From the repository root (`wasserballturnier-web`), start the full stack:
+
+```bash
+docker compose up -d --build
+```
+
+Services:
+
+- Next.js app: `http://localhost:80`
+- Matomo: `http://localhost:8080`
+
+The compose file is in the repository root (`docker-compose.yml`).
+
+## Tracking Setup (SSR + UTM + Cookieless)
+
+Tracking is sent server-side from `middleware.ts` to Matomo via `matomo.php`:
+
+- only for `GET` HTML page requests
+- bot-like user agents are skipped
+- UTM parameters (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`) are forwarded
+- IP is anonymized before sending
+- no client-side Matomo script and no tracking cookies are used
+
+Environment variables used by SSR tracking:
+
+- `MATOMO_URL` (default in compose: `http://matomo`)
+- `MATOMO_SITE_ID` (default in compose: `1`)
+- `MATOMO_TOKEN_AUTH` (optional)
+
+For production behind HTTPS, make sure `MATOMO_URL` points to your reachable Matomo URL and that reverse proxy headers are set correctly.
+
 ## Getting Started
 
 First, run the development server:
