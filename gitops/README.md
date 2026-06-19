@@ -2,6 +2,8 @@
 
 This directory maps the current Compose-based setup to Kubernetes manifests for a GitOps workflow.
 
+The application is configured to deploy into the `default` namespace.
+
 ## Structure
 
 - `base/`: shared resources for the web app, Matomo, and MariaDB
@@ -59,6 +61,6 @@ kubectl kustomize gitops/overlays/prod
 
 ## GitOps with Argo CD
 
-The manifest `apps/wasserball-prod-argocd.yaml` shows how Argo CD can sync the production overlay from this repository. Adjust `repoURL` and `targetRevision` if your repository location or branch changes.
+The manifest `apps/wasserball-prod-argocd.yaml` shows how Argo CD can sync the production overlay from this repository into the `default` namespace. Adjust `repoURL` and `targetRevision` if your repository location or branch changes.
 
 Because the repository is public, Argo CD does not need a repository access secret for this setup.
