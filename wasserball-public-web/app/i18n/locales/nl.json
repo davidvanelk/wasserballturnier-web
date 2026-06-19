@@ -41,5 +41,19 @@
       "title": "Sponsoren",
       "subtitle": "Dit evenement wordt mogelijk gemaakt door onze sponsoren. Bedankt voor uw steun!"
     }
+  },
+  "footer": {
+    "legal": {
+      "sectionTitle": "Juridische informatie",
+      "contact": "Contact",
+      "imprint": "Impressum",
+      "privacy": "Privacy"
+    },
+    "socialMedia": {
+      "sectionTitle": "Volg ons"
+    }
+  },
+  "imprint": {
+    "label": "Impressum"
   }
 }

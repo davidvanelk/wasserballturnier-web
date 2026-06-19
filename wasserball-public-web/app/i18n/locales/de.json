@@ -41,5 +41,19 @@
       "title": "Sponsoren",
       "subtitle": "Diese Veranstaltung wird von unseren Sponsoren möglich gemacht. Vielen Dank für die Unterstützung!"
     }
+  },
+  "footer": {
+    "legal": {
+      "sectionTitle": "Rechtliches",
+      "contact": "Kontakt",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz"
+    },
+    "socialMedia": {
+      "sectionTitle": "Folge uns"
+    }
+  },
+  "imprint": {
+    "label": "Impressum"
   }
 }

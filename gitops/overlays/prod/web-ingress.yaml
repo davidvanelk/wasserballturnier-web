@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wasserball-web
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: wasserball.elk-software.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-web
+                port:
+                  number: 80

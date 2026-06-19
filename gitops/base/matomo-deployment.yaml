@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matomo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matomo
+  template:
+    metadata:
+      labels:
+        app: matomo
+    spec:
+      containers:
+        - name: matomo
+          image: matomo:5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: MATOMO_DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: matomo-config
+                  key: MATOMO_DATABASE_HOST
+            - name: MATOMO_DATABASE_ADAPTER
+              valueFrom:
+                configMapKeyRef:
+                  name: matomo-config
+                  key: MATOMO_DATABASE_ADAPTER
+            - name: MATOMO_DATABASE_TABLES_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: matomo-config
+                  key: MATOMO_DATABASE_TABLES_PREFIX
+            - name: MATOMO_DATABASE_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: matomo-config
+                  key: MATOMO_DATABASE_DBNAME
+            - name: MATOMO_DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: matomo-secret
+                  key: MATOMO_DATABASE_USERNAME
+            - name: MATOMO_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: matomo-secret
+                  key: MATOMO_DATABASE_PASSWORD
+          volumeMounts:
+            - name: matomo-data
+              mountPath: /var/www/html
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 45
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: matomo-data
+          persistentVolumeClaim:
+            claimName: matomo-data

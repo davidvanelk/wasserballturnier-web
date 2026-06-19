@@ -41,5 +41,19 @@
       "title": "Sponsors",
       "subtitle": "This event is made possible by our sponsors. Thank you for your support!"
     }
+  },
+  "footer": {
+    "legal": {
+      "sectionTitle": "Legal Information",
+      "contact": "Contact",
+      "imprint": "Imprint",
+      "privacy": "Privacy"
+    },
+    "socialMedia": {
+      "sectionTitle": "Follow us"
+    }
+  },
+  "imprint": {
+    "label": "Imprint"
   }
 }

@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: wasserball
+
+resources:
+  - namespace.yaml
+  - web-configmap.yaml
+  - web-deployment.yaml
+  - web-service.yaml
+  - matomo-configmap.yaml
+  - matomo-pvc.yaml
+  - matomo-deployment.yaml
+  - matomo-service.yaml
+  - matomo-db-service.yaml
+  - matomo-db-statefulset.yaml
