@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wasserball-web
+  annotations:
+    traefik.ingress.kubernetes.io/router.customrequestheaders: "X-Forwarded-Host:wasserball.elk-software.de"
 spec:
   ingressClassName: nginx
   rules:
