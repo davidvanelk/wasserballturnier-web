@@ -1,26 +1,34 @@
 [
   {
-    "sponsor": "Commodore Computers Ltd.",
-    "logo": "/assets/sponsors/Commodore-Logo_breit.svg.png",
-    "url": "https://www.commodore.com/",
-    "alt": "Commodore Logo",
-    "selector": "commodore",
-    "tokenMultiplier": 1
+    "sponsor": "EWS \"Die Schuhfabrik\"",
+    "logo": "/assets/sponsors/EWS_logo_vektor.svg",
+    "url": "https://www.feuerwehrstiefel-ews.de",
+    "alt": "EWS \"Die Schuhfabrik\" Logo",
+    "selector": "ews",
+    "tokenMultiplier": 100
   },
   {
-    "sponsor": "Deutscher Schachbund",
-    "logo": "/assets/sponsors/Dsb-logo-2020_rgb.svg.png",
-    "alt": "Deutscher Schachbund Logo",
-    "url": "https://www.google.com",
-    "selector": "schachbund",
-    "tokenMultiplier": 2
+    "sponsor": "ALWIT GmbH",
+    "logo": "/assets/sponsors/Logo_Alwit.svg",
+    "alt": "ALWIT GmbH Logo",
+    "url": "https://www.alwit.de/",
+    "selector": "alwit",
+    "tokenMultiplier": 100
   },
   {
-    "sponsor": "Eine andere GmbH",
-    "logo": "/assets/sponsors/logo_schmal.png",
-    "alt": "Eine andere GmbH Logo",
-    "url": "https://www.gidf.de",
-    "selector": "another_company",
-    "tokenMultiplier": 0
+    "sponsor": "Küchen & Wohnen Hans te Wildt",
+    "logo": "/assets/sponsors/Te-Wildt.svg",
+    "alt": "Küchen & Wohnen Hans te Wildt Logo",
+    "url": "https://www.te-wildt.kuechen.de",
+    "selector": "te_wildt",
+    "tokenMultiplier": 150
+  },
+  {
+    "sponsor": "Volksbank Emmerich-Rees eG",
+    "logo": "/assets/sponsors/Voba_Emmerich_Rees_Logo_Text_rechts.svg",
+    "alt": "Volksbank Emmerich-Rees eG Logo",
+    "url": "https://www.dervolksbanker.de/startseite.html",
+    "selector": "volksbank",
+    "tokenMultiplier": 100
   }
 ]

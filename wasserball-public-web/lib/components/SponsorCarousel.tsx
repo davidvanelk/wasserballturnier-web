@@ -5,6 +5,7 @@ import Image from 'next/image';
 const SponsorCarousel = async () => {
   const t = await getScopedI18n('sponsoring.carousel');
   const sponsors = [...getSponsors()];
+  const repeatCount = 4;
 
   const sponsorList = (x: number) =>
     sponsors.map(({ sponsor, logo, alt, url }) => (
@@ -13,7 +14,7 @@ const SponsorCarousel = async () => {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block items-center p-4 rounded-lg border border-transparent hover:border-gray-200 transition-colors"
+        className="block rounded-lg border border-transparent p-4 transition-colors hover:border-gray-200"
       >
         <Image
           src={logo}
@@ -31,18 +32,13 @@ const SponsorCarousel = async () => {
       <h2 className="text-xl font-bold text-slate-90">{t('title')}</h2>
       <p className="text-lg text-slate-700 mt-4">{t('subtitle')}</p>
 
-      <div
-        className="relative w-full overflow-x-hidden mt-6"
-        style={{
-          WebkitMaskImage:
-            'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-          maskImage:
-            'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-        }}
-      >
-        <div className="flex w-max animate-marquee">
-          <div className="flex gap-3">{sponsorList(1)}</div>
-          <div className="flex gap-3 ml-3">{sponsorList(2)}</div>
+      <div className="sponsor-marquee relative mt-6 w-full overflow-x-hidden">
+        <div className="sponsor-marquee-track flex w-max gap-3 animate-marquee">
+          {Array.from({ length: repeatCount }, (_, index) => (
+            <div key={index} className="flex shrink-0 gap-3">
+              {sponsorList(index + 1)}
+            </div>
+          ))}
         </div>
       </div>
     </div>
