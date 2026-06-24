@@ -17,11 +17,6 @@ spec:
         - name: mariadb
           image: mariadb:12
           imagePullPolicy: IfNotPresent
-          command:
-            - mysqld
-            - --max-allowed-packet=64MB
-            - --character-set-server=utf8mb4
-            - --collation-server=utf8mb4_unicode_ci
           ports:
             - containerPort: 3306
               name: mysql
