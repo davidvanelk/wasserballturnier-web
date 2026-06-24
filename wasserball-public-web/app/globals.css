@@ -44,7 +44,6 @@ body {
   --marquee-repeat-count: 4;
 }
 
-/* Deine maßgeschneiderte Endlos-Animation */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -59,13 +58,11 @@ body {
   }
 }
 
-/* Die passende Klasse für Tailwind */
 .animate-marquee {
   animation: marquee 45s linear infinite;
   will-change: transform;
 }
 
-/* Optional: Pause bei Hover */
 .animate-marquee:hover {
   animation-play-state: paused;
 }
