@@ -3,13 +3,13 @@ kind: Ingress
 metadata:
   name: matomo
   annotations:
+    acme.cert-manager.io/http01-ingress-class: traefik
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required - Matomo"
-    nginx.ingress.kubernetes.io/auth-secret: matomo-basic-auth
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: default-traefik-https-redirect@kubernetescrd,default-matomo-basic-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     - hosts:
         - matomo.wasserball.elk-software.de

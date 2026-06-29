@@ -1,0 +1,6 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wasserball-web
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: default-traefik-https-redirect@kubernetescrd,default-wasserball-web-basic-auth@kubernetescrd
