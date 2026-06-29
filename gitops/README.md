@@ -43,9 +43,29 @@ The `digest` strategy is important here because `latest` is a mutable tag. Argo 
 
 1. Set the web image in `overlays/prod/kustomization.yaml` to your actual registry image.
 2. Change the hosts in the ingress files to your real domains.
-3. Replace the placeholder secrets in `base/web-secret.yaml.example`, `base/matomo-secret.yaml.example`, and `base/matomo-db-secret.yaml.example` with real values, or replace them entirely with Sealed Secrets, SOPS, or External Secrets.
-4. Adjust the storage class, resource requests, and limits for your cluster if needed.
-5. Install Argo CD Image Updater in the cluster.
+3. Install cert-manager in the cluster and provide a `ClusterIssuer` named `letsencrypt-prod`, or adjust the ingress annotations to your issuer name.
+4. Create the Matomo basic-auth secret from `overlays/prod/matomo-basic-auth-secret.yaml.example`, or manage it via Sealed Secrets, SOPS, or External Secrets.
+5. Replace the placeholder secrets in `base/web-secret.yaml.example`, `base/matomo-secret.yaml.example`, and `base/matomo-db-secret.yaml.example` with real values, or replace them entirely with Sealed Secrets, SOPS, or External Secrets.
+6. Adjust the storage class, resource requests, and limits for your cluster if needed.
+7. Install Argo CD Image Updater in the cluster.
+
+## Basic Authentication
+
+The prod ingress for Matomo is configured to require HTTP Basic Authentication through NGINX Ingress annotations.
+
+- `matomo.wasserball.elk-software.de` expects a secret named `matomo-basic-auth`
+
+Each secret must contain an `auth` entry with htpasswd content. Example generation:
+
+```sh
+htpasswd -nbB <username> <password>
+```
+
+Use the generated line as the value of `stringData.auth` in the example manifests, or store the same payload through your preferred secret management workflow.
+
+The public website can be protected temporarily through the optional patch `overlays/prod/web-ingress-basic-auth-patch.yaml`. This is intentionally not enabled by default.
+
+Important: NGINX Ingress also cannot treat a missing basic-auth secret as "auth disabled". If the auth annotations are active and the referenced secret is missing, the ingress will fail instead of opening the page. To temporarily protect the site, enable the patch and create the matching secret. To reopen the site, remove the patch again.
 
 ## Local Validation
 
