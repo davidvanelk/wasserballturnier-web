@@ -4,7 +4,11 @@ kind: Kustomization
 resources:
   - ../../base
   - web-ingress.yaml
+  - web-http-redirect-ingress.yaml
+  - web-certificate.yaml
   - matomo-ingress.yaml
+  - matomo-http-redirect-ingress.yaml
+  - matomo-certificate.yaml
   - traefik-https-redirect-middleware.yaml
   - matomo-basic-auth-middleware.yaml
 

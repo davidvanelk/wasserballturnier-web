@@ -1,18 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: matomo
+  name: matomo-http-redirect
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: default-matomo-basic-auth@kubernetescrd
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: default-traefik-https-redirect@kubernetescrd
 spec:
   ingressClassName: traefik
-  tls:
-    - hosts:
-        - matomo.wasserball.elk-software.de
-      secretName: matomo-tls
   rules:
     - host: matomo.wasserball.elk-software.de
       http:

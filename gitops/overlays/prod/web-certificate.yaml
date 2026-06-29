@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wasserball-web
+spec:
+  secretName: wasserball-web-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  dnsNames:
+    - wasserball.feuerwehremmerich.de
+    - wasserball.feuerwehr-elten.de
+    - wasserball.elk-software.de

@@ -1,19 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wasserball-web
+  name: wasserball-web-http-redirect
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: default-traefik-https-redirect@kubernetescrd
 spec:
   ingressClassName: traefik
-  tls:
-    - hosts:
-        - wasserball.feuerwehremmerich.de
-        - wasserball.feuerwehr-elten.de
-        - wasserball.elk-software.de
-      secretName: wasserball-web-tls
   rules:
     - host: wasserball.feuerwehremmerich.de
       http:
