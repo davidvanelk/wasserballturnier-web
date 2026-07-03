@@ -29,9 +29,12 @@ The Argo CD Application is annotated for Argo CD Image Updater. This allows Argo
 - Observed image: `ghcr.io/davidvanelk/wasserball-public-web`
 - Allowed tag: `latest`
 - Strategy: `digest`
-- Write-back method: `argocd`
+- Write-back method: `git`
+- Write-back target: `kustomization`
 
 The `digest` strategy is important here because `latest` is a mutable tag. Argo CD Image Updater can use it to detect when the digest behind `latest` changes.
+
+For GitOps-managed Argo CD `Application` resources, `argocd` write-back is not sufficient because it only patches the live `Application` object and those changes can be overwritten by the declarative sync from Git. Using `git` write-back with the `kustomization` target makes Image Updater persist the selected digest into the tracked Kustomize source so the rollout survives re-syncs and recreations.
 
 ## Included Services
 
