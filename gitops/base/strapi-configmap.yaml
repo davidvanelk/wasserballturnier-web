@@ -6,7 +6,7 @@ data:
   HOST: 0.0.0.0
   PORT: "1337"
   PUBLIC_URL: /cms
-  ADMIN_PATH: /admin
+  ADMIN_PATH: /cms/admin
   SEED_SPONSORS_ON_BOOT: "true"
   NODE_ENV: production
   DATABASE_HOST: strapi-db
