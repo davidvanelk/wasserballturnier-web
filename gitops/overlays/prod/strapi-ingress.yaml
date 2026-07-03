@@ -13,6 +13,8 @@ spec:
     - hosts:
         - strapi.wasserball.elk-software.de
         - wasserball.elk-software.de
+        - wasserball.feuerwehremmerich.de
+        - wasserball.feuerwehr-elten.de
       secretName: wasserball-web-tls
   rules:
     - host: strapi.wasserball.elk-software.de
