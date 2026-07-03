@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wasserball-strapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wasserball-strapi
+  template:
+    metadata:
+      labels:
+        app: wasserball-strapi
+    spec:
+      containers:
+        - name: strapi
+          image: ghcr.io/davidvanelk/wasserball-strapi:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1337
+              name: http
+          envFrom:
+            - configMapRef:
+                name: wasserball-strapi-config
+            - secretRef:
+                name: wasserball-strapi-secret
+          readinessProbe:
+            httpGet:
+              path: /admin
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /admin
+              port: http
+            initialDelaySeconds: 40
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 768Mi

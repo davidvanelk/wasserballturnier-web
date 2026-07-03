@@ -7,6 +7,11 @@ resources:
   - web-configmap.yaml
   - web-deployment.yaml
   - web-service.yaml
+  - strapi-configmap.yaml
+  - strapi-deployment.yaml
+  - strapi-service.yaml
+  - strapi-db-service.yaml
+  - strapi-db-statefulset.yaml
   - matomo-configmap.yaml
   - matomo-pvc.yaml
   - matomo-deployment.yaml

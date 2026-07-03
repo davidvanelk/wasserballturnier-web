@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wasserball-strapi-http-redirect
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: default-traefik-https-redirect@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: wasserball.feuerwehremmerich.de
+      http:
+        paths:
+          - path: /cms
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
+    - host: wasserball.feuerwehr-elten.de
+      http:
+        paths:
+          - path: /cms
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
+    - host: wasserball.elk-software.de
+      http:
+        paths:
+          - path: /cms
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337

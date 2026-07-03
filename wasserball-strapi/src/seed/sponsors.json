@@ -1,7 +1,7 @@
 [
   {
     "sponsor": "EWS \"Die Schuhfabrik\"",
-    "logo": "/assets/sponsors/EWS_logo_vektor.svg",
+    "logo": "/uploads/EWS_logo_vektor_Kopie_5d795e7acd.svg",
     "url": "https://www.feuerwehrstiefel-ews.de",
     "alt": "EWS \"Die Schuhfabrik\" Logo",
     "selector": "ews",
@@ -9,7 +9,7 @@
   },
   {
     "sponsor": "ALWIT GmbH",
-    "logo": "/assets/sponsors/Logo_Alwit.svg",
+    "logo": "/uploads/Logo_Alwit_Kopie_ee3531d177.svg",
     "alt": "ALWIT GmbH Logo",
     "url": "https://www.alwit.de/",
     "selector": "alwit",
@@ -17,7 +17,7 @@
   },
   {
     "sponsor": "Küchen & Wohnen Hans te Wildt",
-    "logo": "/assets/sponsors/Te-Wildt.svg",
+    "logo": "/uploads/Te_Wildt_2e849e9b34.svg",
     "alt": "Küchen & Wohnen Hans te Wildt Logo",
     "url": "https://www.te-wildt.kuechen.de",
     "selector": "te_wildt",
@@ -25,7 +25,7 @@
   },
   {
     "sponsor": "Volksbank Emmerich-Rees eG",
-    "logo": "/assets/sponsors/Voba_Emmerich_Rees_Logo_Text_rechts.svg",
+    "logo": "/uploads/Voba_Emmerich_Rees_Logo_Text_rechts_ad6186ccc0.svg",
     "alt": "Volksbank Emmerich-Rees eG Logo",
     "url": "https://www.dervolksbanker.de/startseite.html",
     "selector": "volksbank",

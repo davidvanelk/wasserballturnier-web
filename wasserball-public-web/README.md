@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Docker Compose (Next.js + Matomo)
+## Docker Compose (Next.js + Matomo + Strapi)
 
 From the repository root (`wasserballturnier-web`), start the full stack:
 
@@ -12,6 +12,10 @@ Services:
 
 - Next.js app: `http://localhost:80`
 - Matomo: `http://localhost:8080`
+- Strapi via prefix: `http://localhost/cms`
+- Strapi direct container port: `http://localhost:1337`
+- Matomo database: `matomo-db`
+- Strapi database: `strapi-db`
 
 The compose file is in the repository root (`docker-compose.yml`).
 
@@ -28,6 +32,19 @@ Environment variables used by SSR tracking:
 - `MATOMO_URL` (default in compose: `http://matomo`)
 - `MATOMO_SITE_ID` (default in compose: `1`)
 - `MATOMO_TOKEN_AUTH` (optional)
+
+Environment variables used by the sponsor SSR integration:
+
+- `STRAPI_URL` (default in compose: `http://strapi:1337`)
+- `STRAPI_PUBLIC_URL` (default in compose: `/cms`)
+
+The sponsor carousel fetches its data from Strapi during SSR. Sponsor logo paths
+are defined in JSON as Strapi upload URLs. Strapi resolves them to media
+relations during boot, and the SSR layer expands the populated media URL against
+`STRAPI_PUBLIC_URL` for the browser.
+
+Locally, the Next.js app proxies `/cms/*` to the Strapi container so the same
+prefix works both in Docker Compose and behind the Kubernetes ingress.
 
 For production behind HTTPS, make sure `MATOMO_URL` points to your reachable Matomo URL and that reverse proxy headers are set correctly.
 

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wasserball-strapi-config
+data:
+  HOST: 0.0.0.0
+  PORT: "1337"
+  PUBLIC_URL: /cms
+  ADMIN_PATH: /admin
+  SEED_SPONSORS_ON_BOOT: "true"
+  NODE_ENV: production
+  DATABASE_HOST: strapi-db
+  DATABASE_PORT: "3306"
+  DATABASE_NAME: wasserball_strapi
+  DATABASE_SSL: "false"

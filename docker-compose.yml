@@ -12,10 +12,42 @@ services:
       PORT: 3000
       MATOMO_URL: http://matomo
       MATOMO_SITE_ID: 1
+      STRAPI_URL: http://strapi:1337
+      STRAPI_PUBLIC_URL: /cms
     depends_on:
       - matomo
+      - strapi
     ports:
       - "80:3000"
+
+  strapi:
+    build:
+      context: ./wasserball-strapi
+      dockerfile: Dockerfile
+    container_name: wasserball-strapi
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      PUBLIC_URL: /cms
+      ADMIN_PATH: /admin
+      NODE_ENV: production
+      DATABASE_HOST: strapi-db
+      DATABASE_PORT: 3306
+      DATABASE_NAME: wasserball_strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+      DATABASE_SSL: "false"
+      APP_KEYS: strapi-app-key-1,strapi-app-key-2,strapi-app-key-3,strapi-app-key-4
+      API_TOKEN_SALT: strapi-api-token-salt
+      ADMIN_JWT_SECRET: strapi-admin-jwt-secret
+      TRANSFER_TOKEN_SALT: strapi-transfer-token-salt
+      JWT_SECRET: strapi-jwt-secret
+    depends_on:
+      strapi-db:
+        condition: service_healthy
+    ports:
+      - "1337:1337"
 
   matomo:
     image: matomo:5
@@ -29,7 +61,8 @@ services:
       MATOMO_DATABASE_PASSWORD: matomo
       MATOMO_DATABASE_DBNAME: matomo
     depends_on:
-      - matomo-db
+      matomo-db:
+        condition: service_healthy
     ports:
       - "8080:80"
     volumes:
@@ -45,9 +78,35 @@ services:
       MYSQL_DATABASE: matomo
       MYSQL_USER: matomo
       MYSQL_PASSWORD: matomo
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
     volumes:
       - matomo-db:/var/lib/mysql
+
+  strapi-db:
+    image: mariadb:12
+    container_name: wasserball-strapi-db
+    restart: unless-stopped
+    command: --max-allowed-packet=64MB --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wasserball_strapi
+      MYSQL_USER: strapi
+      MYSQL_PASSWORD: strapi
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    volumes:
+      - strapi-db:/var/lib/mysql
 
 volumes:
   matomo-data:
   matomo-db:
+  strapi-db:

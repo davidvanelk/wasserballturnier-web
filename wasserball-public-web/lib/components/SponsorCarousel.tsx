@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const SponsorCarousel = async () => {
   const t = await getScopedI18n('sponsoring.carousel');
-  const sponsors = [...getSponsors()];
+  const sponsors = [...(await getSponsors())];
   const repeatCount = 4;
 
   const sponsorList = (x: number) =>

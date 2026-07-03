@@ -24,9 +24,9 @@ The repository and the container image are public, so no repository secret or re
 
 ## Automatic Image Updates with Argo CD
 
-The Argo CD Application is annotated for Argo CD Image Updater. This allows Argo CD to watch the container repository `ghcr.io/davidvanelk/wasserball-public-web` and roll out new releases automatically, even when nothing changes in the GitOps repository itself.
+The Argo CD Application is annotated for Argo CD Image Updater. This allows Argo CD to watch the container repositories `ghcr.io/davidvanelk/wasserball-public-web` and `ghcr.io/davidvanelk/wasserball-strapi` and roll out new releases automatically, even when nothing changes in the GitOps repository itself.
 
-- Observed image: `ghcr.io/davidvanelk/wasserball-public-web`
+- Observed images: `ghcr.io/davidvanelk/wasserball-public-web`, `ghcr.io/davidvanelk/wasserball-strapi`
 - Allowed tag: `latest`
 - Strategy: `digest`
 - Write-back method: `git`
@@ -39,6 +39,8 @@ For GitOps-managed Argo CD `Application` resources, `argocd` write-back is not s
 ## Included Services
 
 - `wasserball-web` as a Deployment and Service on port 80
+- `wasserball-strapi` as a Deployment and Service on port 1337
+- `strapi-db` as a StatefulSet with persistent storage
 - `matomo` as a Deployment and Service on port 80
 - `matomo-db` as a StatefulSet with persistent storage
 
@@ -49,9 +51,10 @@ For GitOps-managed Argo CD `Application` resources, `argocd` write-back is not s
 3. Install cert-manager in the cluster and provide a `ClusterIssuer` named `letsencrypt-prod` that solves HTTP-01 challenges through Traefik. The prod overlay creates explicit `Certificate` resources for the web and Matomo hosts.
 4. Ensure Traefik serves the `traefik` ingress class and the `web` plus `websecure` entrypoints.
 5. Create the Matomo basic-auth secret from `overlays/prod/matomo-basic-auth-secret.yaml.example`, or manage it via Sealed Secrets, SOPS, or External Secrets.
-6. Replace the placeholder secrets in `base/web-secret.yaml.example`, `base/matomo-secret.yaml.example`, and `base/matomo-db-secret.yaml.example` with real values, or replace them entirely with Sealed Secrets, SOPS, or External Secrets.
+6. Replace the placeholder secrets in `base/web-secret.yaml.example`, `base/strapi-secret.yaml.example`, `base/strapi-db-secret.yaml.example`, `base/matomo-secret.yaml.example`, and `base/matomo-db-secret.yaml.example` with real values, or replace them entirely with Sealed Secrets, SOPS, or External Secrets.
 7. Adjust the storage class, resource requests, and limits for your cluster if needed.
 8. Install Argo CD Image Updater in the cluster.
+9. Build and publish the `ghcr.io/<github-owner>/wasserball-strapi` image before enabling the Strapi deployment.
 
 ## Basic Authentication
 
@@ -70,6 +73,15 @@ Use the generated line as the value of `stringData.users` in the example manifes
 The public website can be protected temporarily through the optional patch `overlays/prod/web-ingress-basic-auth-patch.yaml` together with `overlays/prod/wasserball-web-basic-auth-middleware.yaml`. This is intentionally not enabled by default.
 
 HTTP-to-HTTPS redirect is handled by separate Traefik ingress resources on the `web` entrypoint. The application ingresses themselves listen only on `websecure`, which avoids Traefik serving a TLS-only router on plain HTTP and returning 404.
+
+Strapi is exposed on the same public hosts as the website under the `/cms`
+prefix. The ingress strips `/cms` before forwarding to the Strapi service, while
+Strapi itself is configured with `PUBLIC_URL=/cms` so the admin panel, API URLs,
+and upload URLs stay prefix-aware.
+
+The production Strapi config also sets `SEED_SPONSORS_ON_BOOT=true`, which means
+the sponsor collection is upserted from `wasserball-strapi/src/seed/sponsors.json`
+whenever the production pod starts against a fresh or partially populated DB.
 
 Important: Traefik also cannot treat a missing basic-auth secret as "auth disabled". If the auth middleware is active and the referenced secret is missing, the route will fail instead of opening the page. To temporarily protect the site, enable the patch and create the matching secret. To reopen the site, remove the patch again.
 
