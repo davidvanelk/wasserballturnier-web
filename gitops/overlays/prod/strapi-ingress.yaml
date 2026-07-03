@@ -16,30 +16,17 @@ spec:
         - wasserball.elk-software.de
       secretName: wasserball-web-tls
   rules:
-    - host: wasserball.feuerwehremmerich.de
-      http:
-        paths:
-          - path: /cms
-            pathType: Prefix
-            backend:
-              service:
-                name: wasserball-strapi
-                port:
-                  number: 1337
-    - host: wasserball.feuerwehr-elten.de
-      http:
-        paths:
-          - path: /cms
-            pathType: Prefix
-            backend:
-              service:
-                name: wasserball-strapi
-                port:
-                  number: 1337
     - host: wasserball.elk-software.de
       http:
         paths:
           - path: /cms
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
+          - path: /admin
             pathType: Prefix
             backend:
               service:
