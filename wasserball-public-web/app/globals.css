@@ -5,21 +5,150 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f2f0eb;
+  --foreground: #161616;
+  --surface: #f8f5ef;
+  --surface-strong: #ffffff;
+  --surface-muted: #ece6dc;
+  --brand-red: #d6221f;
+  --brand-red-dark: #aa1816;
+  --brand-ink: #1c1c1c;
+  --brand-gray: #5f5b57;
+  --brand-line: rgba(28, 28, 28, 0.08);
+  --brand-shadow: 0 24px 60px rgba(28, 28, 28, 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-surface-muted: var(--surface-muted);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-gray: var(--brand-gray);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Helvetica, sans-serif;
+  background-image:
+    radial-gradient(
+      circle at top right,
+      rgba(214, 34, 31, 0.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(28, 28, 28, 0.07),
+      transparent 32%
+    ),
+    linear-gradient(180deg, #f6f2eb 0%, #ebe5db 100%);
+}
+
+a {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+::selection {
+  background: rgba(214, 34, 31, 0.18);
+}
+
+.flyer-grid {
+  background-image:
+    linear-gradient(rgba(28, 28, 28, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 28, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.flyer-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(248, 245, 239, 0.96) 100%
+  );
+  border: 1px solid var(--brand-line);
+  box-shadow: var(--brand-shadow);
+}
+
+.flyer-dark-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 28, 0.98) 0%,
+    rgba(17, 17, 17, 0.98) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--brand-shadow);
+}
+
+.flyer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  background: var(--brand-red);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.flyer-outline-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(28, 28, 28, 0.16);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--brand-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: section-enter 700ms ease forwards;
+}
+
+.section-reveal-delay-1 {
+  animation-delay: 120ms;
+}
+
+.section-reveal-delay-2 {
+  animation-delay: 220ms;
+}
+
+.section-reveal-delay-3 {
+  animation-delay: 320ms;
+}
+
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sponsor-marquee {

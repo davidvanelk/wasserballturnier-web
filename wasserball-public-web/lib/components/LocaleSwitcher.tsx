@@ -14,7 +14,7 @@ export default function LocaleSwitcher() {
           changeLocale((e.target.value ?? 'en') as 'en' | 'de' | 'nl')
         }
         value={locale}
-        className="p-2 border border-cyan-700 rounded-md font-bold text-cyan-800 hover:bg-cyan-50 transition-colors"
+        className="rounded-full border border-[rgba(28,28,28,0.12)] bg-white px-4 py-2 font-semibold text-[var(--brand-ink)] shadow-[0_8px_20px_rgba(28,28,28,0.05)] outline-none hover:border-[var(--brand-red)]"
       >
         <option value="en">English</option>
         <option value="de">Deutsch</option>

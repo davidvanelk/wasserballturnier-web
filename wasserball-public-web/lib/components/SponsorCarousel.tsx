@@ -14,23 +14,25 @@ const SponsorCarousel = async () => {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block rounded-lg border border-transparent p-4 transition-colors hover:border-gray-200"
+        className="block min-w-44 rounded-[1.5rem] border border-white/8 bg-white/6 p-4 text-center text-white/88 backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
       >
         <Image
           src={logo}
           alt={alt}
-          className="h-12 md:h-18 lg:h-30 object-contain mx-auto mb-3"
+          className="mx-auto mb-3 h-12 object-contain md:h-18 lg:h-20"
           width={150}
           height={150}
         />
-        {sponsor}
+        <span className="text-sm font-medium leading-6">{sponsor}</span>
       </a>
     ));
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-slate-90">{t('title')}</h2>
-      <p className="text-lg text-slate-700 mt-4">{t('subtitle')}</p>
+      <h2 className="font-mono text-3xl uppercase text-white">{t('title')}</h2>
+      <p className="mt-4 max-w-3xl text-base leading-7 text-white/72">
+        {t('subtitle')}
+      </p>
 
       <div className="sponsor-marquee relative mt-6 w-full overflow-x-hidden">
         <div className="sponsor-marquee-track flex w-max gap-3 animate-marquee">

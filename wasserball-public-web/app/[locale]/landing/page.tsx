@@ -1,93 +1,206 @@
+import FamilyRestroomOutlinedIcon from '@mui/icons-material/FamilyRestroomOutlined';
+import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
+import OutdoorGrillOutlinedIcon from '@mui/icons-material/OutdoorGrillOutlined';
+import SportsBarOutlinedIcon from '@mui/icons-material/SportsBarOutlined';
+import Link from 'next/link';
 import { getScopedI18n } from '@/app/i18n/server';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
 
 export const dynamic = 'force-dynamic';
 
-export default async function LandingPage() {
+type IconProps = {
+  icon: React.ElementType;
+  className?: string;
+};
+
+function MaterialIcon({ icon: Icon, className = 'text-[20px]' }: IconProps) {
+  return <Icon aria-hidden="true" className={className} />;
+}
+
+export default async function LandingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getScopedI18n('landing');
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_API_KEY ?? '';
   const directionsUrl =
     'https://www.google.com/maps/dir/?api=1&destination=51.877462,6.150263';
   const calendarUrl = '/api/calendar';
   const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=51.877462%2C6.150263`;
+  const [locationStreet, ...locationRest] = t('event_location_value').split(
+    ', ',
+  );
+  const locationCity = locationRest.join(', ');
+
+  const programHighlights = [
+    { title: t('feature_family'), icon: FamilyRestroomOutlinedIcon },
+    { title: t('feature_coffee'), icon: LocalCafeOutlinedIcon },
+    { title: t('feature_drinks'), icon: SportsBarOutlinedIcon },
+    { title: t('feature_grill'), icon: OutdoorGrillOutlinedIcon },
+  ];
 
   return (
-    <main className="relative overflow-hidden grid grid-cols-1 gap-16 py-20">
-      <section className="md:text-center">
-        <p className="text-sm uppercase tracking-[0.25em] text-cyan-700 font-semibold">
-          {t('eyebrow')}
-        </p>
-        <h1 className="mt-4 text-4xl sm:text-6xl font-black leading-tight text-slate-900">
-          {t('title')}
-          <br />
-          {t('title_2')}
-        </h1>
-        <p className="mt-6 text-lg sm:text-xl text-slate-700">
-          {t('subtitle')}
-        </p>
-        <p className="mt-4 text-lg sm:text-xl text-slate-700">
-          {t('subtitle_2')}
-        </p>
-        <p className="mt-4 text-lg sm:text-xl text-slate-700">
-          {t('subtitle_3')}
-        </p>
-      </section>
+    <main className="relative flex w-full flex-col gap-8 lg:gap-10">
+      <section className="flyer-panel section-reveal relative overflow-hidden rounded-[2rem] px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
+        <div className="absolute -right-24 top-8 h-56 w-56 rounded-full bg-[rgba(214,34,31,0.12)] blur-3xl" />
+        <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-[rgba(28,28,28,0.08)] blur-3xl" />
 
-      <section>
-        <div className="rounded-2xl border border-cyan-100 bg-white/85 p-5 sm:p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">
-            {t('event_title')}
-          </h2>
-          <div className="grid md:grid-cols-3 items-start mt-4 gap-5">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">
-                {t('event_location_label')}
-              </p>
-              <p className="mt-1 font-medium text-slate-900">
-                {t('event_location_value')}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">
-                {t('event_time_label')}
-              </p>
-              <p className="mt-1 font-medium text-slate-900">
-                {t('event_time_value')}
-              </p>
-            </div>
-            <a
-              href={calendarUrl}
-              className="inline-flex items-center justify-center rounded-xl border border-cyan-700 px-5 py-3 text-sm font-semibold text-cyan-800 hover:bg-cyan-50 transition-colors"
-            >
-              {t('cta_calendar')}
-            </a>
+        <div className="relative">
+          <p className="mt-8 text-sm font-semibold uppercase tracking-[0.28em] text-[var(--brand-red)]">
+            {t('eyebrow')}
+          </p>
+          <h1 className="mt-4 max-w-4xl font-mono text-5xl font-semibold uppercase leading-[0.95] text-[var(--brand-ink)] sm:text-6xl lg:text-7xl">
+            {t('title')}
+            <span className="mt-3 block text-[var(--brand-red)]">
+              {t('title_2')}
+            </span>
+          </h1>
+
+          <div className="mt-6 max-w-3xl space-y-3 text-lg leading-8 text-[var(--brand-gray)] sm:text-xl">
+            <p>{t('subtitle')}</p>
+            <p>{t('subtitle_2')}</p>
+            <p className="font-semibold text-[var(--brand-ink)]">
+              {t('subtitle_3')}
+            </p>
           </div>
 
-          <iframe
-            src={mapEmbedUrl}
-            className="mt-6 -mx-5 w-[calc(100%+2.5rem)] sm:-mx-6 sm:w-[calc(100%+3rem)]"
-            height="450"
-            title={t('event_location_label')}
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <div>
+            <div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={calendarUrl}
+                  className="inline-flex items-center justify-center rounded-full bg-[var(--brand-red)] px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_18px_30px_rgba(214,34,31,0.24)] hover:bg-[var(--brand-red-dark)]"
+                >
+                  {t('cta_calendar')}
+                </a>
+                <a
+                  href={directionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[rgba(28,28,28,0.14)] bg-transparent px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--brand-ink)] hover:-translate-y-0.5 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
+                >
+                  {t('cta_route')}
+                </a>
+              </div>
+            </div>
 
-          <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-3">
-            <a
-              href={directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-cyan-700 px-5 py-3 text-sm font-semibold text-cyan-800 hover:bg-cyan-50 transition-colors"
-            >
-              {t('cta_route')}
-            </a>
-            <p className="text-sm text-slate-600">{t('route_hint')}</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="relative flyer-dark-panel justify-center text-white z-10 mt-6 rounded-[1.75rem] bg-white px-5 py-6 text-[var(--brand-ink)] shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
+                <div className="absolute right-0 top-0 h-100 w-100 translate-x-8 -translate-y-8 rounded-full bg-[rgba(214,34,31,0.1)] blur-2xl" />
+
+                <div className="flex flex-col gap-3 self-center">
+                  <div className="flex items-end gap-4">
+                    <span className="font-mono text-9xl font-semibold leading-none sm:text-10xl">
+                      {t('date_day')}
+                    </span>
+                    <div className="pb-2">
+                      <p className="font-mono text-4xl uppercase leading-none">
+                        {t('date_month')}
+                      </p>
+                      <p className="mt-2 font-mono text-6xl uppercase leading-none text-[var(--brand-red)]">
+                        {t('date_year')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 rounded-full bg-[var(--brand-red)] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-white">
+                    {t('date_time_range')}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="relative flyer-dark-panel flex flex-col text-white z-10 mt-6 rounded-[1.75rem] px-5 py-6 shadow-[0_18px_40px_rgba(0,0,0,0.2)]">
+                  <div className="absolute right-0 top-0 h-100 w-100 translate-x-8 -translate-y-8 rounded-full bg-[rgba(214,34,31,0.1)] blur-2xl" />
+
+                  <div className="flex flex-col gap-3">
+                    <p className="font-mono font-bold text-2xl uppercase leading-none sm:text-3xl">
+                      {locationStreet}
+                    </p>
+                    {locationCity ? (
+                      <p className="font-mono font-bold uppercase leading-none text-[var(--brand-red)]">
+                        {locationCity}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <div>
+                    {googleMapsApiKey ? (
+                      <iframe
+                        src={mapEmbedUrl}
+                        className="mt-6 w-full md:h-auto h-80 rounded-[1.5rem] border border-[rgba(28,28,28,0.08)]"
+                        title={t('map_title')}
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    ) : (
+                      <div className="mt-6 rounded-[1.5rem] border border-dashed border-[rgba(28,28,28,0.12)] bg-[var(--surface-muted)] p-8">
+                        <div className="max-w-xl space-y-3">
+                          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[var(--brand-red)]">
+                            {t('map_title')}
+                          </p>
+                          <p className="text-base leading-7 text-[var(--brand-gray)]">
+                            {t('route_hint')}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(18rem,0.9fr)_minmax(0,1.3fr)] lg:items-stretch"></div>
+        </div>
+      </section>
+
+      <section className="section-reveal section-reveal-delay-1">
+        <div
+          id="program"
+          className="flyer-panel overflow-hidden rounded-[2rem] p-6 sm:p-8"
+        >
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--brand-red)]">
+            {t('program_eyebrow')}
+          </p>
+          <h2 className="mt-3 font-mono text-3xl uppercase text-[var(--brand-ink)] sm:text-4xl">
+            {t('program_title')}
+          </h2>
+          <p className="mt-4 text-base leading-7 text-[var(--brand-gray)]">
+            {t('program_text')}
+          </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {programHighlights.map((highlight) => {
+              return (
+                <div
+                  key={highlight.title}
+                  className="rounded-[1.5rem] border border-[rgba(28,28,28,0.08)] bg-white p-5 shadow-[0_12px_28px_rgba(28,28,28,0.06)]"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-red)] text-white">
+                    <MaterialIcon
+                      icon={highlight.icon}
+                      className="text-[28px]"
+                    />
+                  </div>
+                  <p className="mt-4 font-semibold uppercase tracking-[0.08em] text-[var(--brand-ink)]">
+                    {highlight.title}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section>
-        <SponsorCarousel />
+      <section className="section-reveal section-reveal-delay-2 flyer-dark-panel overflow-hidden rounded-[2rem] px-6 py-8 sm:px-8 sm:py-10">
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[rgba(255,255,255,0.64)]">
+          {t('support_title')}
+        </p>
+        <div className="mt-6">
+          <SponsorCarousel />
+        </div>
       </section>
     </main>
   );

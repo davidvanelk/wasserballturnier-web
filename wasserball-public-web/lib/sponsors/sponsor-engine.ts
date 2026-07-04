@@ -10,26 +10,18 @@ type Sponsor = {
 };
 
 type StrapiSponsorResponse = {
-  data?: Array<{
+  id: number;
+  sponsor: string;
+  alt: string;
+  url: string;
+  selector: string;
+  sortOrder: number;
+  tokenMultiplier: number;
+  logo: {
     id: number;
-    attributes?: {
-      sponsor?: string;
-      logo?: {
-        data?: {
-          id: number;
-          attributes?: {
-            url?: string;
-          };
-        } | null;
-      };
-      alt?: string;
-      url?: string;
-      selector?: string;
-      tokenMultiplier?: number;
-      active?: boolean;
-      sortOrder?: number;
-    };
-  }>;
+    documentId: string;
+    url: string;
+  };
 };
 
 const DEFAULT_STRAPI_BROWSER_PATH = '/cms';
@@ -83,27 +75,28 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
     return null;
   }
 
-  const response = await fetch(
-    `${strapiUrl}/api/sponsors?sort[0]=sortOrder:asc&filters[active][$eq]=true&pagination[pageSize]=100&populate[logo][fields][0]=url`,
-    {
-      next: {
-        revalidate: 300,
-      },
+  const sponsorEndpoint = `${strapiUrl}/api/sponsors?sort[0]=sortOrder:asc&filters[active][$eq]=true&pagination[pageSize]=100&populate[logo][fields][0]=url`;
+  logger.info(`Calling Strapi endpoint: ${sponsorEndpoint}`);
+
+  const response = await fetch(sponsorEndpoint, {
+    next: {
+      revalidate: 300,
     },
-  );
+  });
+  logger.info(`Response status: ${response.status} ${response.statusText}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch sponsors from Strapi: ${response.status}`);
   }
 
-  const payload = (await response.json()) as StrapiSponsorResponse;
-  const items = payload.data ?? [];
+  const payload = (await response.json()).data as StrapiSponsorResponse[];
+  const items = payload ?? [];
+
+  console.log(items);
 
   return items
-    .map((item) => item.attributes)
-    .filter((item): item is NonNullable<typeof item> => Boolean(item))
     .map((item) => ({
       sponsor: item.sponsor ?? '',
-      logo: toBrowserMediaUrl(item.logo?.data?.attributes?.url ?? ''),
+      logo: toBrowserMediaUrl(item.logo?.url ?? ''),
       alt: item.alt ?? '',
       url: item.url ?? '',
       selector: item.selector ?? '',
@@ -115,6 +108,8 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
 export async function getSponsors(): Promise<Sponsor[]> {
   try {
     const strapiSponsors = await getStrapiSponsors();
+
+    console.log(strapiSponsors);
 
     if (strapiSponsors && strapiSponsors.length > 0) {
       return strapiSponsors;
