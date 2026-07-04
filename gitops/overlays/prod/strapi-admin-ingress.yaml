@@ -10,11 +10,22 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
+        - strapi.wasserball.elk-software.de
         - wasserball.elk-software.de
         - wasserball.feuerwehremmerich.de
         - wasserball.feuerwehr-elten.de
       secretName: wasserball-web-tls
   rules:
+    - host: strapi.wasserball.elk-software.de
+      http:
+        paths:
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
     - host: wasserball.elk-software.de
       http:
         paths:
