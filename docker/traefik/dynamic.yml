@@ -1,0 +1,32 @@
+http:
+  routers:
+    wasserball-strapi:
+      entryPoints:
+        - web
+      rule: PathPrefix(`/cms`)
+      priority: 100
+      middlewares:
+        - wasserball-strapi-strip
+      service: wasserball-strapi
+    wasserball-web:
+      entryPoints:
+        - web
+      rule: PathPrefix(`/`)
+      priority: 1
+      service: wasserball-web
+
+  middlewares:
+    wasserball-strapi-strip:
+      stripPrefix:
+        prefixes:
+          - /cms
+
+  services:
+    wasserball-strapi:
+      loadBalancer:
+        servers:
+          - url: http://strapi:1337
+    wasserball-web:
+      loadBalancer:
+        servers:
+          - url: http://web:3000

@@ -49,6 +49,9 @@ jobs:
         with:
           context: ./wasserball-strapi
           file: ./wasserball-strapi/Dockerfile
+          build-args: |
+            PUBLIC_API=/cms
+            ADMIN_PATH=/admin
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}

@@ -22,7 +22,7 @@ spec:
     - host: strapi.wasserball.elk-software.de
       http:
         paths:
-          - path: /
+          - path: /cms
             pathType: Prefix
             backend:
               service:
@@ -40,6 +40,16 @@ spec:
                 port:
                   number: 1337
     - host: wasserball.feuerwehr-elten.de
+      http:
+        paths:
+          - path: /cms
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
+    - host: wasserball.elk-software.de
       http:
         paths:
           - path: /cms

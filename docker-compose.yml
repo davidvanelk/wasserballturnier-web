@@ -1,4 +1,18 @@
 services:
+  traefik:
+    image: traefik:v3.2
+    container_name: wasserball-traefik
+    restart: unless-stopped
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.file.filename=/etc/traefik/dynamic.yml
+      - --providers.file.watch=true
+      - --api.dashboard=false
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+
   web:
     build:
       context: ./wasserball-public-web
@@ -17,13 +31,15 @@ services:
     depends_on:
       - matomo
       - strapi
-    ports:
-      - "80:3000"
+      - traefik
 
   strapi:
     build:
       context: ./wasserball-strapi
       dockerfile: Dockerfile
+      args:
+        PUBLIC_API: /cms
+        ADMIN_PATH: /admin
     container_name: wasserball-strapi
     restart: unless-stopped
     environment:
@@ -46,8 +62,8 @@ services:
     depends_on:
       strapi-db:
         condition: service_healthy
-    ports:
-      - "1337:1337"
+      traefik:
+        condition: service_started
 
   matomo:
     image: matomo:5
@@ -79,7 +95,11 @@ services:
       MYSQL_USER: matomo
       MYSQL_PASSWORD: matomo
     healthcheck:
-      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1"]
+      test:
+        [
+          "CMD-SHELL",
+          "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1",
+        ]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -98,7 +118,11 @@ services:
       MYSQL_USER: strapi
       MYSQL_PASSWORD: strapi
     healthcheck:
-      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1"]
+      test:
+        [
+          "CMD-SHELL",
+          "mariadb-admin ping -h 127.0.0.1 -u root -proot >/dev/null 2>&1",
+        ]
       interval: 5s
       timeout: 3s
       retries: 20
