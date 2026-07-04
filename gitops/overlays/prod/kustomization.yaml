@@ -7,6 +7,8 @@ resources:
   - web-http-redirect-ingress.yaml
   - web-certificate.yaml
   - strapi-certificate.yaml
+  - strapi-admin-ingress.yaml
+  - strapi-admin-http-redirect-ingress.yaml
   - strapi-ingress.yaml
   - strapi-http-redirect-ingress.yaml
   - strapi-strip-prefix-middleware.yaml
