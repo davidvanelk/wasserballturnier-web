@@ -9,6 +9,16 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
+    - host: strapi.wasserball.elk-software.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wasserball-strapi
+                port:
+                  number: 1337
     - host: wasserball.feuerwehremmerich.de
       http:
         paths:
