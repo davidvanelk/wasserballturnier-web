@@ -167,9 +167,6 @@ export default async function LandingPage({
           <h2 className="mt-3 font-mono text-3xl uppercase text-[var(--brand-ink)] sm:text-4xl">
             {t('program_title')}
           </h2>
-          <p className="mt-4 text-base leading-7 text-[var(--brand-gray)]">
-            {t('program_text')}
-          </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {programHighlights.map((highlight) => {
