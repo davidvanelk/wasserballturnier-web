@@ -8,4 +8,4 @@ data:
   MATOMO_URL: http://matomo
   MATOMO_SITE_ID: "1"
   STRAPI_URL: http://wasserball-strapi:1337
-  STRAPI_PUBLIC_URL: /cms
+  STRAPI_PUBLIC_URL: http://wasserball-strapi:1337

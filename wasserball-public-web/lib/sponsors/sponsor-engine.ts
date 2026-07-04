@@ -1,3 +1,5 @@
+import { logger } from '../logger';
+
 type Sponsor = {
   sponsor: string;
   logo: string;
@@ -73,6 +75,10 @@ function toBrowserMediaUrl(url: string) {
 async function getStrapiSponsors(): Promise<Sponsor[] | null> {
   const strapiUrl = getStrapiUrl();
 
+  logger.info(
+    `Fetching sponsors from Strapi at: ${strapiUrl ?? 'not configured'}`,
+  );
+
   if (!strapiUrl) {
     return null;
   }
@@ -114,10 +120,10 @@ export async function getSponsors(): Promise<Sponsor[]> {
       return strapiSponsors;
     }
   } catch (error) {
-    console.error(error);
+    logger.error(`Error fetching sponsors from Strapi: ${error}`);
   }
 
-  console.log('No sponsors found from Strapi, returning empty list.');
+  logger.info('No sponsors found from Strapi, returning empty list.');
 
   return [];
 }

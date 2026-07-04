@@ -27,7 +27,7 @@ services:
       MATOMO_URL: http://matomo
       MATOMO_SITE_ID: 1
       STRAPI_URL: http://strapi:1337
-      STRAPI_PUBLIC_URL: /cms
+      STRAPI_PUBLIC_URL: http://strapi:1337
     depends_on:
       - matomo
       - strapi
