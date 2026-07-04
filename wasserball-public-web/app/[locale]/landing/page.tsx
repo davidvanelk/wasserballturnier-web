@@ -1,6 +1,8 @@
 import { getScopedI18n } from '@/app/i18n/server';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
 
+export const dynamic = 'force-dynamic';
+
 export default async function LandingPage() {
   const t = await getScopedI18n('landing');
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_API_KEY ?? '';
