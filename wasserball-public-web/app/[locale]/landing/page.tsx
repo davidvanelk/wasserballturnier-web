@@ -2,27 +2,21 @@ import FamilyRestroomOutlinedIcon from '@mui/icons-material/FamilyRestroomOutlin
 import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
 import OutdoorGrillOutlinedIcon from '@mui/icons-material/OutdoorGrillOutlined';
 import SportsBarOutlinedIcon from '@mui/icons-material/SportsBarOutlined';
-import Link from 'next/link';
 import { getScopedI18n } from '@/app/i18n/server';
+import FeatureCard from '@/lib/components/FeatureCard';
+import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
+import FlyerSurface from '@/lib/components/FlyerSurface';
+import SectionHeader from '@/lib/components/SectionHeader';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
 
 export const dynamic = 'force-dynamic';
-
-type IconProps = {
-  icon: React.ElementType;
-  className?: string;
-};
-
-function MaterialIcon({ icon: Icon, className = 'text-[20px]' }: IconProps) {
-  return <Icon aria-hidden="true" className={className} />;
-}
 
 export default async function LandingPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  await params;
   const t = await getScopedI18n('landing');
   const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_API_KEY ?? '';
   const directionsUrl =
@@ -43,7 +37,10 @@ export default async function LandingPage({
 
   return (
     <main className="relative flex w-full flex-col gap-8 lg:gap-10">
-      <section className="flyer-panel section-reveal relative overflow-hidden rounded-[2rem] px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
+      <FlyerSurface
+        className="relative px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12"
+        revealDelay={0}
+      >
         <div className="absolute -right-24 top-8 h-56 w-56 rounded-full bg-[rgba(214,34,31,0.12)] blur-3xl" />
         <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-[rgba(28,28,28,0.08)] blur-3xl" />
 
@@ -69,20 +66,16 @@ export default async function LandingPage({
           <div>
             <div>
               <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href={calendarUrl}
-                  className="inline-flex items-center justify-center rounded-full bg-[var(--brand-red)] px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_18px_30px_rgba(214,34,31,0.24)] hover:bg-[var(--brand-red-dark)]"
-                >
+                <FlyerButtonLink href={calendarUrl}>
                   {t('cta_calendar')}
-                </a>
-                <a
+                </FlyerButtonLink>
+                <FlyerButtonLink
                   href={directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-[rgba(28,28,28,0.14)] bg-transparent px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[var(--brand-ink)] hover:-translate-y-0.5 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
+                  variant="secondary"
+                  external
                 >
                   {t('cta_route')}
-                </a>
+                </FlyerButtonLink>
               </div>
             </div>
 
@@ -154,51 +147,37 @@ export default async function LandingPage({
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(18rem,0.9fr)_minmax(0,1.3fr)] lg:items-stretch"></div>
         </div>
-      </section>
+      </FlyerSurface>
 
-      <section className="section-reveal section-reveal-delay-1">
-        <div
-          id="program"
-          className="flyer-panel overflow-hidden rounded-[2rem] p-6 sm:p-8"
-        >
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--brand-red)]">
-            {t('program_eyebrow')}
-          </p>
-          <h2 className="mt-3 font-mono text-3xl uppercase text-[var(--brand-ink)] sm:text-4xl">
-            {t('program_title')}
-          </h2>
+      <FlyerSurface id="program" className="p-6 sm:p-8" revealDelay={1}>
+        <SectionHeader
+          eyebrow={t('program_eyebrow')}
+          title={t('program_title')}
+        />
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {programHighlights.map((highlight) => {
-              return (
-                <div
-                  key={highlight.title}
-                  className="rounded-[1.5rem] border border-[rgba(28,28,28,0.08)] bg-white p-5 shadow-[0_12px_28px_rgba(28,28,28,0.06)]"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-red)] text-white">
-                    <MaterialIcon
-                      icon={highlight.icon}
-                      className="text-[28px]"
-                    />
-                  </div>
-                  <p className="mt-4 font-semibold uppercase tracking-[0.08em] text-[var(--brand-ink)]">
-                    {highlight.title}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {programHighlights.map((highlight) => (
+            <FeatureCard
+              key={highlight.title}
+              title={highlight.title}
+              icon={highlight.icon}
+            />
+          ))}
         </div>
-      </section>
+      </FlyerSurface>
 
-      <section className="section-reveal section-reveal-delay-2 flyer-dark-panel overflow-hidden rounded-[2rem] px-6 py-8 sm:px-8 sm:py-10">
+      <FlyerSurface
+        tone="dark"
+        className="px-6 py-8 sm:px-8 sm:py-10"
+        revealDelay={2}
+      >
         <p className="text-sm font-bold uppercase tracking-[0.18em] text-[rgba(255,255,255,0.64)]">
           {t('support_title')}
         </p>
         <div className="mt-6">
           <SponsorCarousel />
         </div>
-      </section>
+      </FlyerSurface>
     </main>
   );
 }

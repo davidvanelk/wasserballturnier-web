@@ -1,6 +1,7 @@
 import { getScopedI18n } from '@/app/i18n/server';
 import { getSponsors } from '../sponsors/sponsor-engine';
 import Image from 'next/image';
+import SectionHeader from './SectionHeader';
 
 const SponsorCarousel = async () => {
   const t = await getScopedI18n('sponsoring.carousel');
@@ -29,10 +30,13 @@ const SponsorCarousel = async () => {
 
   return (
     <div>
-      <h2 className="font-mono text-3xl uppercase text-white">{t('title')}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-white/72">
-        {t('subtitle')}
-      </p>
+      <SectionHeader
+        eyebrow={t('title')}
+        title={t('title')}
+        description={t('subtitle')}
+        inverted
+        titleClassName="sr-only"
+      />
 
       <div className="sponsor-marquee relative mt-6 w-full overflow-x-hidden">
         <div className="sponsor-marquee-track flex w-max gap-3 animate-marquee">
