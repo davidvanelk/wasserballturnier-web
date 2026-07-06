@@ -11,30 +11,7 @@ export default async function Imprint() {
       />
 
       <FlyerSurface className="p-6 sm:p-8" revealDelay={1}>
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="font-mono text-2xl uppercase text-[var(--brand-ink)]">
-              Angaben gemäß § 5 TMG
-            </h2>
-            <div className="mt-4 space-y-2 text-base leading-7 text-[var(--brand-gray)]">
-              <p>Freiwillige Feuerwehr Emmerich am Rhein</p>
-              <p>Löscheinheit Elten</p>
-              <p>Haagsche Straße 2</p>
-              <p>46446 Emmerich am Rhein</p>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="font-mono text-2xl uppercase text-[var(--brand-ink)]">
-              Kontakt
-            </h2>
-            <div className="mt-4 space-y-2 text-base leading-7 text-[var(--brand-gray)]">
-              <p>E-Mail: loescheinheit-elten@feuerwehr-emmerich.de</p>
-              <p>Instagram: @feuerwehremmerich</p>
-              <p>Facebook: Feuerwehr Emmerich am Rhein</p>
-            </div>
-          </div>
-        </div>
+        <div className="grid gap-8 lg:grid-cols-2"></div>
       </FlyerSurface>
     </main>
   );

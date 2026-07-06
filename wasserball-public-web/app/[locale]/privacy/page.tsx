@@ -11,23 +11,7 @@ export default function PrivacyPage() {
       />
 
       <FlyerSurface className="p-6 sm:p-8" revealDelay={1}>
-        <div className="max-w-4xl space-y-5 text-base leading-7 text-[var(--brand-gray)]">
-          <p>
-            Personenbezogene Daten werden nur im technisch notwendigen Umfang
-            verarbeitet. Welche Daten im Detail anfallen, hängt von der Nutzung
-            dieser Website und der eingebundenen Dienste ab.
-          </p>
-          <p>
-            Bei Fragen zum Datenschutz oder zur Auskunft über gespeicherte Daten
-            wende dich bitte an die Löscheinheit Elten unter
-            loescheinheit-elten@feuerwehr-emmerich.de.
-          </p>
-          <p>
-            Diese Platzhalterseite stellt die rechtliche Route bereit. Die
-            endgültigen Datenschutzhinweise sollten vor dem Live-Betrieb mit den
-            tatsächlichen Verarbeitungsprozessen abgeglichen werden.
-          </p>
-        </div>
+        <div className="max-w-4xl space-y-5 text-base leading-7 text-[var(--brand-gray)]"></div>
       </FlyerSurface>
     </main>
   );

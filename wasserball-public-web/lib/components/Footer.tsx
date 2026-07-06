@@ -1,3 +1,5 @@
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import { getCurrentLocale, getScopedI18n } from '@/app/i18n/server';
 import Link from 'next/link';
 
@@ -45,21 +47,23 @@ const Footer = async () => {
             </p>
             <p className="mt-3">
               <a
-                className="text-white/72 hover:text-white"
-                href="https://www.facebook.com/feuerwehremmerichamrhein"
+                className="inline-flex items-center gap-2 text-white/72 hover:text-white"
+                href="https://www.facebook.com/FeuerwehrEmmerich/"
                 target="_blank"
                 rel="noopener"
               >
+                <FacebookIcon aria-hidden="true" className="text-[18px]" />
                 Facebook
               </a>
             </p>
             <p>
               <a
-                className="text-white/72 hover:text-white"
+                className="inline-flex items-center gap-2 text-white/72 hover:text-white"
                 href="https://www.instagram.com/feuerwehremmerich/"
                 target="_blank"
                 rel="noopener"
               >
+                <InstagramIcon aria-hidden="true" className="text-[18px]" />
                 Instagram
               </a>
             </p>
