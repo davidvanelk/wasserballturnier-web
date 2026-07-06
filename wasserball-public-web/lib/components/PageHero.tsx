@@ -21,7 +21,6 @@ export default function PageHero({
         eyebrow={eyebrow}
         title={title}
         description={description}
-        titleClassName="mt-3 font-mono text-4xl uppercase leading-[0.95] text-[var(--brand-ink)] sm:text-5xl lg:text-6xl"
       />
       {children ? <div className="mt-8">{children}</div> : null}
     </FlyerSurface>
