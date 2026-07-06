@@ -17,14 +17,14 @@ const revealDelayClassMap = {
 } as const;
 
 export default function FlyerSurface<T extends ElementType = 'section'>({
-  as = 'section',
+  as,
   tone = 'light',
   revealDelay,
   className,
   children,
   ...restProps
 }: FlyerSurfaceProps<T>) {
-  const Component = as;
+  const Component = (as ?? 'section') as ElementType;
 
   return (
     <Component
