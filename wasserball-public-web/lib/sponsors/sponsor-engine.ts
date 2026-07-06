@@ -83,7 +83,6 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
       revalidate: 300,
     },
   });
-  logger.info(`Response status: ${response.status} ${response.statusText}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch sponsors from Strapi: ${response.status}`);
   }
@@ -108,8 +107,6 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
 export async function getSponsors(): Promise<Sponsor[]> {
   try {
     const strapiSponsors = await getStrapiSponsors();
-
-    console.log(strapiSponsors);
 
     if (strapiSponsors && strapiSponsors.length > 0) {
       return strapiSponsors;

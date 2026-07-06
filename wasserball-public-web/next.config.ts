@@ -25,19 +25,32 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'wasserball.elk-software.de',
-        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'wasserball.feuerwehremmerich.de',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'wasserball.feuerwehr-elten.de',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'cms.wasserball.elk-software.de',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '1337',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
         pathname: '/**',
       },
     ],
