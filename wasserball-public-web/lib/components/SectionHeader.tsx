@@ -28,8 +28,9 @@ export default function SectionHeader({
       </p>
       <h2
         className={
-          titleClassName ??
-          'mt-3 font-mono text-3xl uppercase text-[var(--brand-ink)] sm:text-4xl'
+          (titleClassName ?? inverted)
+            ? 'mt-3 font-mono text-3xl uppercase text-white sm:text-4xl'
+            : 'mt-3 font-mono text-3xl uppercase text-[var(--brand-ink)] sm:text-4xl'
         }
       >
         {title}

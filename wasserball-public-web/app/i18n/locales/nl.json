@@ -40,8 +40,7 @@
     "feature_family": "Voor jong en oud",
     "feature_coffee": "Koffie & gebak",
     "feature_drinks": "Koude dranken",
-    "feature_grill": "Vers van de grill",
-    "support_title": "Mede mogelijk gemaakt door onze sponsoren"
+    "feature_grill": "Vers van de grill"
   },
   "navbar": {
     "title": "Waterpolo",
@@ -52,6 +51,7 @@
   },
   "sponsoring": {
     "carousel": {
+      "support_title": "Mede mogelijk gemaakt door onze sponsoren",
       "title": "Sponsoren",
       "subtitle": "Dit evenement wordt mogelijk gemaakt door onze sponsoren. Bedankt voor uw steun!"
     }

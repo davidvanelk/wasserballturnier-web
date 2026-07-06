@@ -40,8 +40,7 @@
     "feature_family": "Für Groß & Klein",
     "feature_coffee": "Kaffee & Kuchen",
     "feature_drinks": "Kalte Getränke",
-    "feature_grill": "Gutes vom Grill",
-    "support_title": "Unterstützt durch unsere Sponsoren"
+    "feature_grill": "Gutes vom Grill"
   },
   "navbar": {
     "title": "Wasserball",
@@ -52,6 +51,7 @@
   },
   "sponsoring": {
     "carousel": {
+      "support_title": "Unterstützt durch unsere Sponsoren",
       "title": "Sponsoren",
       "subtitle": "Diese Veranstaltung wird von unseren Sponsoren möglich gemacht. Vielen Dank für die Unterstützung!"
     }

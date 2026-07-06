@@ -171,12 +171,7 @@ export default async function LandingPage({
         className="px-6 py-8 sm:px-8 sm:py-10"
         revealDelay={2}
       >
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[rgba(255,255,255,0.64)]">
-          {t('support_title')}
-        </p>
-        <div className="mt-6">
-          <SponsorCarousel />
-        </div>
+        <SponsorCarousel />
       </FlyerSurface>
     </main>
   );

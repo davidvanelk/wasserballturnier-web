@@ -40,8 +40,7 @@
     "feature_family": "For all ages",
     "feature_coffee": "Coffee & cake",
     "feature_drinks": "Cold drinks",
-    "feature_grill": "Fresh from the grill",
-    "support_title": "Supported by our sponsors"
+    "feature_grill": "Fresh from the grill"
   },
   "navbar": {
     "title": "Wasserball",
@@ -52,6 +51,7 @@
   },
   "sponsoring": {
     "carousel": {
+      "support_title": "Supported by our sponsors",
       "title": "Sponsors",
       "subtitle": "This event is made possible by our sponsors. Thank you for your support!"
     }

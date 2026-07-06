@@ -31,14 +31,13 @@ const SponsorCarousel = async () => {
   return (
     <div>
       <SectionHeader
-        eyebrow={t('title')}
+        eyebrow={t('support_title')}
         title={t('title')}
         description={t('subtitle')}
         inverted
-        titleClassName="sr-only"
       />
 
-      <div className="sponsor-marquee relative mt-6 w-full overflow-x-hidden">
+      <div className="sponsor-marquee relative pt-6 w-full overflow-x-hidden">
         <div className="sponsor-marquee-track flex w-max gap-3 animate-marquee">
           {Array.from({ length: repeatCount }, (_, index) => (
             <div key={index} className="flex shrink-0 gap-3">
