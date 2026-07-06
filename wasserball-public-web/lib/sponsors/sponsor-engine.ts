@@ -90,8 +90,6 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
   const payload = (await response.json()).data as StrapiSponsorResponse[];
   const items = payload ?? [];
 
-  console.log(items);
-
   return items
     .map((item) => ({
       sponsor: item.sponsor ?? '',
