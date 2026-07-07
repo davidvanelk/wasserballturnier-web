@@ -55,11 +55,11 @@ spec:
               mountPath: /var/www/html
           readinessProbe:
             httpGet:
-              path: /
+              path: /index.php
               port: http
-            initialDelaySeconds: 20
+            initialDelaySeconds: 30
             periodSeconds: 30
-            failureThreshold: 10
+            failureThreshold: 20
             timeoutSeconds: 5
           livenessProbe:
             httpGet:
