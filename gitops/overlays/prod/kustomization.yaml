@@ -16,7 +16,6 @@ resources:
   - matomo-http-redirect-ingress.yaml
   - matomo-certificate.yaml
   - traefik-https-redirect-middleware.yaml
-  - matomo-basic-auth-middleware.yaml
 
 patches:
   - path: web-scale-patch.yaml
