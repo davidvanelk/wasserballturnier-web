@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server';
+import { logger } from '../logger';
 
 export const UTM_KEYS = [
   'utm_source',
@@ -183,17 +184,21 @@ export async function sendMatomoPageViewTracking({
     endpoint.searchParams.set('cip', ip);
   }
 
+  logger.info(`[matomo] sending tracking request to: ${endpoint.toString()}`);
+
   try {
     const response = await fetch(endpoint.toString(), {
       method: 'GET',
       cache: 'no-store',
     });
     if (!response.ok) {
-      console.error(
+      logger.error(
         `[matomo] tracking request failed: ${response.status} ${response.statusText}: ${await response.text()}`,
       );
+    } else {
+      logger.info('[matomo] tracking request succeeded');
     }
   } catch (err) {
-    console.error('[matomo] tracking request threw:', err);
+    logger.error('[matomo] tracking request threw:', err);
   }
 }

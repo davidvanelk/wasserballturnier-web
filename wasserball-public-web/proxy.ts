@@ -36,7 +36,7 @@ function getPreferredLocale(request: NextRequest): Locale {
   return (matchedLocale as Locale) ?? 'de';
 }
 
-export function middleware(request: NextRequest, event: NextFetchEvent) {
+export function proxy(request: NextRequest, event: NextFetchEvent) {
   const utmPayload = extractUtmParams(request.nextUrl);
 
   event.waitUntil(
