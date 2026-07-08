@@ -137,6 +137,11 @@ export async function sendMatomoPageViewTracking({
   const matomoBaseUrl = process.env.MATOMO_URL;
   const matomoSiteId = process.env.MATOMO_SITE_ID;
 
+  const userAgent = request.headers.get('user-agent');
+  if (userAgent?.toLowerCase().startsWith('kube-probe/')) {
+    return;
+  }
+
   logger.info(
     `[matomo] Invoking tracking event. Matomo URL: ${matomoBaseUrl}, Site ID: ${matomoSiteId}`,
   );
@@ -162,10 +167,6 @@ export async function sendMatomoPageViewTracking({
   endpoint.searchParams.set('action_name', request.nextUrl.pathname);
   endpoint.searchParams.set('_id', visitorId);
 
-  const userAgent = request.headers.get('user-agent');
-  if (userAgent?.toLowerCase().startsWith('kube-probe/')) {
-    return;
-  }
   if (userAgent) {
     endpoint.searchParams.set('ua', userAgent);
   }
