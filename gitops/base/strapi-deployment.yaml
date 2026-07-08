@@ -4,6 +4,8 @@ metadata:
   name: wasserball-strapi
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: wasserball-strapi
@@ -19,6 +21,9 @@ spec:
           ports:
             - containerPort: 1337
               name: http
+          volumeMounts:
+            - name: strapi-uploads
+              mountPath: /opt/app/public/upload
           envFrom:
             - configMapRef:
                 name: wasserball-strapi-config
@@ -43,3 +48,7 @@ spec:
             limits:
               cpu: 500m
               memory: 768Mi
+      volumes:
+        - name: strapi-uploads
+          persistentVolumeClaim:
+            claimName: strapi-uploads-pvc

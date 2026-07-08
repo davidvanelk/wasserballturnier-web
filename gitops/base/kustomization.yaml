@@ -12,6 +12,7 @@ resources:
   - strapi-service.yaml
   - strapi-db-service.yaml
   - strapi-db-statefulset.yaml
+  - strapi-pvc.yaml
   - matomo-configmap.yaml
   - matomo-pvc.yaml
   - matomo-deployment.yaml
