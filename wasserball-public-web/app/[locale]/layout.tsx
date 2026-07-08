@@ -20,6 +20,23 @@ export const metadata: Metadata = {
   title: 'Wasserballturnier 2026',
   description:
     '🚨 Das Wasserballturnier 2026 in Elten. Wir sehen uns am 15.08.2026! 💦',
+  openGraph: {
+    title: 'Wasserballturnier 2026',
+    description:
+      '🚨 Das Wasserballturnier 2026 in Elten. Wir sehen uns am 15.08.2026! 💦',
+    url: 'https://wasserball.feuerwehremmerich.de',
+    siteName: 'Wasserballturnier 2026',
+    images: [
+      {
+        url: 'https://wasserball.feuerwehremmerich.de/cms/uploads/Social_Media_Post_2c37bbdd91.png',
+        width: 1080,
+        height: 1080,
+        alt: 'Flyer zum Wasserballturnier 2026 in Elten',
+      },
+    ],
+    locale: 'de_DE',
+    type: 'website',
+  },
 };
 
 export default async function RootLayout({
