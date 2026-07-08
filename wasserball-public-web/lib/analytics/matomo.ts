@@ -162,6 +162,14 @@ export async function sendMatomoPageViewTracking({
   endpoint.searchParams.set('action_name', request.nextUrl.pathname);
   endpoint.searchParams.set('_id', visitorId);
 
+  const userAgent = request.headers.get('user-agent');
+  if (userAgent?.toLowerCase().startsWith('kube-probe/')) {
+    return;
+  }
+  if (userAgent) {
+    endpoint.searchParams.set('ua', userAgent);
+  }
+
   const tokenAuth = process.env.MATOMO_TOKEN_AUTH;
   if (tokenAuth) {
     endpoint.searchParams.set('token_auth', tokenAuth);
@@ -175,11 +183,6 @@ export async function sendMatomoPageViewTracking({
   const referer = request.headers.get('referer');
   if (referer) {
     endpoint.searchParams.set('urlref', referer);
-  }
-
-  const userAgent = request.headers.get('user-agent');
-  if (userAgent) {
-    endpoint.searchParams.set('ua', userAgent);
   }
 
   const ip = getClientIp(request);
