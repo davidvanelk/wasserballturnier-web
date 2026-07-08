@@ -1,9 +1,6 @@
 import { createI18nMiddleware } from 'next-international/middleware';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
-import {
-  extractUtmParams,
-  sendMatomoPageViewTracking,
-} from '@/lib/analytics/matomo';
+import { sendMatomoPageViewTracking } from '@/lib/analytics/matomo';
 
 const locales = ['en', 'de', 'nl'] as const;
 type Locale = (typeof locales)[number];
@@ -37,12 +34,9 @@ function getPreferredLocale(request: NextRequest): Locale {
 }
 
 export function proxy(request: NextRequest, event: NextFetchEvent) {
-  const utmPayload = extractUtmParams(request.nextUrl);
-
   event.waitUntil(
     sendMatomoPageViewTracking({
       request,
-      utmPayload,
     }),
   );
 

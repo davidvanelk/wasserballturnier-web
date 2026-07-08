@@ -1,16 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { logger } from '../logger';
 
-export const UTM_KEYS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_term',
-  'utm_content',
-] as const;
-
-export type UtmPayload = Partial<Record<(typeof UTM_KEYS)[number], string>>;
-
 function getClientIp(request: NextRequest): string | undefined {
   const forwardedFor = request.headers.get('x-forwarded-for');
   if (forwardedFor) {
@@ -51,31 +41,6 @@ function anonymizeIp(ip?: string): string | undefined {
   }
 
   return undefined;
-}
-
-export function extractUtmParams(url: URL): UtmPayload {
-  const payload: UtmPayload = {};
-
-  for (const key of UTM_KEYS) {
-    const value = url.searchParams.get(key);
-    if (value) {
-      payload[key] = value;
-    }
-  }
-
-  return payload;
-}
-
-function buildTrackedUrl(nextUrl: URL, utmPayload: UtmPayload): string {
-  const trackedUrl = new URL(nextUrl.pathname + nextUrl.search, nextUrl.origin);
-
-  for (const key of UTM_KEYS) {
-    if (!trackedUrl.searchParams.has(key) && utmPayload[key]) {
-      trackedUrl.searchParams.set(key, utmPayload[key] as string);
-    }
-  }
-
-  return trackedUrl.toString();
 }
 
 function shouldTrackRequest(request: NextRequest): boolean {
@@ -129,10 +94,8 @@ async function resolveVisitorId(request: NextRequest): Promise<string> {
 
 export async function sendMatomoPageViewTracking({
   request,
-  utmPayload,
 }: {
   request: NextRequest;
-  utmPayload: UtmPayload;
 }): Promise<void> {
   const matomoBaseUrl = process.env.MATOMO_URL;
   const matomoSiteId = process.env.MATOMO_SITE_ID;
@@ -160,12 +123,42 @@ export async function sendMatomoPageViewTracking({
   endpoint.searchParams.set('rec', '1');
   endpoint.searchParams.set('apiv', '1');
   endpoint.searchParams.set('rand', String(Math.random()));
-  endpoint.searchParams.set(
-    'url',
-    buildTrackedUrl(request.nextUrl, utmPayload),
-  );
   endpoint.searchParams.set('action_name', request.nextUrl.pathname);
+  endpoint.searchParams.set('host', request.nextUrl.hostname);
+  endpoint.searchParams.set('url', request.url);
+  endpoint.searchParams.set('host-header', request.headers.get('host') ?? '');
   endpoint.searchParams.set('_id', visitorId);
+
+  if (request.nextUrl.searchParams.has('utm_source')) {
+    endpoint.searchParams.set(
+      'utm_source',
+      request.nextUrl.searchParams.get('utm_source') as string,
+    );
+  }
+  if (request.nextUrl.searchParams.has('utm_medium')) {
+    endpoint.searchParams.set(
+      'utm_medium',
+      request.nextUrl.searchParams.get('utm_medium') as string,
+    );
+  }
+  if (request.nextUrl.searchParams.has('utm_campaign')) {
+    endpoint.searchParams.set(
+      'utm_campaign',
+      request.nextUrl.searchParams.get('utm_campaign') as string,
+    );
+  }
+  if (request.nextUrl.searchParams.has('utm_term')) {
+    endpoint.searchParams.set(
+      'utm_term',
+      request.nextUrl.searchParams.get('utm_term') as string,
+    );
+  }
+  if (request.nextUrl.searchParams.has('utm_content')) {
+    endpoint.searchParams.set(
+      'utm_content',
+      request.nextUrl.searchParams.get('utm_content') as string,
+    );
+  }
 
   if (userAgent) {
     endpoint.searchParams.set('ua', userAgent);
