@@ -137,6 +137,10 @@ export async function sendMatomoPageViewTracking({
   const matomoBaseUrl = process.env.MATOMO_URL;
   const matomoSiteId = process.env.MATOMO_SITE_ID;
 
+  logger.info(
+    `[matomo] Invoking tracking event. Matomo URL: ${matomoBaseUrl}, Site ID: ${matomoSiteId}`,
+  );
+
   if (!matomoBaseUrl || !matomoSiteId || !shouldTrackRequest(request)) {
     return;
   }
