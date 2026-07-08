@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: default
 
 resources:
-  - web-configmap.yaml
   - web-deployment.yaml
   - web-service.yaml
   - strapi-configmap.yaml
@@ -19,3 +18,8 @@ resources:
   - matomo-service.yaml
   - matomo-db-service.yaml
   - matomo-db-statefulset.yaml
+
+configMapGenerator:
+  - name: wasserball-web-config
+    files:
+      - config/wasserball-web-config.env
