@@ -31,14 +31,6 @@ const Footer = async () => {
                 {t('legal.privacy')}
               </Link>
             </p>
-            <p>
-              <Link
-                className="text-white/72 hover:text-white"
-                href={`/${locale}/contact`}
-              >
-                {t('legal.contact')}
-              </Link>
-            </p>
           </div>
 
           <div>
