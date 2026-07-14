@@ -23,7 +23,7 @@ spec:
               name: http
           volumeMounts:
             - name: strapi-uploads
-              mountPath: /opt/app/public/upload
+              mountPath: /opt/app/public/uploads
           envFrom:
             - configMapRef:
                 name: wasserball-strapi-config
