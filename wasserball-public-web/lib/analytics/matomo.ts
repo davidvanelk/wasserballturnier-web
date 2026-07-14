@@ -140,6 +140,10 @@ export async function sendMatomoPageViewTracking({
       'utm_medium',
       request.nextUrl.searchParams.get('utm_medium') as string,
     );
+    endpoint.searchParams.set(
+      'mtm_campaign',
+      request.nextUrl.searchParams.get('utm_medium') as string,
+    );
   }
   if (request.nextUrl.searchParams.has('utm_campaign')) {
     endpoint.searchParams.set(
@@ -156,6 +160,14 @@ export async function sendMatomoPageViewTracking({
   if (request.nextUrl.searchParams.has('utm_content')) {
     endpoint.searchParams.set(
       'utm_content',
+      request.nextUrl.searchParams.get('utm_content') as string,
+    );
+    endpoint.searchParams.set(
+      'mtm_kwd',
+      request.nextUrl.searchParams.get('utm_content') as string,
+    );
+    endpoint.searchParams.set(
+      'dimension1',
       request.nextUrl.searchParams.get('utm_content') as string,
     );
   }
