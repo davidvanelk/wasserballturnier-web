@@ -1,4 +1,5 @@
 import { logger } from '../logger';
+import { getStrapiContent, toBrowserMediaUrl } from '../strapi/api';
 
 type Sponsor = {
   sponsor: string;
@@ -24,73 +25,23 @@ type StrapiSponsorResponse = {
   };
 };
 
-const DEFAULT_STRAPI_BROWSER_PATH = '/cms';
-
-function getStrapiUrl() {
-  const baseUrl = process.env.STRAPI_URL?.trim();
-
-  if (!baseUrl) {
-    return null;
-  }
-
-  return baseUrl.replace(/\/$/, '');
-}
-
-function getStrapiPublicUrl() {
-  const baseUrl = process.env.STRAPI_PUBLIC_URL?.trim();
-
-  if (!baseUrl) {
-    return DEFAULT_STRAPI_BROWSER_PATH;
-  }
-
-  return baseUrl.replace(/\/$/, '') || DEFAULT_STRAPI_BROWSER_PATH;
-}
-
-function toBrowserMediaUrl(url: string) {
-  if (!url) {
-    return '';
-  }
-
-  const publicUrl = getStrapiPublicUrl();
-
-  if (/^https?:\/\//.test(url)) {
-    return url;
-  }
-
-  if (publicUrl && url.startsWith('/')) {
-    return `${publicUrl}${url}`;
-  }
-
-  return url;
-}
-
 async function getStrapiSponsors(): Promise<Sponsor[] | null> {
-  const strapiUrl = getStrapiUrl();
-
-  logger.info(
-    `Fetching sponsors from Strapi at: ${strapiUrl ?? 'not configured'}`,
+  const sponsors = await getStrapiContent<StrapiSponsorResponse[]>(
+    'sponsors',
+    {
+      'populate[logo][fields][0]': 'url',
+    },
+    {
+      next: { revalidate: 600 },
+    },
   );
 
-  if (!strapiUrl) {
+  if (!sponsors) {
+    logger.warn('No sponsors found in Strapi response.');
     return null;
   }
 
-  const sponsorEndpoint = `${strapiUrl}/api/sponsors?sort[0]=sortOrder:asc&filters[active][$eq]=true&pagination[pageSize]=100&populate[logo][fields][0]=url`;
-  logger.info(`Calling Strapi endpoint: ${sponsorEndpoint}`);
-
-  const response = await fetch(sponsorEndpoint, {
-    next: {
-      revalidate: 300,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch sponsors from Strapi: ${response.status}`);
-  }
-
-  const payload = (await response.json()).data as StrapiSponsorResponse[];
-  const items = payload ?? [];
-
-  return items
+  return sponsors
     .map((item) => ({
       sponsor: item.sponsor ?? '',
       logo: toBrowserMediaUrl(item.logo?.url ?? ''),

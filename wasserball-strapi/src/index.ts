@@ -61,6 +61,7 @@ async function ensurePublicReadPermissions(strapi: StrapiLike) {
     "api::sponsor.sponsor.findOne",
     "plugin::upload.content-api.find",
     "plugin::upload.content-api.findOne",
+    "api::euregio-text.euregio-text.find",
   ];
 
   for (const action of actions) {

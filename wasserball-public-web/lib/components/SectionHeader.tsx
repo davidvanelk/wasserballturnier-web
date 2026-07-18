@@ -1,5 +1,5 @@
 type SectionHeaderProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   titleClassName?: string;
   className?: string;

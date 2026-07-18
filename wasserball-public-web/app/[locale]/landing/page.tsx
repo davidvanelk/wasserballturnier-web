@@ -8,6 +8,8 @@ import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import SectionHeader from '@/lib/components/SectionHeader';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
+import { getEuregioText } from '@/lib/strapi/euregio-text';
+import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +29,9 @@ export default async function LandingPage({
     ', ',
   );
   const locationCity = locationRest.join(', ');
+  const euregioText = await getEuregioText(await params.then((p) => p.locale));
+
+  console.log('Euregio Text:', euregioText);
 
   const programHighlights = [
     { title: t('feature_family'), icon: FamilyRestroomOutlinedIcon },
@@ -171,8 +176,32 @@ export default async function LandingPage({
         className="px-6 py-8 sm:px-8 sm:py-10"
         revealDelay={2}
       >
-        <SponsorCarousel />
+        <div className="flex flex-col gap-6 text-white">
+          <SponsorCarousel />
+        </div>
       </FlyerSurface>
+      {euregioText && (
+        <FlyerSurface id="euregio" className="p-6 sm:p-8" revealDelay={1}>
+          <SectionHeader title={euregioText.heading} />
+          <p className="mt-6">{euregioText.text}</p>
+          <div className="flex mt-6 gap-4 flex-wrap items-center justify-center">
+            <Image
+              className="h-30 w-auto"
+              src={euregioText.interregLogoUrl}
+              alt="Interreg Logo"
+              width={400}
+              height={96}
+            />
+            <Image
+              className="h-30 w-auto"
+              src={euregioText.euregioLogoUrl}
+              alt="Euregio Logo"
+              width={400}
+              height={96}
+            />
+          </div>
+        </FlyerSurface>
+      )}
     </main>
   );
 }

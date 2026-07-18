@@ -17,6 +17,7 @@ const Footer = async () => {
             </p>
             <p className="mt-3">
               <Link
+                prefetch={false}
                 className="text-white/72 hover:text-white"
                 href={`/${locale}/imprint`}
               >
@@ -25,6 +26,7 @@ const Footer = async () => {
             </p>
             <p>
               <Link
+                prefetch={false}
                 className="text-white/72 hover:text-white"
                 href={`/${locale}/privacy`}
               >

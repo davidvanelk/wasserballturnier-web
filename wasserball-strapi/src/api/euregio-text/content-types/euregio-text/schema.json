@@ -1,0 +1,65 @@
+{
+  "kind": "singleType",
+  "collectionName": "euregio_texts",
+  "info": {
+    "singularName": "euregio-text",
+    "pluralName": "euregio-texts",
+    "displayName": "Euregio Text",
+    "description": "Text for the Euregio section on the landing page"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "pluginOptions": {
+      "i18n": {
+        "localized": true
+      }
+    }
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "text": {
+      "type": "richtext",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "logo_interreg": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "logo_euregio": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    }
+  }
+}
