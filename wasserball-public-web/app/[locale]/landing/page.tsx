@@ -30,9 +30,6 @@ export default async function LandingPage({
   );
   const locationCity = locationRest.join(', ');
   const euregioText = await getEuregioText(await params.then((p) => p.locale));
-
-  console.log('Euregio Text:', euregioText);
-
   const programHighlights = [
     { title: t('feature_family'), icon: FamilyRestroomOutlinedIcon },
     { title: t('feature_coffee'), icon: LocalCafeOutlinedIcon },
