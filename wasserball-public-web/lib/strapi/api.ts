@@ -2,7 +2,6 @@ import { logger } from '../logger';
 
 const DEFAULT_STRAPI_BROWSER_PATH = '/cms';
 const STRAPI_URL = getStrapiUrl();
-const STRAPI_PUBLIC_URL = getStrapiPublicUrl();
 
 function getStrapiUrl() {
   const baseUrl = process.env.STRAPI_URL?.trim();

@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "group_matches",
+  "info": {
+    "singularName": "group-match",
+    "pluralName": "group-matches",
+    "displayName": "Group Match",
+    "description": "Group stage match with score tracking"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "matchLabel": {
+      "type": "string"
+    },
+    "matchNumber": {
+      "type": "integer",
+      "required": true,
+      "unique": true,
+      "min": 1
+    },
+    "phase": {
+      "type": "enumeration",
+      "enum": ["group_phase", "lucky_second_playoff", "quarterfinal", "semifinal", "third_place", "final"],
+      "required": true,
+      "default": "group_phase"
+    },
+    "matchStatus": {
+      "type": "enumeration",
+      "enum": ["scheduled", "completed", "cancelled"],
+      "required": false,
+      "default": "scheduled",
+      "columnName": "status"
+    },
+    "playedAt": {
+      "type": "datetime"
+    },
+    "homeScore": {
+      "type": "integer",
+      "min": 0
+    },
+    "awayScore": {
+      "type": "integer",
+      "min": 0
+    },
+    "team1PenaltyPoints": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "team2PenaltyPoints": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "roundSlot": {
+      "type": "integer",
+      "min": 1,
+      "max": 4
+    },
+    "group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "matches"
+    },
+    "homeTeam": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team",
+      "inversedBy": "homeMatches",
+      "required": true
+    },
+    "awayTeam": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team",
+      "inversedBy": "awayMatches",
+      "required": true
+    }
+  }
+}

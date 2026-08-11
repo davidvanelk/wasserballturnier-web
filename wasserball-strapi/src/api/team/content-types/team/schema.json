@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "teams",
+  "info": {
+    "singularName": "team",
+    "pluralName": "teams",
+    "displayName": "Team",
+    "description": "Tournament team with nationality and group assignment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "nationality": {
+      "type": "enumeration",
+      "enum": ["NL", "DE"],
+      "required": true
+    },
+    "isPresent": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "teams"
+    },
+    "homeMatches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::group-match.group-match",
+      "mappedBy": "homeTeam"
+    },
+    "awayMatches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::group-match.group-match",
+      "mappedBy": "awayTeam"
+    }
+  }
+}
