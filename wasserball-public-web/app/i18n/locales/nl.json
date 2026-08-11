@@ -43,9 +43,10 @@
     "feature_grill": "Vers van de grill"
   },
   "navbar": {
-    "title": "Waterpolo",
+    "title": "Wasserbal",
     "home": "Home",
     "matches": "Wedstrijden",
+    "teams": "Teams",
     "contact": "Contact",
     "open_menu": "Menu openen"
   },
@@ -66,6 +67,47 @@
     "socialMedia": {
       "sectionTitle": "Volg ons"
     }
+  },
+  "teams": {
+    "eyebrow": "Deelnemers",
+    "title": "Alle Teams",
+    "description": "Alle deelnemende teams in één overzicht.",
+    "empty": "Er zijn nog geen teams toegevoegd.",
+    "points_short": "Ptn",
+    "group_label": "Groep",
+    "nationality_NL": "🇳🇱 Nederland",
+    "nationality_DE": "🇩🇪 Duitsland"
+  },
+  "team_detail": {
+    "eyebrow": "Team",
+    "group_label": "Groep",
+    "nationality_label": "Nationaliteit",
+    "nationality_NL": "🇳🇱 Nederland",
+    "nationality_DE": "🇩🇪 Duitsland",
+    "standings_title": "Stand",
+    "standings_played": "Gespeeld",
+    "standings_won": "Gewonnen",
+    "standings_drawn": "Gelijk",
+    "standings_lost": "Verloren",
+    "standings_gf": "Doelpunten voor",
+    "standings_ga": "Doelpunten tegen",
+    "standings_gd": "Doelsaldo",
+    "standings_pts": "Punten",
+    "standings_penalty_points": "Strafpunten",
+    "matches_title": "Groepswedstrijden",
+    "playoff_matches_eyebrow": "Kwalificatie",
+    "playoff_matches_title": "Beslissingswedstrijden",
+    "knockout_matches_eyebrow": "Finaleronde",
+    "knockout_matches_title": "Knock-outwedstrijden",
+    "match_team_1": "Team 1",
+    "match_team_2": "Team 2",
+    "match_penalty_points": "Strafpunten",
+    "match_vs": "vs.",
+    "match_scheduled": "Gepland",
+    "match_result_win": "Gewonnen",
+    "match_result_draw": "Gelijkspel",
+    "match_result_loss": "Verloren",
+    "back_to_teams": "Alle Teams"
   },
   "imprint": {
     "label": "Impressum"

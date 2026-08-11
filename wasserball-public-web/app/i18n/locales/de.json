@@ -46,6 +46,7 @@
     "title": "Wasserball",
     "home": "Home",
     "matches": "Spiele",
+    "teams": "Teams",
     "contact": "Kontakt",
     "open_menu": "Menü öffnen"
   },
@@ -66,6 +67,47 @@
     "socialMedia": {
       "sectionTitle": "Folge uns"
     }
+  },
+  "teams": {
+    "eyebrow": "Teilnehmer",
+    "title": "Alle Teams",
+    "description": "Alle teilnehmenden Teams auf einen Blick.",
+    "empty": "Es wurden noch keine Teams hinzugefügt.",
+    "points_short": "Pkt",
+    "group_label": "Gruppe",
+    "nationality_NL": "🇳🇱 Niederlande",
+    "nationality_DE": "🇩🇪 Deutschland"
+  },
+  "team_detail": {
+    "eyebrow": "Team",
+    "group_label": "Gruppe",
+    "nationality_label": "Nation",
+    "nationality_NL": "🇳🇱 Niederlande",
+    "nationality_DE": "🇩🇪 Deutschland",
+    "standings_title": "Punktestand",
+    "standings_played": "Spiele",
+    "standings_won": "Siege",
+    "standings_drawn": "Unentschieden",
+    "standings_lost": "Niederlagen",
+    "standings_gf": "Tore",
+    "standings_ga": "Gegentore",
+    "standings_gd": "Tordifferenz",
+    "standings_pts": "Punkte",
+    "standings_penalty_points": "Strafpunkte",
+    "matches_title": "Gruppenspiele",
+    "playoff_matches_eyebrow": "Qualifikation",
+    "playoff_matches_title": "Stechspiele",
+    "knockout_matches_eyebrow": "Finalrunde",
+    "knockout_matches_title": "KO-Spiele",
+    "match_team_1": "Team 1",
+    "match_team_2": "Team 2",
+    "match_penalty_points": "Strafpunkte",
+    "match_vs": "vs.",
+    "match_scheduled": "Geplant",
+    "match_result_win": "Sieg",
+    "match_result_draw": "Unentschieden",
+    "match_result_loss": "Niederlage",
+    "back_to_teams": "Alle Teams"
   },
   "imprint": {
     "label": "Impressum"

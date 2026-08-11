@@ -2,125 +2,113 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useScopedI18n } from '@/app/i18n/client';
+import { usePathname } from 'next/navigation';
+import { useCurrentLocale, useScopedI18n } from '@/app/i18n/client';
 import LocaleSwitcher from './LocaleSwitcher';
+
+const links = [
+  { href: '/landing', label: 'home' },
+  { href: '/teams', label: 'teams' },
+] as const;
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const locale = useCurrentLocale();
+  const pathname = usePathname();
   const t = useScopedI18n('navbar');
 
-  return (
-    <nav className="bg-background border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link
-                href="/landing"
-                className="text-xl font-bold text-foreground"
-              >
-                {t('title')}
-              </Link>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                href="/landing"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-foreground hover:border-gray-300 hover:text-gray-500 transition-colors"
-              >
-                {t('home')}
-              </Link>
-              <Link
-                href="/matches"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-foreground hover:border-gray-300 hover:text-gray-500 transition-colors"
-              >
-                {t('matches')}
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-foreground hover:border-gray-300 hover:text-gray-500 transition-colors"
-              >
-                {t('contact')}
-              </Link>
-            </div>
-          </div>
-          <div className="-mr-2 flex items-center">
-            <LocaleSwitcher />
-            <div className="sm:hidden ml-2">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                aria-controls="mobile-menu"
-                aria-expanded={isMenuOpen}
-              >
-                <span className="sr-only">{t('open_menu')}</span>
-                {!isMenuOpen ? (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  const isActive = (href: string) => {
+    const localizedHref = `/${locale}${href}`;
+    return (
+      pathname === localizedHref || pathname.startsWith(`${localizedHref}/`)
+    );
+  };
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="sm:hidden" id="mobile-menu">
-          <div className="pt-2 pb-3 space-y-1 bg-background border-b border-gray-200">
-            <Link
-              href="/landing"
-              className="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50"
-              onClick={() => setIsMenuOpen(false)}
+  return (
+    <nav
+      className="sticky top-0 z-50 w-full px-4 pt-4 sm:px-3 lg:px-8"
+      aria-label={t('title')}
+    >
+      <div className="mx-auto max-w-7xl rounded-[1.5rem] border border-[var(--brand-line)] bg-[rgba(255,255,255,0.88)] px-4 shadow-[0_12px_32px_rgba(28,28,28,0.09)] backdrop-blur-xl sm:px-6">
+        <div className="flex min-h-16 items-center justify-between gap-4">
+          <Link
+            href={`/${locale}/landing`}
+            className="font-mono text-lg font-semibold uppercase tracking-[0.08em] text-[var(--brand-ink)] hover:text-[var(--brand-red)]"
+          >
+            {t('title')}
+          </Link>
+
+          <div className="hidden items-stretch self-stretch md:flex">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={`/${locale}${link.href}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`relative flex items-center px-4 text-sm font-bold uppercase tracking-[0.1em] transition-colors after:absolute after:inset-x-4 after:bottom-0 after:h-0.5 after:rounded-full ${
+                  isActive(link.href)
+                    ? 'text-[var(--brand-red)] after:bg-[var(--brand-red)]'
+                    : 'text-[var(--brand-gray)] after:bg-transparent hover:text-[var(--brand-ink)]'
+                }`}
+              >
+                {t(link.label)}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <LocaleSwitcher />
+            <button
+              onClick={() => setIsMenuOpen((open) => !open)}
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(28,28,28,0.12)] bg-white text-[var(--brand-ink)] hover:border-[var(--brand-red)] hover:text-[var(--brand-red)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-red)] md:hidden"
+              aria-controls="mobile-menu"
+              aria-expanded={isMenuOpen}
             >
-              {t('home')}
-            </Link>
-            <Link
-              href="/matches"
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-foreground hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {t('matches')}
-            </Link>
-            <Link
-              href="/contact"
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-foreground hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {t('contact')}
-            </Link>
+              <span className="sr-only">{t('open_menu')}</span>
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d={
+                    isMenuOpen
+                      ? 'M6 6l12 12M18 6 6 18'
+                      : 'M4 7h16M4 12h16M4 17h16'
+                  }
+                />
+              </svg>
+            </button>
           </div>
         </div>
-      )}
+
+        {isMenuOpen ? (
+          <div
+            className="border-t border-[var(--brand-line)] py-3 md:hidden"
+            id="mobile-menu"
+          >
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={`/${locale}${link.href}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`my-1 block rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-[0.12em] ${
+                  isActive(link.href)
+                    ? 'bg-[var(--brand-red)] text-white'
+                    : 'text-[var(--brand-gray)] hover:bg-[var(--surface-muted)] hover:text-[var(--brand-ink)]'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t(link.label)}
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </div>
     </nav>
   );
 }
