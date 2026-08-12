@@ -146,6 +146,30 @@
     "round_final": "Finale",
     "back_to_teams": "Alle Teams"
   },
+  "match_detail": {
+    "back": "Terug",
+    "back_to_standings": "Terug naar de stand",
+    "match": "Wedstrijd",
+    "home_team": "Team 1",
+    "away_team": "Team 2",
+    "penalty_points": "Strafpunten",
+    "match_number": "Wedstrijdnummer",
+    "phase": "Ronde",
+    "status": "Status",
+    "played_at": "Speeltijd",
+    "group": "Groep",
+    "round_slot": "Rondepositie",
+    "not_set": "Nog niet vastgesteld",
+    "status_scheduled": "Gepland",
+    "status_completed": "Afgerond",
+    "status_cancelled": "Afgelast",
+    "phase_group": "Groepsfase",
+    "phase_playoff": "Beslissingswedstrijd",
+    "phase_quarterfinal": "Kwartfinale",
+    "phase_semifinal": "Halve finale",
+    "phase_third_place": "Wedstrijd om plaats 3",
+    "phase_final": "Finale"
+  },
   "imprint": {
     "label": "Impressum"
   }

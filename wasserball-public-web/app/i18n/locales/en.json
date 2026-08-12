@@ -146,6 +146,30 @@
     "round_final": "Final",
     "back_to_teams": "All Teams"
   },
+  "match_detail": {
+    "back": "Back",
+    "back_to_standings": "Back to standings",
+    "match": "Match",
+    "home_team": "Team 1",
+    "away_team": "Team 2",
+    "penalty_points": "Penalty points",
+    "match_number": "Match number",
+    "phase": "Round",
+    "status": "Status",
+    "played_at": "Match time",
+    "group": "Group",
+    "round_slot": "Round slot",
+    "not_set": "Not yet set",
+    "status_scheduled": "Scheduled",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled",
+    "phase_group": "Group stage",
+    "phase_playoff": "Playoff",
+    "phase_quarterfinal": "Quarterfinal",
+    "phase_semifinal": "Semifinal",
+    "phase_third_place": "Third-place match",
+    "phase_final": "Final"
+  },
   "imprint": {
     "label": "Imprint"
   }

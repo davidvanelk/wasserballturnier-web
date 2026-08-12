@@ -12,6 +12,7 @@ import FlyerSurface from '@/lib/components/FlyerSurface';
 import SectionHeader from '@/lib/components/SectionHeader';
 import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import TeamName from '@/lib/components/TeamName';
+import MatchLink from '@/lib/components/MatchLink';
 
 export const dynamic = 'force-dynamic';
 
@@ -209,10 +210,12 @@ function MatchRow({
   match,
   t,
   championTeamId,
+  locale,
 }: {
   match: MatchEntry;
   t: TFn;
   championTeamId: number | undefined;
+  locale: string;
 }) {
   const { label, className } = resultBadge(match.result, t);
   const knockoutRound = roundLabel(match, t);
@@ -220,7 +223,10 @@ function MatchRow({
     match.teamNumber === 1 ? t('match_team_1') : t('match_team_2');
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-[1.25rem] border border-[rgba(28,28,28,0.08)] bg-white px-5 py-4 shadow-[0_6px_16px_rgba(28,28,28,0.05)]">
+    <MatchLink
+      className="flex items-center justify-between gap-4 rounded-[1.25rem] border border-[rgba(28,28,28,0.08)] bg-white px-5 py-4 shadow-[0_6px_16px_rgba(28,28,28,0.05)] transition hover:-translate-y-0.5 hover:border-[var(--brand-red)] hover:shadow-[0_10px_24px_rgba(28,28,28,0.1)]"
+      href={`/${locale}/matches/${match.matchId}`}
+    >
       <div className="flex min-w-0 flex-col gap-1">
         {knockoutRound ? (
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-red)]">
@@ -265,7 +271,7 @@ function MatchRow({
           {label}
         </span>
       </div>
-    </div>
+    </MatchLink>
   );
 }
 
@@ -434,6 +440,7 @@ export default async function TeamDetailPage({
               <MatchRow
                 championTeamId={championTeamId}
                 key={match.matchId}
+                locale={locale}
                 match={match}
                 t={tFn}
               />
@@ -453,6 +460,7 @@ export default async function TeamDetailPage({
               <MatchRow
                 championTeamId={championTeamId}
                 key={match.matchId}
+                locale={locale}
                 match={match}
                 t={tFn}
               />
@@ -472,6 +480,7 @@ export default async function TeamDetailPage({
               <MatchRow
                 championTeamId={championTeamId}
                 key={match.matchId}
+                locale={locale}
                 match={match}
                 t={tFn}
               />

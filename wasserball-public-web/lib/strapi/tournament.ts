@@ -29,7 +29,7 @@ export type MatchEntry = {
     | 'semifinal'
     | 'third_place'
     | 'final';
-  status: 'scheduled' | 'completed';
+  status: 'scheduled' | 'completed' | 'cancelled';
   playedAt: string | null;
   opponent: { teamId: number; teamName: string; nationality: string };
   teamNumber: 1 | 2;
@@ -65,12 +65,14 @@ export type GroupStandings = {
   standings: TeamStanding[];
 };
 
-type StrapiPlayoffMatch = {
+export type StrapiMatch = {
   id: number;
+  documentId: string;
+  matchLabel: string | null;
   matchNumber: number;
   roundSlot: number | null;
   phase: MatchEntry['phase'];
-  matchStatus: 'scheduled' | 'completed';
+  matchStatus: 'scheduled' | 'completed' | 'cancelled';
   playedAt: string | null;
   homeScore: number | null;
   awayScore: number | null;
@@ -78,6 +80,10 @@ type StrapiPlayoffMatch = {
   team2PenaltyPoints: number | null;
   homeTeam: StrapiTeam | null;
   awayTeam: StrapiTeam | null;
+  group: StrapiGroup | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string | null;
 };
 
 // ---------------------------------------------------------------------------
@@ -124,11 +130,22 @@ export async function getStandingsByGroup(
   return result ?? [];
 }
 
+export async function getMatchById(id: number): Promise<StrapiMatch | null> {
+  const matches = await getStrapiContent<StrapiMatch[]>('group-matches', {
+    'filters[id][$eq]': String(id),
+    'populate[group]': 'true',
+    'populate[homeTeam]': 'true',
+    'populate[awayTeam]': 'true',
+    'pagination[limit]': '1',
+  });
+  return matches?.[0] ?? null;
+}
+
 export async function getPostGroupMatchesByTeam(): Promise<
   Map<number, MatchEntry[]>
 > {
   const matches =
-    (await getStrapiContent<StrapiPlayoffMatch[]>('group-matches', {
+    (await getStrapiContent<StrapiMatch[]>('group-matches', {
       'filters[phase][$ne]': 'group_phase',
       'populate[homeTeam]': 'true',
       'populate[awayTeam]': 'true',
