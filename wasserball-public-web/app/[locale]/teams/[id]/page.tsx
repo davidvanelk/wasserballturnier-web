@@ -4,12 +4,14 @@ import {
   getTeamById,
   getStandingsByGroup,
   getPostGroupMatchesByTeam,
+  getOverallStandings,
   type TeamStanding,
   type MatchEntry,
 } from '@/lib/strapi/tournament';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import SectionHeader from '@/lib/components/SectionHeader';
 import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
+import TeamName from '@/lib/components/TeamName';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +44,23 @@ function resultBadge(
   };
 }
 
+function roundLabel(match: MatchEntry, t: TFn): string | null {
+  if (match.phase === 'quarterfinal') {
+    return match.roundSlot
+      ? `${t('round_quarterfinal')} ${match.roundSlot}`
+      : t('round_quarterfinal');
+  }
+  if (match.phase === 'semifinal') {
+    return match.roundSlot
+      ? `${t('round_semifinal')} ${match.roundSlot}`
+      : t('round_semifinal');
+  }
+  if (match.phase === 'third_place') return t('round_third_place');
+  if (match.phase === 'final') return t('round_final');
+  if (match.phase === 'lucky_second_playoff') return t('round_playoff');
+  return null;
+}
+
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
@@ -70,10 +89,14 @@ function includePostGroupMatches(
   return {
     ...standing,
     played: standing.played + completed.length,
-    won: standing.won + completed.filter((match) => match.result === 'win').length,
+    won:
+      standing.won + completed.filter((match) => match.result === 'win').length,
     drawn:
-      standing.drawn + completed.filter((match) => match.result === 'draw').length,
-    lost: standing.lost + completed.filter((match) => match.result === 'loss').length,
+      standing.drawn +
+      completed.filter((match) => match.result === 'draw').length,
+    lost:
+      standing.lost +
+      completed.filter((match) => match.result === 'loss').length,
     goalsFor,
     goalsAgainst,
     goalDifference: goalsFor - goalsAgainst,
@@ -90,10 +113,12 @@ function GroupStandingsTable({
   standing,
   allStandings,
   t,
+  championTeamId,
 }: {
   standing: TeamStanding;
   allStandings: TeamStanding[];
   t: TFn;
+  championTeamId: number | undefined;
 }) {
   const cols = [
     { key: 'teamName', label: '' },
@@ -143,7 +168,11 @@ function GroupStandingsTable({
                           : 'text-[var(--brand-ink)]'
                       }
                     >
-                      {row.teamName}
+                      <TeamName
+                        championLabel={t('champion')}
+                        isChampion={row.teamId === championTeamId}
+                        name={row.teamName}
+                      />
                     </span>
                   </div>
                 </td>
@@ -176,21 +205,40 @@ function GroupStandingsTable({
   );
 }
 
-function MatchRow({ match, t }: { match: MatchEntry; t: TFn }) {
+function MatchRow({
+  match,
+  t,
+  championTeamId,
+}: {
+  match: MatchEntry;
+  t: TFn;
+  championTeamId: number | undefined;
+}) {
   const { label, className } = resultBadge(match.result, t);
+  const knockoutRound = roundLabel(match, t);
   const teamLabel =
     match.teamNumber === 1 ? t('match_team_1') : t('match_team_2');
 
   return (
     <div className="flex items-center justify-between gap-4 rounded-[1.25rem] border border-[rgba(28,28,28,0.08)] bg-white px-5 py-4 shadow-[0_6px_16px_rgba(28,28,28,0.05)]">
       <div className="flex min-w-0 flex-col gap-1">
+        {knockoutRound ? (
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-red)]">
+            {knockoutRound}
+          </p>
+        ) : null}
         <div className="flex items-center gap-2">
           <span className="rounded-full border border-[rgba(28,28,28,0.12)] px-2 py-0.5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--brand-gray)]">
             #{match.matchNumber} · {teamLabel}
           </span>
         </div>
         <p className="truncate text-sm font-semibold text-[var(--brand-ink)]">
-          {t('match_vs')} {match.opponent.teamName}
+          {t('match_vs')}{' '}
+          <TeamName
+            championLabel={t('champion')}
+            isChampion={match.opponent.teamId === championTeamId}
+            name={match.opponent.teamName}
+          />
         </p>
         {match.playedAt && (
           <p className="text-xs text-[var(--brand-gray)]">
@@ -237,10 +285,15 @@ export default async function TeamDetailPage({
   const team = await getTeamById(id);
   if (!team) notFound();
 
-  const [groupStandings, postGroupMatchesByTeam] = await Promise.all([
-    team.group ? getStandingsByGroup(team.group.id) : [],
-    getPostGroupMatchesByTeam(),
-  ]);
+  const [groupStandings, postGroupMatchesByTeam, overallStandings] =
+    await Promise.all([
+      team.group ? getStandingsByGroup(team.group.id) : [],
+      getPostGroupMatchesByTeam(),
+      getOverallStandings(),
+    ]);
+  const championTeamId = overallStandings.find(
+    (standing) => standing.isChampion,
+  )?.teamId;
 
   const rawGroupData = groupStandings[0] ?? null;
   const groupData = rawGroupData
@@ -299,7 +352,11 @@ export default async function TeamDetailPage({
               {t('eyebrow')}
             </p>
             <h1 className="mt-3 font-mono text-4xl font-semibold uppercase text-[var(--brand-ink)] sm:text-5xl">
-              {team.name}
+              <TeamName
+                championLabel={t('champion')}
+                isChampion={team.id === championTeamId}
+                name={team.name}
+              />
             </h1>
 
             <div className="mt-4 flex flex-wrap gap-3">
@@ -332,6 +389,7 @@ export default async function TeamDetailPage({
             <GroupStandingsTable
               standing={teamStanding}
               allStandings={groupData.standings}
+              championTeamId={championTeamId}
               t={tFn}
             />
           </div>
@@ -373,7 +431,12 @@ export default async function TeamDetailPage({
           />
           <div className="mt-6 flex flex-col gap-3">
             {teamStanding.matches.map((match) => (
-              <MatchRow key={match.matchId} match={match} t={tFn} />
+              <MatchRow
+                championTeamId={championTeamId}
+                key={match.matchId}
+                match={match}
+                t={tFn}
+              />
             ))}
           </div>
         </FlyerSurface>
@@ -387,7 +450,12 @@ export default async function TeamDetailPage({
           />
           <div className="mt-6 flex flex-col gap-3">
             {playoffMatches.map((match) => (
-              <MatchRow key={match.matchId} match={match} t={tFn} />
+              <MatchRow
+                championTeamId={championTeamId}
+                key={match.matchId}
+                match={match}
+                t={tFn}
+              />
             ))}
           </div>
         </FlyerSurface>
@@ -401,7 +469,12 @@ export default async function TeamDetailPage({
           />
           <div className="mt-6 flex flex-col gap-3">
             {knockoutMatches.map((match) => (
-              <MatchRow key={match.matchId} match={match} t={tFn} />
+              <MatchRow
+                championTeamId={championTeamId}
+                key={match.matchId}
+                match={match}
+                t={tFn}
+              />
             ))}
           </div>
         </FlyerSurface>

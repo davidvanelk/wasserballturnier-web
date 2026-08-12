@@ -6,7 +6,20 @@ type TeamRef = {
   id: number;
   name: string;
   nationality: string;
+  isPresent: boolean;
 };
+
+type TeamWithGroup = TeamRef & {
+  group: GroupRef | null;
+};
+
+type MatchPhase =
+  | "group_phase"
+  | "lucky_second_playoff"
+  | "quarterfinal"
+  | "semifinal"
+  | "third_place"
+  | "final";
 
 type GroupRef = {
   id: number;
@@ -16,6 +29,7 @@ type GroupRef = {
 type GroupMatchRecord = {
   id: number;
   matchNumber: number;
+  phase: MatchPhase;
   matchStatus: string;
   playedAt: string | null;
   homeScore: number | null;
@@ -30,7 +44,7 @@ type GroupMatchRecord = {
 export type MatchEntry = {
   matchId: number;
   matchNumber: number;
-  phase: "group_phase";
+  phase: MatchPhase;
   status: string;
   playedAt: string | null;
   opponent: { teamId: number; teamName: string; nationality: string };
@@ -57,6 +71,7 @@ export type TeamStanding = {
   goalDifference: number;
   points: number;
   penaltyPoints: number;
+  isChampion: boolean;
   matches: MatchEntry[];
 };
 
@@ -66,13 +81,13 @@ export type GroupStandings = {
   standings: TeamStanding[];
 };
 
-function emptyStanding(team: TeamRef, group: GroupRef): TeamStanding {
+function emptyStanding(team: TeamRef, group: GroupRef | null): TeamStanding {
   return {
     teamId: team.id,
     teamName: team.name,
     nationality: team.nationality,
-    groupId: group.id,
-    groupName: group.name,
+    groupId: group?.id ?? 0,
+    groupName: group?.name ?? "",
     played: 0,
     won: 0,
     drawn: 0,
@@ -82,6 +97,7 @@ function emptyStanding(team: TeamRef, group: GroupRef): TeamStanding {
     goalDifference: 0,
     points: 0,
     penaltyPoints: 0,
+    isChampion: false,
     matches: [],
   };
 }
@@ -121,10 +137,14 @@ function applyCompletedMatch(
   standing.matches.push({
     matchId: match.id,
     matchNumber: match.matchNumber,
-    phase: "group_phase",
+    phase: match.phase,
     status: match.matchStatus,
     playedAt: match.playedAt,
-    opponent: { teamId: opponent.id, teamName: opponent.name, nationality: opponent.nationality },
+    opponent: {
+      teamId: opponent.id,
+      teamName: opponent.name,
+      nationality: opponent.nationality,
+    },
     teamNumber,
     goalsScored: goalsFor,
     goalsConceded: goalsAgainst,
@@ -143,10 +163,14 @@ function applyScheduledMatch(
   standing.matches.push({
     matchId: match.id,
     matchNumber: match.matchNumber,
-    phase: "group_phase",
+    phase: match.phase,
     status: match.matchStatus,
     playedAt: match.playedAt,
-    opponent: { teamId: opponent.id, teamName: opponent.name, nationality: opponent.nationality },
+    opponent: {
+      teamId: opponent.id,
+      teamName: opponent.name,
+      nationality: opponent.nationality,
+    },
     teamNumber,
     goalsScored: null,
     goalsConceded: null,
@@ -178,7 +202,7 @@ export async function computeStandings(
   strapi: StrapiLike,
   groupId?: number,
 ): Promise<GroupStandings[]> {
-  const filters: Record<string, unknown> = {};
+  const filters: Record<string, unknown> = { phase: "group_phase" };
   if (groupId !== undefined) {
     filters.group = groupId;
   }
@@ -189,9 +213,20 @@ export async function computeStandings(
       filters,
       populate: {
         group: { fields: ["id", "name"] },
-        homeTeam: { fields: ["id", "name", "nationality"] },
-        awayTeam: { fields: ["id", "name", "nationality"] },
+        homeTeam: { fields: ["id", "name", "nationality", "isPresent"] },
+        awayTeam: { fields: ["id", "name", "nationality", "isPresent"] },
       },
+      fields: [
+        "id",
+        "matchNumber",
+        "phase",
+        "matchStatus",
+        "playedAt",
+        "homeScore",
+        "awayScore",
+        "team1PenaltyPoints",
+        "team2PenaltyPoints",
+      ],
       sort: ["matchNumber:asc"],
       limit: 500,
     },
@@ -214,46 +249,58 @@ export async function computeStandings(
 
     const group = match.group;
 
-    if (!groupMap.has(group.id)) {
-      groupMap.set(group.id, { group, teams: new Map() });
+    let groupEntry = groupMap.get(group.id);
+    if (!groupEntry) {
+      groupEntry = { group, teams: new Map() };
+      groupMap.set(group.id, groupEntry);
     }
 
-    const { teams } = groupMap.get(group.id)!;
+    const { teams } = groupEntry;
 
-    if (!teams.has(match.homeTeam.id)) {
+    if (match.homeTeam.isPresent && !teams.has(match.homeTeam.id)) {
       teams.set(match.homeTeam.id, emptyStanding(match.homeTeam, group));
     }
-    if (!teams.has(match.awayTeam.id)) {
+    if (match.awayTeam.isPresent && !teams.has(match.awayTeam.id)) {
       teams.set(match.awayTeam.id, emptyStanding(match.awayTeam, group));
     }
 
-    const isCompleted =
+    const homeStanding = teams.get(match.homeTeam.id);
+    const awayStanding = teams.get(match.awayTeam.id);
+
+    if (
       match.matchStatus === "completed" &&
       match.homeScore !== null &&
-      match.awayScore !== null;
-
-    if (isCompleted) {
-      applyCompletedMatch(
-        teams.get(match.homeTeam.id)!,
-        match,
-        match.awayTeam,
-        1,
-        match.homeScore!,
-        match.awayScore!,
-        match.team1PenaltyPoints ?? 0,
-      );
-      applyCompletedMatch(
-        teams.get(match.awayTeam.id)!,
-        match,
-        match.homeTeam,
-        2,
-        match.awayScore!,
-        match.homeScore!,
-        match.team2PenaltyPoints ?? 0,
-      );
+      match.awayScore !== null
+    ) {
+      if (homeStanding) {
+        applyCompletedMatch(
+          homeStanding,
+          match,
+          match.awayTeam,
+          1,
+          match.homeScore,
+          match.awayScore,
+          match.team1PenaltyPoints ?? 0,
+        );
+      }
+      if (awayStanding) {
+        applyCompletedMatch(
+          awayStanding,
+          match,
+          match.homeTeam,
+          2,
+          match.awayScore,
+          match.homeScore,
+          match.team2PenaltyPoints ?? 0,
+        );
+      }
     } else {
-      applyScheduledMatch(teams.get(match.homeTeam.id)!, match, match.awayTeam, 1);
-      applyScheduledMatch(teams.get(match.awayTeam.id)!, match, match.homeTeam, 2);
+      if (homeStanding) {
+        applyScheduledMatch(homeStanding, match, match.awayTeam, 1);
+      }
+      if (awayStanding) {
+        applyScheduledMatch(awayStanding, match, match.homeTeam, 2);
+      }
     }
   }
 
@@ -264,4 +311,93 @@ export async function computeStandings(
       standings: sortStandings([...teams.values()]),
     }))
     .sort((a, b) => a.groupName.localeCompare(b.groupName));
+}
+
+export async function computeOverallStandings(
+  strapi: StrapiLike,
+): Promise<TeamStanding[]> {
+  const teams = (await strapi.entityService.findMany("api::team.team", {
+    filters: { isPresent: true },
+    fields: ["id", "name", "nationality", "isPresent"],
+    populate: { group: { fields: ["id", "name"] } },
+    limit: 100,
+  })) as TeamWithGroup[];
+  const standings = new Map(
+    teams.map((team) => [team.id, emptyStanding(team, team.group)]),
+  );
+  const matches = (await strapi.entityService.findMany(
+    "api::group-match.group-match",
+    {
+      filters: {
+        matchStatus: "completed",
+        homeScore: { $notNull: true },
+        awayScore: { $notNull: true },
+      },
+      fields: [
+        "id",
+        "matchNumber",
+        "phase",
+        "matchStatus",
+        "playedAt",
+        "homeScore",
+        "awayScore",
+        "team1PenaltyPoints",
+        "team2PenaltyPoints",
+      ],
+      populate: {
+        group: { fields: ["id", "name"] },
+        homeTeam: { fields: ["id", "name", "nationality", "isPresent"] },
+        awayTeam: { fields: ["id", "name", "nationality", "isPresent"] },
+      },
+      sort: ["matchNumber:asc"],
+      limit: 500,
+    },
+  )) as GroupMatchRecord[];
+
+  for (const match of matches) {
+    if (
+      !match.homeTeam ||
+      !match.awayTeam ||
+      match.homeScore === null ||
+      match.awayScore === null
+    ) {
+      continue;
+    }
+
+    const homeStanding = standings.get(match.homeTeam.id);
+    const awayStanding = standings.get(match.awayTeam.id);
+    if (homeStanding) {
+      applyCompletedMatch(
+        homeStanding,
+        match,
+        match.awayTeam,
+        1,
+        match.homeScore,
+        match.awayScore,
+        match.team1PenaltyPoints ?? 0,
+      );
+    }
+    if (awayStanding) {
+      applyCompletedMatch(
+        awayStanding,
+        match,
+        match.homeTeam,
+        2,
+        match.awayScore,
+        match.homeScore,
+        match.team2PenaltyPoints ?? 0,
+      );
+    }
+
+    if (match.phase === "final" && match.homeScore !== match.awayScore) {
+      const championId =
+        match.homeScore > match.awayScore
+          ? match.homeTeam.id
+          : match.awayTeam.id;
+      const champion = standings.get(championId);
+      if (champion) champion.isChampion = true;
+    }
+  }
+
+  return sortStandings([...standings.values()]);
 }

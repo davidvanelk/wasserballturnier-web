@@ -8,6 +8,7 @@ import LocaleSwitcher from './LocaleSwitcher';
 
 const links = [
   { href: '/landing', label: 'home' },
+  { href: '/standings', label: 'standings' },
   { href: '/teams', label: 'teams' },
 ] as const;
 

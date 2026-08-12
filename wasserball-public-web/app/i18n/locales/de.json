@@ -45,10 +45,40 @@
   "navbar": {
     "title": "Wasserball",
     "home": "Home",
+    "standings": "Tabelle",
     "matches": "Spiele",
     "teams": "Teams",
     "contact": "Kontakt",
     "open_menu": "Menü öffnen"
+  },
+  "standings": {
+    "eyebrow": "Gesamtübersicht",
+    "title": "Spieltabelle",
+    "description": "Alle Teams, Spiele, Tore und Punkte in einer gemeinsamen Tabelle.",
+    "empty": "Es sind noch keine Teams vorhanden.",
+    "position_short": "Pl.",
+    "team": "Team",
+    "champion": "Turniersieger",
+    "group": "Gruppe",
+    "played": "Spiele",
+    "played_short": "Sp.",
+    "won": "Siege",
+    "won_short": "S",
+    "drawn": "Unentschieden",
+    "drawn_short": "U",
+    "lost": "Niederlagen",
+    "lost_short": "N",
+    "goalsFor": "Tore",
+    "goalsFor_short": "T+",
+    "goalsAgainst": "Gegentore",
+    "goalsAgainst_short": "T−",
+    "goalDifference": "Tordifferenz",
+    "goalDifference_short": "Diff.",
+    "points_short": "Pkt.",
+    "ranking_hint": "Sortierung: Punkte, Strafpunkte, Tordifferenz und erzielte Tore. Berücksichtigt werden alle absolvierten Spiele aus Vorrunde, Stechspielen und KO-Runde.",
+    "group_eyebrow": "Gruppenphase",
+    "group_title": "Gruppentabellen",
+    "group_description": "Das aktuelle Ranking innerhalb jeder einzelnen Vorrundengruppe."
   },
   "sponsoring": {
     "carousel": {
@@ -73,6 +103,7 @@
     "title": "Alle Teams",
     "description": "Alle teilnehmenden Teams auf einen Blick.",
     "empty": "Es wurden noch keine Teams hinzugefügt.",
+    "champion": "Turniersieger",
     "points_short": "Pkt",
     "group_label": "Gruppe",
     "nationality_NL": "🇳🇱 Niederlande",
@@ -80,6 +111,7 @@
   },
   "team_detail": {
     "eyebrow": "Team",
+    "champion": "Turniersieger",
     "group_label": "Gruppe",
     "nationality_label": "Nation",
     "nationality_NL": "🇳🇱 Niederlande",
@@ -107,6 +139,11 @@
     "match_result_win": "Sieg",
     "match_result_draw": "Unentschieden",
     "match_result_loss": "Niederlage",
+    "round_playoff": "Stechspiel",
+    "round_quarterfinal": "Viertelfinale",
+    "round_semifinal": "Halbfinale",
+    "round_third_place": "Spiel um Platz 3",
+    "round_final": "Finale",
     "back_to_teams": "Alle Teams"
   },
   "imprint": {

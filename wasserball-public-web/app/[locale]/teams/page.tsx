@@ -1,13 +1,21 @@
 import Link from 'next/link';
 import { getScopedI18n, getCurrentLocale } from '@/app/i18n/server';
-import { getAllTeams, getAllStandings } from '@/lib/strapi/tournament';
+import {
+  getAllTeams,
+  getAllStandings,
+  getOverallStandings,
+} from '@/lib/strapi/tournament';
 import type { GroupStandings, StrapiTeam } from '@/lib/strapi/tournament';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import PageHero from '@/lib/components/PageHero';
+import TeamName from '@/lib/components/TeamName';
 
 export const dynamic = 'force-dynamic';
 
-function getTeamPoints(teamId: number, standings: GroupStandings[]): number | null {
+function getTeamPoints(
+  teamId: number,
+  standings: GroupStandings[],
+): number | null {
   for (const group of standings) {
     const standing = group.standings.find((s) => s.teamId === teamId);
     if (standing) return standing.points;
@@ -35,7 +43,14 @@ function groupTeams(teams: StrapiTeam[]): Map<string, StrapiTeam[]> {
 export default async function TeamsPage() {
   const locale = await getCurrentLocale();
   const t = await getScopedI18n('teams');
-  const [teams, standings] = await Promise.all([getAllTeams(), getAllStandings()]);
+  const [teams, standings, overallStandings] = await Promise.all([
+    getAllTeams(),
+    getAllStandings(),
+    getOverallStandings(),
+  ]);
+  const championTeamId = overallStandings.find(
+    (standing) => standing.isChampion,
+  )?.teamId;
   const hasCompleteGroupDraw =
     teams.length > 0 && teams.every((team) => team.group !== null);
   const groupedTeams = hasCompleteGroupDraw ? groupTeams(teams) : null;
@@ -57,7 +72,11 @@ export default async function TeamsPage() {
       >
         <div className="min-w-0">
           <h3 className="font-mono text-lg font-semibold uppercase text-[var(--brand-ink)] group-hover:text-[var(--brand-red)] sm:text-xl">
-            {team.name}
+            <TeamName
+              championLabel={t('champion')}
+              isChampion={team.id === championTeamId}
+              name={team.name}
+            />
           </h3>
           <p className="mt-1 text-sm text-[var(--brand-gray)]">
             {nationality}

@@ -80,6 +80,8 @@ All content APIs are under `/api`.
 - `GET /api/group-matches` (default includes group/homeTeam/awayTeam relations)
 - `GET /api/group-matches/:id`
 - `PUT /api/group-matches/:id` to update scores and set status to `completed`
+- `GET /api/standings` → group-stage standings grouped by preliminary group
+- `GET /api/standings/overall` → overall standings across every completed phase
 
 ## Group phase generator
 

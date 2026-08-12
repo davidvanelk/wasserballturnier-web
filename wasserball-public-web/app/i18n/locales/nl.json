@@ -45,10 +45,40 @@
   "navbar": {
     "title": "Wasserbal",
     "home": "Home",
+    "standings": "Stand",
     "matches": "Wedstrijden",
     "teams": "Teams",
     "contact": "Contact",
     "open_menu": "Menu openen"
+  },
+  "standings": {
+    "eyebrow": "Totaaloverzicht",
+    "title": "Stand",
+    "description": "Alle teams, wedstrijden, doelpunten en punten in één tabel.",
+    "empty": "Er zijn nog geen teams toegevoegd.",
+    "champion": "Toernooikampioen",
+    "position_short": "Pos.",
+    "team": "Team",
+    "group": "Groep",
+    "played": "Gespeeld",
+    "played_short": "G",
+    "won": "Gewonnen",
+    "won_short": "W",
+    "drawn": "Gelijk",
+    "drawn_short": "GL",
+    "lost": "Verloren",
+    "lost_short": "V",
+    "goalsFor": "Doelpunten voor",
+    "goalsFor_short": "DV",
+    "goalsAgainst": "Doelpunten tegen",
+    "goalsAgainst_short": "DT",
+    "goalDifference": "Doelsaldo",
+    "goalDifference_short": "DS",
+    "points_short": "Ptn",
+    "ranking_hint": "Gesorteerd op punten, strafpunten, doelsaldo en gescoorde doelpunten. Alle gespeelde groeps-, beslissings- en knock-outwedstrijden tellen mee.",
+    "group_eyebrow": "Groepsfase",
+    "group_title": "Groepsstanden",
+    "group_description": "De actuele rangschikking binnen elke voorrondegroep."
   },
   "sponsoring": {
     "carousel": {
@@ -73,6 +103,7 @@
     "title": "Alle Teams",
     "description": "Alle deelnemende teams in één overzicht.",
     "empty": "Er zijn nog geen teams toegevoegd.",
+    "champion": "Toernooikampioen",
     "points_short": "Ptn",
     "group_label": "Groep",
     "nationality_NL": "🇳🇱 Nederland",
@@ -80,6 +111,7 @@
   },
   "team_detail": {
     "eyebrow": "Team",
+    "champion": "Toernooikampioen",
     "group_label": "Groep",
     "nationality_label": "Nationaliteit",
     "nationality_NL": "🇳🇱 Nederland",
@@ -107,6 +139,11 @@
     "match_result_win": "Gewonnen",
     "match_result_draw": "Gelijkspel",
     "match_result_loss": "Verloren",
+    "round_playoff": "Beslissingswedstrijd",
+    "round_quarterfinal": "Kwartfinale",
+    "round_semifinal": "Halve finale",
+    "round_third_place": "Wedstrijd om plaats 3",
+    "round_final": "Finale",
     "back_to_teams": "Alle Teams"
   },
   "imprint": {

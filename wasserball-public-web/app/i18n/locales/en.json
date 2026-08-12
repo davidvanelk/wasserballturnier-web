@@ -45,10 +45,40 @@
   "navbar": {
     "title": "Wasserball",
     "home": "Home",
+    "standings": "Standings",
     "matches": "Matches",
     "teams": "Teams",
     "contact": "Contact",
     "open_menu": "Open menu"
+  },
+  "standings": {
+    "eyebrow": "Overall table",
+    "title": "Standings",
+    "description": "Every team, match, goal and point in one table.",
+    "empty": "No teams have been added yet.",
+    "champion": "Tournament champion",
+    "position_short": "Pos.",
+    "team": "Team",
+    "group": "Group",
+    "played": "Played",
+    "played_short": "P",
+    "won": "Won",
+    "won_short": "W",
+    "drawn": "Drawn",
+    "drawn_short": "D",
+    "lost": "Lost",
+    "lost_short": "L",
+    "goalsFor": "Goals for",
+    "goalsFor_short": "GF",
+    "goalsAgainst": "Goals against",
+    "goalsAgainst_short": "GA",
+    "goalDifference": "Goal difference",
+    "goalDifference_short": "GD",
+    "points_short": "Pts",
+    "ranking_hint": "Sorted by points, penalty points, goal difference and goals scored. All completed group-stage, playoff and knockout matches are included.",
+    "group_eyebrow": "Group stage",
+    "group_title": "Group standings",
+    "group_description": "The current ranking within each preliminary-round group."
   },
   "sponsoring": {
     "carousel": {
@@ -73,6 +103,7 @@
     "title": "All Teams",
     "description": "All participating teams at a glance.",
     "empty": "No teams have been added yet.",
+    "champion": "Tournament champion",
     "points_short": "Pts",
     "group_label": "Group",
     "nationality_NL": "🇳🇱 Netherlands",
@@ -80,6 +111,7 @@
   },
   "team_detail": {
     "eyebrow": "Team",
+    "champion": "Tournament champion",
     "group_label": "Group",
     "nationality_label": "Nation",
     "nationality_NL": "🇳🇱 Netherlands",
@@ -107,6 +139,11 @@
     "match_result_win": "Win",
     "match_result_draw": "Draw",
     "match_result_loss": "Loss",
+    "round_playoff": "Playoff",
+    "round_quarterfinal": "Quarterfinal",
+    "round_semifinal": "Semifinal",
+    "round_third_place": "Third-place match",
+    "round_final": "Final",
     "back_to_teams": "All Teams"
   },
   "imprint": {
