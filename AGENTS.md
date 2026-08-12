@@ -54,6 +54,12 @@ This builds the images and starts the development environment. The website is se
 
 ## Implementation rules
 
+### Type safety
+
+- Keep TypeScript changes strictly typed. Do not introduce `any`, unchecked non-null assertions, or broad casts that hide contract mismatches.
+- Model API payloads, content-type values, phases, statuses, and nullable relations explicitly. Narrow unknown external data at framework boundaries before using it.
+- Treat TypeScript errors as implementation errors; do not silence them with casts. Run the applicable type check or build before handoff.
+
 ### Website
 
 - Preserve the existing Next.js App Router structure under `app/`.

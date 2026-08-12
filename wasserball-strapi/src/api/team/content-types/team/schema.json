@@ -27,6 +27,12 @@
       "required": true,
       "default": true
     },
+    "knockoutSlot": {
+      "type": "integer",
+      "min": 1,
+      "max": 8,
+      "unique": true
+    },
     "group": {
       "type": "relation",
       "relation": "manyToOne",

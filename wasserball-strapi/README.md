@@ -40,6 +40,7 @@ Strapi startup.
 - `name` (required, unique)
 - `nationality` (required enum: `NL` | `DE`)
 - `isPresent` (attendance flag, defaults to `true`)
+- `knockoutSlot` (optional, unique manual knockout assignment `1` through `8`)
 - `group` (many-to-one relation to Group)
 
 ### Group (`api::group.group`)
@@ -57,8 +58,8 @@ Strapi startup.
 - Team 1 / Team 2 scores (optional integer >= 0)
 - Team 1 / Team 2 penalty points (integer >= 0, default `0`)
 - `group` (many-to-one relation to Group; only required logically for group matches)
-- Team 1 / Team 2 relations (required many-to-one relations to Team)
-- `roundSlot` (quarterfinal slot `1` through `4`)
+- Team 1 / Team 2 relations (optional for future knockout matches)
+- `roundSlot` (match slot within a knockout phase)
 
 ## Tournament API endpoints
 
@@ -103,23 +104,15 @@ Behavior:
 
 ## Knockout round generator
 
-The knockout generator creates qualification playoffs when necessary and,
-once qualification is unambiguous, the four quarterfinals:
+Assign the eight knockout positions manually through `Team.knockoutSlot`. Once
+all positions `1` through `8` are assigned, the generator creates the complete
+knockout bracket:
 
 - `POST /api/knockout/generate`
 
-Qualification rules:
-
-- all four group winners qualify
-- the four best remaining teams across all group standings qualify
-- remaining teams are compared by points (descending), then penalty points
-  (ascending)
-- equality in both values at the qualification cutoff creates playoff matches
-- all group-phase matches must be completed before generation
-- playoff matches must be completed and have a winner before quarterfinals are
-  generated
-
-Quarterfinal pairing is deterministic. Groups are ordered by name and every
-group winner is paired with one of the four additional qualifiers while avoiding
-group-phase rematches. Existing playoff and quarterfinal matches are reused, so
-repeated endpoint calls do not create duplicates.
+Positions `1–2`, `3–4`, `5–6`, and `7–8` form quarterfinals 1 through 4.
+Semifinals 1 and 2 receive the winners of quarterfinals `1–2` and `3–4`.
+The semifinal winners advance to the final and the losers to the third-place
+match. Participant assignments happen automatically when a knockout match is
+completed with a non-drawn result. Repeated generator calls reuse existing
+matches and only create missing bracket matches.

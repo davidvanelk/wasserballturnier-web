@@ -23,7 +23,14 @@
     },
     "phase": {
       "type": "enumeration",
-      "enum": ["group_phase", "lucky_second_playoff", "quarterfinal", "semifinal", "third_place", "final"],
+      "enum": [
+        "group_phase",
+        "lucky_second_playoff",
+        "quarterfinal",
+        "semifinal",
+        "third_place",
+        "final"
+      ],
       "required": true,
       "default": "group_phase"
     },
@@ -72,15 +79,13 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::team.team",
-      "inversedBy": "homeMatches",
-      "required": true
+      "inversedBy": "homeMatches"
     },
     "awayTeam": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::team.team",
-      "inversedBy": "awayMatches",
-      "required": true
+      "inversedBy": "awayMatches"
     }
   }
 }
