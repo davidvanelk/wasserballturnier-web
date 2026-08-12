@@ -1,7 +1,29 @@
-import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import { getCurrentLocale, getScopedI18n } from '@/app/i18n/server';
 import Link from 'next/link';
+
+function FacebookIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-[18px] w-[18px] shrink-0 fill-current"
+      viewBox="0 0 24 24"
+    >
+      <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.23.2 2.23.2V8.6h-1.25c-1.24 0-1.63.77-1.63 1.56v1.9h2.77l-.44 2.91h-2.33V22C18.34 21.25 22 17.08 22 12.06Z" />
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-[18px] w-[18px] shrink-0 fill-current"
+      viewBox="0 0 24 24"
+    >
+      <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+    </svg>
+  );
+}
 
 const Footer = async () => {
   const locale = await getCurrentLocale();
@@ -46,7 +68,7 @@ const Footer = async () => {
                 target="_blank"
                 rel="noopener"
               >
-                <FacebookIcon aria-hidden="true" className="text-[18px]" />
+                <FacebookIcon />
                 Facebook
               </a>
             </p>
@@ -57,7 +79,7 @@ const Footer = async () => {
                 target="_blank"
                 rel="noopener"
               >
-                <InstagramIcon aria-hidden="true" className="text-[18px]" />
+                <InstagramIcon />
                 Instagram
               </a>
             </p>

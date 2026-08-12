@@ -21,6 +21,7 @@ export type StrapiTeam = {
 export type MatchEntry = {
   matchId: number;
   matchNumber: number;
+  roundSlot: number | null;
   phase:
     | 'group_phase'
     | 'lucky_second_playoff'
@@ -54,6 +55,7 @@ export type TeamStanding = {
   goalDifference: number;
   points: number;
   penaltyPoints: number;
+  isChampion: boolean;
   matches: MatchEntry[];
 };
 
@@ -66,6 +68,7 @@ export type GroupStandings = {
 type StrapiPlayoffMatch = {
   id: number;
   matchNumber: number;
+  roundSlot: number | null;
   phase: MatchEntry['phase'];
   matchStatus: 'scheduled' | 'completed';
   playedAt: string | null;
@@ -85,12 +88,14 @@ export async function getAllTeams(): Promise<StrapiTeam[]> {
   const teams = await getStrapiContent<StrapiTeam[]>('teams', {
     'populate[group]': 'true',
     'pagination[limit]': '100',
-    'sort': 'name:asc',
+    sort: 'name:asc',
   });
   return teams ?? [];
 }
 
-export async function getTeamById(documentId: string): Promise<StrapiTeam | null> {
+export async function getTeamById(
+  documentId: string,
+): Promise<StrapiTeam | null> {
   try {
     return await getStrapiContent<StrapiTeam>(`teams/${documentId}`, {
       'populate[group]': 'true',
@@ -102,6 +107,11 @@ export async function getTeamById(documentId: string): Promise<StrapiTeam | null
 
 export async function getAllStandings(): Promise<GroupStandings[]> {
   const result = await getStrapiContent<GroupStandings[]>('standings');
+  return result ?? [];
+}
+
+export async function getOverallStandings(): Promise<TeamStanding[]> {
+  const result = await getStrapiContent<TeamStanding[]>('standings/overall');
   return result ?? [];
 }
 
@@ -135,7 +145,8 @@ export async function getPostGroupMatchesByTeam(): Promise<
       const team = teamNumber === 1 ? match.homeTeam : match.awayTeam;
       const opponent = teamNumber === 1 ? match.awayTeam : match.homeTeam;
       const goalsScored = teamNumber === 1 ? match.homeScore : match.awayScore;
-      const goalsConceded = teamNumber === 1 ? match.awayScore : match.homeScore;
+      const goalsConceded =
+        teamNumber === 1 ? match.awayScore : match.homeScore;
       const penaltyPoints =
         (teamNumber === 1
           ? match.team1PenaltyPoints
@@ -154,6 +165,7 @@ export async function getPostGroupMatchesByTeam(): Promise<
       const entry = {
         matchId: match.id,
         matchNumber: match.matchNumber,
+        roundSlot: match.roundSlot,
         phase: match.phase,
         status: match.matchStatus,
         playedAt: match.playedAt,
@@ -166,7 +178,14 @@ export async function getPostGroupMatchesByTeam(): Promise<
         goalsScored: isCompleted ? goalsScored : null,
         goalsConceded: isCompleted ? goalsConceded : null,
         result,
-        points: result === 'win' ? 5 : result === 'draw' ? 3 : result === 'loss' ? 0 : null,
+        points:
+          result === 'win'
+            ? 5
+            : result === 'draw'
+              ? 3
+              : result === 'loss'
+                ? 0
+                : null,
         penaltyPoints,
       } satisfies MatchEntry;
 
