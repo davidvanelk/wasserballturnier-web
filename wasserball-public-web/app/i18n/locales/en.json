@@ -52,6 +52,22 @@
     "contact": "Contact",
     "open_menu": "Open menu"
   },
+  "matches": {
+    "eyebrow": "Schedule",
+    "title": "Match overview",
+    "description": "All matches in chronological order with current scores and penalty points.",
+    "time": "Time",
+    "match": "Match",
+    "score": "Score",
+    "penalty_points": "Penalty points",
+    "status": "Status",
+    "not_set": "To be decided",
+    "empty": "No matches have been scheduled yet.",
+    "status_scheduled": "Scheduled",
+    "status_in_progress": "In progress",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled"
+  },
   "price_list": {
     "eyebrow": "Food and drinks",
     "title": "Price list",
@@ -170,6 +186,7 @@
     "round_slot": "Round slot",
     "not_set": "Not yet set",
     "status_scheduled": "Scheduled",
+    "status_in_progress": "In progress",
     "status_completed": "Completed",
     "status_cancelled": "Cancelled",
     "phase_group": "Group stage",

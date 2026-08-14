@@ -29,7 +29,7 @@ export type MatchEntry = {
     | 'semifinal'
     | 'third_place'
     | 'final';
-  status: 'scheduled' | 'completed' | 'cancelled';
+  status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   playedAt: string | null;
   opponent: { teamId: number; teamName: string; nationality: string };
   teamNumber: 1 | 2;
@@ -72,7 +72,7 @@ export type StrapiMatch = {
   matchNumber: number;
   roundSlot: number | null;
   phase: MatchEntry['phase'];
-  matchStatus: 'scheduled' | 'completed' | 'cancelled';
+  matchStatus: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   playedAt: string | null;
   homeScore: number | null;
   awayScore: number | null;
@@ -139,6 +139,28 @@ export async function getMatchById(id: number): Promise<StrapiMatch | null> {
     'pagination[limit]': '1',
   });
   return matches?.[0] ?? null;
+}
+
+export async function getAllMatches(): Promise<StrapiMatch[]> {
+  const matches = await getStrapiContent<StrapiMatch[]>('group-matches', {
+    'populate[group]': 'true',
+    'populate[homeTeam]': 'true',
+    'populate[awayTeam]': 'true',
+    'pagination[limit]': '200',
+    'sort[0]': 'playedAt:asc',
+    'sort[1]': 'matchNumber:asc',
+  });
+
+  return (matches ?? []).sort((first, second) => {
+    if (!first.playedAt) {
+      return second.playedAt ? 1 : first.matchNumber - second.matchNumber;
+    }
+    if (!second.playedAt) return -1;
+    return (
+      new Date(first.playedAt).getTime() - new Date(second.playedAt).getTime() ||
+      first.matchNumber - second.matchNumber
+    );
+  });
 }
 
 export async function getPostGroupMatchesByTeam(): Promise<

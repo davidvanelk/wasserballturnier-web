@@ -52,6 +52,22 @@
     "contact": "Contact",
     "open_menu": "Menu openen"
   },
+  "matches": {
+    "eyebrow": "Wedstrijdschema",
+    "title": "Wedstrijdoverzicht",
+    "description": "Alle wedstrijden in chronologische volgorde met actuele standen en strafpunten.",
+    "time": "Tijd",
+    "match": "Wedstrijd",
+    "score": "Stand",
+    "penalty_points": "Strafpunten",
+    "status": "Status",
+    "not_set": "Nog niet bekend",
+    "empty": "Er zijn nog geen wedstrijden gepland.",
+    "status_scheduled": "Gepland",
+    "status_in_progress": "Bezig",
+    "status_completed": "Afgerond",
+    "status_cancelled": "Afgelast"
+  },
   "price_list": {
     "eyebrow": "Eten en drinken",
     "title": "Prijslijst",
@@ -170,6 +186,7 @@
     "round_slot": "Rondepositie",
     "not_set": "Nog niet vastgesteld",
     "status_scheduled": "Gepland",
+    "status_in_progress": "Bezig",
     "status_completed": "Afgerond",
     "status_cancelled": "Afgelast",
     "phase_group": "Groepsfase",

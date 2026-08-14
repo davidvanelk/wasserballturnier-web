@@ -10,7 +10,7 @@ type TeamRecord = {
 };
 
 type KnockoutPhase = "quarterfinal" | "semifinal" | "third_place" | "final";
-type MatchStatus = "scheduled" | "completed" | "cancelled";
+type MatchStatus = "scheduled" | "in_progress" | "completed" | "cancelled";
 type TeamSide = "homeTeam" | "awayTeam";
 
 type MatchRecord = {

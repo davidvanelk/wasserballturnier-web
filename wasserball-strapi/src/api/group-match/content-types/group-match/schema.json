@@ -36,7 +36,7 @@
     },
     "matchStatus": {
       "type": "enumeration",
-      "enum": ["scheduled", "completed", "cancelled"],
+      "enum": ["scheduled", "in_progress", "completed", "cancelled"],
       "required": false,
       "default": "scheduled",
       "columnName": "status"
