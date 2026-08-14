@@ -8,6 +8,7 @@ import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import SectionHeader from '@/lib/components/SectionHeader';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
+import VenueMap from '@/lib/components/VenueMap';
 import { getEuregioText } from '@/lib/strapi/euregio-text';
 import Image from 'next/image';
 
@@ -20,11 +21,9 @@ export default async function LandingPage({
 }) {
   await params;
   const t = await getScopedI18n('landing');
-  const googleMapsApiKey = process.env.GOOGLE_MAPS_EMBED_API_KEY ?? '';
   const directionsUrl =
     'https://www.google.com/maps/dir/?api=1&destination=51.877462,6.150263';
   const calendarUrl = '/api/calendar';
-  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=51.877462%2C6.150263`;
   const [locationStreet, ...locationRest] = t('event_location_value').split(
     ', ',
   );
@@ -120,28 +119,7 @@ export default async function LandingPage({
                     ) : null}
                   </div>
 
-                  <div>
-                    {googleMapsApiKey ? (
-                      <iframe
-                        src={mapEmbedUrl}
-                        className="mt-6 w-full md:h-auto h-80 rounded-[1.5rem] border border-[rgba(28,28,28,0.08)]"
-                        title={t('map_title')}
-                        allowFullScreen
-                        referrerPolicy="no-referrer-when-downgrade"
-                      ></iframe>
-                    ) : (
-                      <div className="mt-6 rounded-[1.5rem] border border-dashed border-[rgba(28,28,28,0.12)] bg-[var(--surface-muted)] p-8">
-                        <div className="max-w-xl space-y-3">
-                          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[var(--brand-red)]">
-                            {t('map_title')}
-                          </p>
-                          <p className="text-base leading-7 text-[var(--brand-gray)]">
-                            {t('route_hint')}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <VenueMap title={t('map_title')} />
                 </div>
               </div>
             </div>

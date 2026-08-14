@@ -126,39 +126,38 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="mt-6 text-3xl font-bold">5. Plugins und Tools</h2>
-          <h3 className="mt-3 text-2xl font-bold">Google Maps</h3>
-          Diese Seite nutzt über eine Schnittstelle (API) den Kartendienst Diese
-          Seite nutzt über eine Schnittstelle (API) den Kartendienst Google
-          Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon
-          House, Barrow Street, Dublin 4, Irland. Um die Funktionen von Google
-          Maps zu nutzen, ist es notwendig, Ihre IP-Adresse zu speichern. Diese
-          Informationen werden in der Regel an einen Server von Google in den
-          USA übertragen und dort gespeichert.
+          <h3 className="mt-3 text-2xl font-bold">Leaflet und OpenStreetMap</h3>
+          Zur Darstellung der Veranstaltungsstätte verwenden wir die freie
+          JavaScript-Bibliothek Leaflet. Die Bibliothek wird als Bestandteil
+          dieser Website von unserem eigenen Server ausgeliefert und setzt keine
+          Cookies. Das Kartenmaterial wird von der OpenStreetMap Foundation
+          (OSMF), St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS,
+          Vereinigtes Königreich, bereitgestellt.
           <br />
-          Der Anbieter dieser Seite hat keinen Einfluss auf diese
-          Datenübertragung. Wenn Sie auf den bereitgestellten Link für die
-          Wegbeschreibung klicken, verlassen Sie unsere Website und rufen die
-          Dienste von Google direkt auf.
+          Beim Laden der Karte ruft Ihr Browser Kartenkacheln unmittelbar von
+          Servern der OSMF ab. Dabei werden technisch notwendige Zugriffsdaten,
+          insbesondere Ihre IP-Adresse, Browser- und Geräteinformationen, die
+          verweisende Seite sowie Zeitpunkt und Inhalt des Abrufs, an die OSMF
+          übermittelt. Die Einbindung erfolgt auf Grundlage von Art. 6 Abs. 1
+          lit. f DSGVO. Unser berechtigtes Interesse liegt in einer
+          nutzerfreundlichen Darstellung und leichten Auffindbarkeit des
+          Veranstaltungsorts. Unsere Kartenintegration setzt keine Cookies ein
+          und dient nicht der Nutzerverfolgung.
           <br />
-          Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden
-          Darstellung unserer Online-Angebote und an einer leichten
-          Auffindbarkeit der von uns auf der Website angegebenen Event-Location.
-          Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit.
-          f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde
-          (z. B. über einen Cookie-/Content-Banner beim Laden der Karte),
-          erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs.
-          1 lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar. Details
-          zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von
-          Google:
+          Weitere Informationen zur Verarbeitung durch die OSMF finden Sie in
+          der Datenschutzerklärung der OpenStreetMap Foundation:
           <a
             className="ml-1 text-[var(--brand-red)]"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://policies.google.com/privacy?hl=de"
+            href="https://osmfoundation.org/wiki/Privacy_Policy"
           >
-            https://policies.google.com/privacy?hl=de
+            https://osmfoundation.org/wiki/Privacy_Policy
           </a>
-          .
+          . Wenn Sie den Link zur Routenplanung anklicken, verlassen Sie unsere
+          Website und öffnen Google Maps. Erst durch diesen bewussten Klick
+          werden Daten an Google übermittelt. Dort gelten die Datenschutz- und
+          Nutzungsbestimmungen von Google.
         </section>
 
         <section>
