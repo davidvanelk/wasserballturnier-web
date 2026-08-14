@@ -31,6 +31,24 @@ services:
       - strapi
       - traefik
 
+  web-kiosk:
+    build:
+      context: ./wasserball-kiosk-web
+      dockerfile: Dockerfile
+    env_file:
+      - wasserball-kiosk-web/.env
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      STRAPI_URL: http://strapi:1337
+      STRAPI_PUBLIC_URL: http://localhost/cms
+    depends_on:
+      - strapi
+      - traefik
+
   strapi:
     build:
       context: ./wasserball-strapi

@@ -1,15 +1,15 @@
-FROM node:24 AS deps
+FROM node:24.13.0 AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-FROM node:24 AS builder
+FROM node:24.13.0 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-FROM node:24 AS runner
+FROM node:24.13.0 AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
