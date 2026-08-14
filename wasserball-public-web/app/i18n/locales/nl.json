@@ -48,8 +48,14 @@
     "standings": "Stand",
     "matches": "Wedstrijden",
     "teams": "Teams",
+    "price_list": "Prijslijst",
     "contact": "Contact",
     "open_menu": "Menu openen"
+  },
+  "price_list": {
+    "eyebrow": "Eten en drinken",
+    "title": "Prijslijst",
+    "description": "Dranken, koffie, gebak en eten voor de toernooidag in één overzicht."
   },
   "standings": {
     "eyebrow": "Totaaloverzicht",

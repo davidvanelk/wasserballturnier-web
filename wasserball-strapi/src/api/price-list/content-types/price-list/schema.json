@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "price_lists",
+  "info": {
+    "singularName": "price-list",
+    "pluralName": "price-lists",
+    "displayName": "Preisliste",
+    "description": "Mehrsprachige Preisliste für die Turnier-Website"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "heading_de": { "type": "string", "required": true },
+    "heading_en": { "type": "string", "required": true },
+    "heading_nl": { "type": "string", "required": true },
+    "payment_notice_de": { "type": "string" },
+    "payment_notice_en": { "type": "string" },
+    "payment_notice_nl": { "type": "string" },
+    "youth_notice_de": { "type": "text", "required": true },
+    "youth_notice_en": { "type": "text", "required": true },
+    "youth_notice_nl": { "type": "text", "required": true },
+    "products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "price-list.product",
+      "required": true
+    }
+  }
+}

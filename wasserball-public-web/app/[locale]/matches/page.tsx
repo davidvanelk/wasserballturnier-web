@@ -1,8 +1,20 @@
 import MatchTable from '@/lib/components/MatchTable';
 import PageHero from '@/lib/components/PageHero';
 import PriceList from '@/lib/components/PriceList';
+import { getPriceList, type PriceListLocale } from '@/lib/strapi/price-list';
 
-export default function MatchesPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function MatchesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const priceListLocale: PriceListLocale =
+    locale === 'en' || locale === 'nl' ? locale : 'de';
+  const priceList = await getPriceList(priceListLocale);
+
   return (
     <main className="flex w-full flex-col gap-8 lg:gap-10">
       <PageHero
@@ -13,7 +25,7 @@ export default function MatchesPage() {
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.9fr)]">
         <MatchTable />
-        <PriceList />
+        <PriceList content={priceList} locale={priceListLocale} />
       </div>
     </main>
   );

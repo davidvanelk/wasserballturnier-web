@@ -48,8 +48,14 @@
     "standings": "Tabelle",
     "matches": "Spiele",
     "teams": "Teams",
+    "price_list": "Preisliste",
     "contact": "Kontakt",
     "open_menu": "Menü öffnen"
+  },
+  "price_list": {
+    "eyebrow": "Verpflegung",
+    "title": "Preisliste",
+    "description": "Getränke, Kaffee, Kuchen und Speisen für den Turniertag auf einen Blick."
   },
   "standings": {
     "eyebrow": "Gesamtübersicht",
