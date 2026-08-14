@@ -219,9 +219,9 @@ export async function getPostGroupMatchesByTeam(): Promise<
         result,
         points:
           result === 'win'
-            ? 5
+            ? 3
             : result === 'draw'
-              ? 3
+              ? 1
               : result === 'loss'
                 ? 0
                 : null,
