@@ -53,7 +53,7 @@ Strapi startup.
 
 - `matchNumber` (required, unique integer)
 - `phase` (`group_phase`, `lucky_second_playoff`, or `quarterfinal`)
-- `matchStatus` (enum: `scheduled` | `completed`)
+- `matchStatus` (enum: `scheduled` | `in_progress` | `completed` | `cancelled`)
 - `playedAt` (datetime, optional)
 - Team 1 / Team 2 scores (optional integer >= 0)
 - Team 1 / Team 2 penalty points (integer >= 0, default `0`)

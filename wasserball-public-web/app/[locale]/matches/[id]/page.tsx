@@ -17,6 +17,7 @@ type TranslationKey =
   | 'phase_third_place'
   | 'phase_final'
   | 'status_scheduled'
+  | 'status_in_progress'
   | 'status_completed'
   | 'status_cancelled'
   | 'not_set'
@@ -52,6 +53,7 @@ function phaseLabel(match: StrapiMatch, t: Translation) {
 function statusLabel(status: StrapiMatch['matchStatus'], t: Translation) {
   const labels = {
     scheduled: t('status_scheduled'),
+    in_progress: t('status_in_progress'),
     completed: t('status_completed'),
     cancelled: t('status_cancelled'),
   } satisfies Record<StrapiMatch['matchStatus'], string>;

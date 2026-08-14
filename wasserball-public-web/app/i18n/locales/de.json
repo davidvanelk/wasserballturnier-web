@@ -52,6 +52,22 @@
     "contact": "Kontakt",
     "open_menu": "Menü öffnen"
   },
+  "matches": {
+    "eyebrow": "Spielplan",
+    "title": "Spielübersicht",
+    "description": "Alle Begegnungen in chronologischer Reihenfolge mit aktuellen Spielständen und Strafpunkten.",
+    "time": "Zeit",
+    "match": "Begegnung",
+    "score": "Spielstand",
+    "penalty_points": "Strafpunkte",
+    "status": "Status",
+    "not_set": "Noch offen",
+    "empty": "Es sind noch keine Spiele geplant.",
+    "status_scheduled": "Geplant",
+    "status_in_progress": "Läuft",
+    "status_completed": "Abgeschlossen",
+    "status_cancelled": "Abgesagt"
+  },
   "price_list": {
     "eyebrow": "Verpflegung",
     "title": "Preisliste",
@@ -170,6 +186,7 @@
     "round_slot": "Rundenplatz",
     "not_set": "Noch nicht festgelegt",
     "status_scheduled": "Geplant",
+    "status_in_progress": "Läuft",
     "status_completed": "Abgeschlossen",
     "status_cancelled": "Abgesagt",
     "phase_group": "Gruppenphase",
