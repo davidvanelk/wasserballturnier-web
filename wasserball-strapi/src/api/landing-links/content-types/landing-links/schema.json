@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "landing_links",
+  "info": {
+    "singularName": "landing-links",
+    "pluralName": "landing-links-list",
+    "displayName": "Landingpage Links",
+    "description": "Texte für die Teams- und Preislisten-Cards auf der Landingpage"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "teams_title_de": { "type": "string", "required": true },
+    "teams_title_en": { "type": "string", "required": true },
+    "teams_title_nl": { "type": "string", "required": true },
+    "teams_text_de": { "type": "text", "required": true },
+    "teams_text_en": { "type": "text", "required": true },
+    "teams_text_nl": { "type": "text", "required": true },
+    "price_list_title_de": { "type": "string", "required": true },
+    "price_list_title_en": { "type": "string", "required": true },
+    "price_list_title_nl": { "type": "string", "required": true },
+    "price_list_text_de": { "type": "text", "required": true },
+    "price_list_text_en": { "type": "text", "required": true },
+    "price_list_text_nl": { "type": "text", "required": true }
+  }
+}

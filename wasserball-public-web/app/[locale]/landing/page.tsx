@@ -2,14 +2,19 @@ import FamilyRestroomOutlinedIcon from '@mui/icons-material/FamilyRestroomOutlin
 import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
 import OutdoorGrillOutlinedIcon from '@mui/icons-material/OutdoorGrillOutlined';
 import SportsBarOutlinedIcon from '@mui/icons-material/SportsBarOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import { getScopedI18n } from '@/app/i18n/server';
 import FeatureCard from '@/lib/components/FeatureCard';
+import LandingLinkCard from '@/lib/components/LandingLinkCard';
 import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import SectionHeader from '@/lib/components/SectionHeader';
 import SponsorCarousel from '@/lib/components/SponsorCarousel';
 import VenueMap from '@/lib/components/VenueMap';
 import { getEuregioText } from '@/lib/strapi/euregio-text';
+import { getLandingLinks } from '@/lib/strapi/landing-links';
+import type { PriceListLocale } from '@/lib/strapi/price-list';
 import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +24,7 @@ export default async function LandingPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale } = await params;
   const t = await getScopedI18n('landing');
   const directionsUrl =
     'https://www.google.com/maps/dir/?api=1&destination=51.877462,6.150263';
@@ -28,7 +33,12 @@ export default async function LandingPage({
     ', ',
   );
   const locationCity = locationRest.join(', ');
-  const euregioText = await getEuregioText(await params.then((p) => p.locale));
+  const contentLocale: PriceListLocale =
+    locale === 'en' || locale === 'nl' ? locale : 'de';
+  const [euregioText, landingLinks] = await Promise.all([
+    getEuregioText(locale),
+    getLandingLinks(contentLocale),
+  ]);
   const programHighlights = [
     { title: t('feature_family'), icon: FamilyRestroomOutlinedIcon },
     { title: t('feature_coffee'), icon: LocalCafeOutlinedIcon },
@@ -123,6 +133,24 @@ export default async function LandingPage({
                 </div>
               </div>
             </div>
+            {landingLinks ? (
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <LandingLinkCard
+                  href={`/${locale}/teams`}
+                  title={landingLinks.teams.title}
+                  text={landingLinks.teams.text}
+                  linkLabel={landingLinks.teams.title}
+                  icon={GroupsOutlinedIcon}
+                />
+                <LandingLinkCard
+                  href={`/${locale}/price-list`}
+                  title={landingLinks.priceList.title}
+                  text={landingLinks.priceList.text}
+                  linkLabel={landingLinks.priceList.title}
+                  icon={ReceiptLongOutlinedIcon}
+                />
+              </div>
+            ) : null}
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(18rem,0.9fr)_minmax(0,1.3fr)] lg:items-stretch"></div>

@@ -211,6 +211,27 @@ const initialPriceList = {
   ],
 };
 
+const initialLandingLinks = {
+  teams_title_de: "Teams",
+  teams_title_en: "Teams",
+  teams_title_nl: "Teams",
+  teams_text_de:
+    "Lerne die teilnehmenden Mannschaften kennen und entdecke ihre aktuellen Platzierungen.",
+  teams_text_en:
+    "Meet the participating teams and discover their current standings.",
+  teams_text_nl:
+    "Maak kennis met de deelnemende teams en bekijk hun actuele klassering.",
+  price_list_title_de: "Preisliste",
+  price_list_title_en: "Price list",
+  price_list_title_nl: "Prijslijst",
+  price_list_text_de:
+    "Entdecke unser Angebot an Getränken, Kuchen und Speisen für den Turniertag.",
+  price_list_text_en:
+    "Discover our selection of drinks, cakes and food for the tournament day.",
+  price_list_text_nl:
+    "Bekijk ons aanbod aan dranken, gebak en eten voor de toernooidag.",
+};
+
 function shouldSeedSponsorsOnBoot() {
   return process.env.SEED_SPONSORS_ON_BOOT !== "false";
 }
@@ -237,6 +258,7 @@ async function ensurePublicReadPermissions(strapi: StrapiLike) {
     "plugin::upload.content-api.findOne",
     "api::euregio-text.euregio-text.find",
     "api::price-list.price-list.find",
+    "api::landing-links.landing-links.find",
   ];
 
   for (const action of actions) {
@@ -538,12 +560,25 @@ async function seedPriceListIfMissing(strapi: StrapiLike) {
   });
 }
 
+async function seedLandingLinksIfMissing(strapi: StrapiLike) {
+  const landingLinks = await strapi
+    .query("api::landing-links.landing-links")
+    .findOne({});
+
+  if (landingLinks) return;
+
+  await strapi.entityService.create("api::landing-links.landing-links", {
+    data: initialLandingLinks,
+  });
+}
+
 export default {
   async bootstrap({ strapi }: { strapi: StrapiLike }) {
     await ensurePublicReadPermissions(strapi);
     await ensureMatchStatusAdminLayout(strapi);
     await ensureExistingMatchLabels(strapi);
     await seedPriceListIfMissing(strapi);
+    await seedLandingLinksIfMissing(strapi);
 
     if (!shouldSeedSponsorsOnBoot()) {
       console.info(
