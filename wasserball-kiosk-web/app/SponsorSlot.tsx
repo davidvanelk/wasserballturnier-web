@@ -52,19 +52,24 @@ export default function SponsorSlot({ sponsors }: { sponsors: Sponsor[] }) {
 
   return (
     <aside
-      className="advertisement"
+      className="grid grid-cols-[auto_auto] grid-rows-[auto_auto] items-center gap-x-3.5 rounded-2xl bg-[#1c1c1c] px-4 py-2.5 text-right text-white/70 shadow-[0_10px_24px_rgba(28,28,28,0.16)]"
       aria-label={`Präsentiert von ${sponsor.sponsor}`}
     >
-      <span>Präsentiert von</span>
+      <span className="self-end text-[11px] font-extrabold uppercase tracking-[0.12em]">
+        Präsentiert von
+      </span>
       <Image
         alt={sponsor.alt}
+        className="col-start-2 row-span-2 row-start-1 h-[62px] w-auto object-contain"
         height={60}
         priority
         src={`/media${sponsor.logoPath}`}
         unoptimized
         width={220}
       />
-      <strong>{sponsor.sponsor}</strong>
+      <strong className="self-start text-[15px] text-white">
+        {sponsor.sponsor}
+      </strong>
     </aside>
   );
 }
