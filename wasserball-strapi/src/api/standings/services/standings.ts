@@ -1,5 +1,5 @@
-const POINTS_WIN = 5;
-const POINTS_DRAW = 3;
+const POINTS_WIN = 3;
+const POINTS_DRAW = 1;
 const POINTS_LOSS = 0;
 
 type TeamRef = {
