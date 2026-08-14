@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_price_list_products",
+  "info": {
+    "displayName": "Produkt",
+    "description": "Ein Eintrag der mehrsprachigen Preisliste"
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "enumeration",
+      "enum": ["drinks", "coffee_and_cake", "grill", "vouchers"],
+      "required": true
+    },
+    "name_de": { "type": "string", "required": true },
+    "name_en": { "type": "string", "required": true },
+    "name_nl": { "type": "string", "required": true },
+    "unit_de": { "type": "string" },
+    "unit_en": { "type": "string" },
+    "unit_nl": { "type": "string" },
+    "price": { "type": "decimal", "min": 0 },
+    "price_note_de": { "type": "string" },
+    "price_note_en": { "type": "string" },
+    "price_note_nl": { "type": "string" },
+    "alcoholic": { "type": "boolean", "default": false },
+    "unavailable": { "type": "boolean", "default": false },
+    "sort_order": { "type": "integer", "default": 0 }
+  }
+}

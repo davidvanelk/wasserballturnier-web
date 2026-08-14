@@ -75,6 +75,163 @@ type MatchLabelRecord = {
   awayTeam?: { name?: string | null } | null;
 };
 
+const initialPriceList = {
+  heading_de: "Preisliste",
+  heading_en: "Price list",
+  heading_nl: "Prijslijst",
+  payment_notice_de: "Kartenzahlung und Barzahlung möglich.",
+  payment_notice_en: "Card and cash payments accepted.",
+  payment_notice_nl: "Betalen met kaart en contant geld is mogelijk.",
+  youth_notice_de:
+    "Jugendschutz: Bier und andere alkoholische Getränke werden nicht an Jugendliche unter 16 Jahren abgegeben; Spirituosen nicht an Personen unter 18 Jahren.",
+  youth_notice_en:
+    "Protection of minors: Beer and other alcoholic beverages are not sold to anyone under 16; spirits are not sold to anyone under 18.",
+  youth_notice_nl:
+    "Bescherming van minderjarigen: Bier en andere alcoholische dranken worden niet verkocht aan jongeren onder de 16 jaar; sterke drank niet aan personen onder de 18 jaar.",
+  products: [
+    {
+      category: "drinks",
+      name_de: "König Pilsener vom Fass",
+      name_en: "König Pilsener draught beer",
+      name_nl: "König Pilsener van de tap",
+      unit_de: "0,3 l",
+      unit_en: "0.3 l",
+      unit_nl: "0,3 l",
+      price: 3,
+      alcoholic: true,
+      sort_order: 10,
+    },
+    {
+      category: "drinks",
+      name_de: "Bolten Alt vom Fass",
+      name_en: "Bolten Alt draught beer",
+      name_nl: "Bolten Alt van de tap",
+      unit_de: "0,3 l",
+      unit_en: "0.3 l",
+      unit_nl: "0,3 l",
+      price: 3,
+      alcoholic: true,
+      sort_order: 20,
+    },
+    {
+      category: "drinks",
+      name_de: "Cola/Fanta/Sprite",
+      name_en: "Cola/Fanta/Sprite",
+      name_nl: "Cola/Fanta/Sprite",
+      unit_de: "0,3 l",
+      unit_en: "0.3 l",
+      unit_nl: "0,3 l",
+      price: 3,
+      sort_order: 30,
+    },
+    {
+      category: "drinks",
+      name_de: "Wasser",
+      name_en: "Water",
+      name_nl: "Water",
+      unit_de: "0,3 l",
+      unit_en: "0.3 l",
+      unit_nl: "0,3 l",
+      price: 2,
+      sort_order: 40,
+    },
+    {
+      category: "coffee_and_cake",
+      name_de: "Kaffee",
+      name_en: "Coffee",
+      name_nl: "Koffie",
+      unit_de: "0,2 l",
+      unit_en: "0.2 l",
+      unit_nl: "0,2 l",
+      price: 2,
+      sort_order: 50,
+    },
+    {
+      category: "coffee_and_cake",
+      name_de: "Verschiedene Kuchen",
+      name_en: "Selection of cakes",
+      name_nl: "Verschillende soorten gebak",
+      price_note_de: "Preis siehe Ausgabe!",
+      price_note_en: "See counter for price!",
+      price_note_nl: "Prijs zie uitgiftepunt!",
+      sort_order: 60,
+    },
+    {
+      category: "grill",
+      name_de: "Pommes",
+      name_en: "Chips",
+      name_nl: "Friet",
+      unit_de: "Schale",
+      unit_en: "Tray",
+      unit_nl: "Bakje",
+      price: 3,
+      sort_order: 70,
+    },
+    {
+      category: "grill",
+      name_de: "Currywurst mit Brötchen",
+      name_en: "Currywurst with bread roll",
+      name_nl: "Curryworst met broodje",
+      unit_de: "Schale",
+      unit_en: "Tray",
+      unit_nl: "Bakje",
+      price: 4,
+      sort_order: 80,
+    },
+    {
+      category: "grill",
+      name_de: "Rostbratwurst",
+      name_en: "Grilled bratwurst",
+      name_nl: "Gegrilde braadworst",
+      unit_de: "im Brötchen",
+      unit_en: "in a bread roll",
+      unit_nl: "op een broodje",
+      price: 3,
+      sort_order: 90,
+    },
+    {
+      category: "grill",
+      name_de: "Krakauer",
+      name_en: "Krakauer sausage",
+      name_nl: "Krakauer worst",
+      unit_de: "im Brötchen",
+      unit_en: "in a bread roll",
+      unit_nl: "op een broodje",
+      price: 3.5,
+      sort_order: 100,
+    },
+    {
+      category: "vouchers",
+      name_de: "Wertkarte",
+      name_en: "Value card",
+      name_nl: "Waardekaart",
+      price: 20,
+      sort_order: 110,
+    },
+  ],
+};
+
+const initialLandingLinks = {
+  teams_title_de: "Teams",
+  teams_title_en: "Teams",
+  teams_title_nl: "Teams",
+  teams_text_de:
+    "Lerne die teilnehmenden Mannschaften kennen und entdecke ihre aktuellen Platzierungen.",
+  teams_text_en:
+    "Meet the participating teams and discover their current standings.",
+  teams_text_nl:
+    "Maak kennis met de deelnemende teams en bekijk hun actuele klassering.",
+  price_list_title_de: "Preisliste",
+  price_list_title_en: "Price list",
+  price_list_title_nl: "Prijslijst",
+  price_list_text_de:
+    "Entdecke unser Angebot an Getränken, Kuchen und Speisen für den Turniertag.",
+  price_list_text_en:
+    "Discover our selection of drinks, cakes and food for the tournament day.",
+  price_list_text_nl:
+    "Bekijk ons aanbod aan dranken, gebak en eten voor de toernooidag.",
+};
+
 function shouldSeedSponsorsOnBoot() {
   return process.env.SEED_SPONSORS_ON_BOOT !== "false";
 }
@@ -100,6 +257,8 @@ async function ensurePublicReadPermissions(strapi: StrapiLike) {
     "plugin::upload.content-api.find",
     "plugin::upload.content-api.findOne",
     "api::euregio-text.euregio-text.find",
+    "api::price-list.price-list.find",
+    "api::landing-links.landing-links.find",
   ];
 
   for (const action of actions) {
@@ -368,11 +527,58 @@ async function seedSponsorsIfEmpty(strapi: StrapiLike) {
   }
 }
 
+async function seedPriceListIfMissing(strapi: StrapiLike) {
+  const priceList = await strapi.query("api::price-list.price-list").findOne({
+    populate: { products: true },
+  });
+
+  if (priceList) {
+    const missingPaymentNotices = Object.fromEntries(
+      (["de", "en", "nl"] as const)
+        .map((locale) => {
+          const field = `payment_notice_${locale}` as const;
+          return priceList[field]
+            ? null
+            : [field, initialPriceList[field]];
+        })
+        .filter((entry): entry is [string, string] => entry !== null),
+    );
+
+    if (Object.keys(missingPaymentNotices).length > 0) {
+      await strapi.entityService.update(
+        "api::price-list.price-list",
+        priceList.id,
+        { data: missingPaymentNotices },
+      );
+    }
+
+    return;
+  }
+
+  await strapi.entityService.create("api::price-list.price-list", {
+    data: initialPriceList,
+  });
+}
+
+async function seedLandingLinksIfMissing(strapi: StrapiLike) {
+  const landingLinks = await strapi
+    .query("api::landing-links.landing-links")
+    .findOne({});
+
+  if (landingLinks) return;
+
+  await strapi.entityService.create("api::landing-links.landing-links", {
+    data: initialLandingLinks,
+  });
+}
+
 export default {
   async bootstrap({ strapi }: { strapi: StrapiLike }) {
     await ensurePublicReadPermissions(strapi);
     await ensureMatchStatusAdminLayout(strapi);
     await ensureExistingMatchLabels(strapi);
+    await seedPriceListIfMissing(strapi);
+    await seedLandingLinksIfMissing(strapi);
 
     if (!shouldSeedSponsorsOnBoot()) {
       console.info(

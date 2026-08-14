@@ -10,6 +10,7 @@ const links = [
   { href: '/landing', label: 'home' },
   { href: '/standings', label: 'standings' },
   { href: '/teams', label: 'teams' },
+  { href: '/price-list', label: 'price_list' },
 ] as const;
 
 export default function Navbar() {

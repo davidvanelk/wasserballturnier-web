@@ -48,8 +48,14 @@
     "standings": "Standings",
     "matches": "Matches",
     "teams": "Teams",
+    "price_list": "Price list",
     "contact": "Contact",
     "open_menu": "Open menu"
+  },
+  "price_list": {
+    "eyebrow": "Food and drinks",
+    "title": "Price list",
+    "description": "Drinks, coffee, cake and food for the tournament day at a glance."
   },
   "standings": {
     "eyebrow": "Overall table",
