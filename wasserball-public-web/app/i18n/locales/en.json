@@ -81,6 +81,9 @@
     "group_description": "The current ranking within each preliminary-round group."
   },
   "sponsoring": {
+    "advertisement": {
+      "presented_by": "Presented by:"
+    },
     "carousel": {
       "support_title": "Supported by our sponsors",
       "title": "Sponsors",

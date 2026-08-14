@@ -4,6 +4,7 @@ import { getScopedI18n } from '@/app/i18n/server';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import HistoryBackButton from '@/lib/components/HistoryBackButton';
 import PageHero from '@/lib/components/PageHero';
+import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
 import { getMatchById, type StrapiMatch } from '@/lib/strapi/tournament';
 
 export const dynamic = 'force-dynamic';
@@ -113,6 +114,8 @@ export default async function MatchDetailPage({
         title={publicTitle}
         description={`${phaseLabel(match, t)} · ${statusLabel(match.matchStatus, t)}`}
       />
+
+      <SponsorAdvertisement />
 
       <FlyerSurface className="p-6 sm:p-8 lg:p-10">
         <div className="grid gap-5 md:grid-cols-2">
