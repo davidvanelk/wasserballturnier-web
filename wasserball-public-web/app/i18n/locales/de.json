@@ -81,6 +81,9 @@
     "group_description": "Das aktuelle Ranking innerhalb jeder einzelnen Vorrundengruppe."
   },
   "sponsoring": {
+    "advertisement": {
+      "presented_by": "Präsentiert durch:"
+    },
     "carousel": {
       "support_title": "Unterstützt durch unsere Sponsoren",
       "title": "Sponsoren",

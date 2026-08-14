@@ -13,6 +13,7 @@ import SectionHeader from '@/lib/components/SectionHeader';
 import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import TeamName from '@/lib/components/TeamName';
 import MatchLink from '@/lib/components/MatchLink';
+import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
 
 export const dynamic = 'force-dynamic';
 
@@ -383,6 +384,8 @@ export default async function TeamDetailPage({
           </div>
         </div>
       </FlyerSurface>
+
+      <SponsorAdvertisement />
 
       {/* Standings */}
       {groupData && teamStanding && (

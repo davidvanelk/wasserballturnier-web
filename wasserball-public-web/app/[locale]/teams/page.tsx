@@ -9,6 +9,7 @@ import type { GroupStandings, StrapiTeam } from '@/lib/strapi/tournament';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import PageHero from '@/lib/components/PageHero';
 import TeamName from '@/lib/components/TeamName';
+import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
 
 export const dynamic = 'force-dynamic';
 
@@ -108,6 +109,8 @@ export default async function TeamsPage() {
         title={t('title')}
         description={t('description')}
       />
+
+      <SponsorAdvertisement />
 
       <div>
         {groupedTeams ? (

@@ -1,7 +1,7 @@
 import { logger } from '../logger';
 import { getStrapiContent, toBrowserMediaUrl } from '../strapi/api';
 
-type Sponsor = {
+export type Sponsor = {
   sponsor: string;
   logo: string;
   alt: string;
@@ -30,6 +30,7 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
     'sponsors',
     {
       'populate[logo][fields][0]': 'url',
+      'filters[active][$eq]': 'true',
     },
     {
       next: { revalidate: 600 },
@@ -51,6 +52,36 @@ async function getStrapiSponsors(): Promise<Sponsor[] | null> {
       tokenMultiplier: item.tokenMultiplier ?? 100,
     }))
     .filter((item) => item.sponsor && item.logo && item.url && item.selector);
+}
+
+export function selectWeightedSponsor(
+  sponsors: readonly Sponsor[],
+  random: () => number = Math.random,
+): Sponsor | null {
+  const eligibleSponsors = sponsors.filter(
+    (sponsor) =>
+      Number.isSafeInteger(sponsor.tokenMultiplier) &&
+      sponsor.tokenMultiplier > 0,
+  );
+  const totalWeight = eligibleSponsors.reduce(
+    (total, sponsor) => total + sponsor.tokenMultiplier,
+    0,
+  );
+
+  if (totalWeight === 0) {
+    return null;
+  }
+
+  let ticket = Math.min(Math.max(random(), 0), 1 - Number.EPSILON) * totalWeight;
+
+  for (const sponsor of eligibleSponsors) {
+    ticket -= sponsor.tokenMultiplier;
+    if (ticket < 0) {
+      return sponsor;
+    }
+  }
+
+  return eligibleSponsors.at(-1) ?? null;
 }
 
 export async function getSponsors(): Promise<Sponsor[]> {

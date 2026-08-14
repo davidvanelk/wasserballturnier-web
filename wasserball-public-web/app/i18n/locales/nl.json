@@ -81,6 +81,9 @@
     "group_description": "De actuele rangschikking binnen elke voorrondegroep."
   },
   "sponsoring": {
+    "advertisement": {
+      "presented_by": "Gepresenteerd door:"
+    },
     "carousel": {
       "support_title": "Mede mogelijk gemaakt door onze sponsoren",
       "title": "Sponsoren",

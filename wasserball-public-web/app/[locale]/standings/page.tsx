@@ -3,6 +3,7 @@ import { getCurrentLocale, getScopedI18n } from '@/app/i18n/server';
 import FlyerSurface from '@/lib/components/FlyerSurface';
 import PageHero from '@/lib/components/PageHero';
 import TeamName from '@/lib/components/TeamName';
+import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
 import {
   getAllStandings,
   getAllTeams,
@@ -111,6 +112,8 @@ export default async function StandingsPage() {
         title={t('title')}
         description={t('description')}
       />
+
+      <SponsorAdvertisement />
 
       <FlyerSurface className="overflow-hidden">
         {table.length > 0 ? (
