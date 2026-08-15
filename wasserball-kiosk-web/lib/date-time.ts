@@ -1,4 +1,4 @@
-export const BERLIN_TIME_ZONE = 'Europe/Berlin';
+export const BERLIN_TIME_ZONE = "Europe/Berlin";
 
 export function createBerlinDateTimeFormatter(
   locale: string,

@@ -1,11 +1,11 @@
-import AutoRefresh from './AutoRefresh';
-import KioskTable from './KioskTable';
-import SponsorSlot from './SponsorSlot';
-import { createBerlinDateTimeFormatter } from '@/lib/date-time';
-import { getMatches, type Match } from '@/lib/matches';
-import { getSponsors } from '@/lib/sponsors';
+import AutoRefresh from "./AutoRefresh";
+import KioskTable from "./KioskTable";
+import SponsorSlot from "./SponsorSlot";
+import { createBerlinDateTimeFormatter } from "@/lib/date-time";
+import { getMatches, type Match } from "@/lib/matches";
+import { getSponsors } from "@/lib/sponsors";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function KioskPage() {
   let matches: Match[] = [];
@@ -15,12 +15,12 @@ export default async function KioskPage() {
     matches = await getMatches();
   } catch (error) {
     loadFailed = true;
-    console.error('[kiosk] Spiele konnten nicht geladen werden:', error);
+    console.error("[kiosk] Spiele konnten nicht geladen werden:", error);
   }
   const sponsors = await sponsorsPromise;
-  const time = createBerlinDateTimeFormatter('de-DE', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const time = createBerlinDateTimeFormatter("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
   const updatedAt = time.format(new Date());
 

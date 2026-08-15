@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { createBerlinDateTimeFormatter } from '@/lib/date-time';
-import type { Match, MatchStatus } from '@/lib/matches';
+import { useEffect, useRef, useState } from "react";
+import { createBerlinDateTimeFormatter } from "@/lib/date-time";
+import type { Match, MatchStatus } from "@/lib/matches";
 
 const MATCHES_PER_PAGE = 8;
 const PAGE_INTERVAL_MS = 10_000;
 const statusLabels: Record<MatchStatus, string> = {
-  scheduled: 'Geplant',
-  in_progress: 'Läuft',
-  completed: 'Abgeschlossen',
-  cancelled: 'Abgesagt',
+  scheduled: "Geplant",
+  in_progress: "Läuft",
+  completed: "Abgeschlossen",
+  cancelled: "Abgesagt",
 };
 
 export default function KioskTable({ matches }: { matches: Match[] }) {
@@ -22,14 +22,14 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
     visiblePage * MATCHES_PER_PAGE,
     (visiblePage + 1) * MATCHES_PER_PAGE,
   );
-  const date = createBerlinDateTimeFormatter('de-DE', {
-    weekday: 'short',
-    day: '2-digit',
-    month: '2-digit',
+  const date = createBerlinDateTimeFormatter("de-DE", {
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
   });
-  const time = createBerlinDateTimeFormatter('de-DE', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const time = createBerlinDateTimeFormatter("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
   useEffect(() => {
@@ -46,11 +46,11 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
     if (!indicator || pageCount < 2) return;
 
     const animation = indicator.animate(
-      [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }],
+      [{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }],
       {
         duration: PAGE_INTERVAL_MS,
-        easing: 'linear',
-        fill: 'forwards',
+        easing: "linear",
+        fill: "forwards",
       },
     );
     return () => animation.cancel();
@@ -94,9 +94,9 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
               <tr
                 key={match.id}
                 className={
-                  match.matchStatus === 'in_progress'
-                    ? 'border-t border-[#e5e7eb] bg-sky-50 even:bg-sky-50'
-                    : 'border-t border-[#e5e7eb] even:bg-[#fafafa]'
+                  match.matchStatus === "in_progress"
+                    ? "border-t border-[#e5e7eb] bg-sky-50 even:bg-sky-50"
+                    : "border-t border-[#e5e7eb] even:bg-[#fafafa]"
                 }
               >
                 <td className="whitespace-nowrap p-[clamp(14px,1.15vw,22px)] text-left">
@@ -110,16 +110,16 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
                       </strong>
                     </>
                   ) : (
-                    'Noch offen'
+                    "Noch offen"
                   )}
                 </td>
                 <th className="p-[clamp(14px,1.15vw,22px)] text-left">
-                  {match.homeTeam ?? 'Noch offen'}{' '}
-                  <span className="font-normal text-[#8b8f94]">–</span>{' '}
-                  {match.awayTeam ?? 'Noch offen'}
+                  {match.homeTeam ?? "Noch offen"}{" "}
+                  <span className="font-normal text-[#8b8f94]">–</span>{" "}
+                  {match.awayTeam ?? "Noch offen"}
                 </th>
                 <td className="whitespace-nowrap p-[clamp(14px,1.15vw,22px)] text-center text-[1.3em] font-extrabold">
-                  {match.homeScore ?? '–'} : {match.awayScore ?? '–'}
+                  {match.homeScore ?? "–"} : {match.awayScore ?? "–"}
                 </td>
                 <td className="p-[clamp(14px,1.15vw,22px)] text-center">
                   {match.team1PenaltyPoints} : {match.team2PenaltyPoints}
@@ -127,14 +127,14 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
                 <td className="p-[clamp(14px,1.15vw,22px)] text-left">
                   <span
                     className={`inline-flex items-center gap-[9px] whitespace-nowrap rounded-full px-[13px] py-2 text-[0.62em] font-extrabold uppercase tracking-[0.06em] ${
-                      match.matchStatus === 'in_progress'
-                        ? 'border border-sky-200 bg-sky-100 text-sky-800'
-                        : match.matchStatus === 'completed'
-                          ? 'border border-emerald-200 bg-emerald-100 text-emerald-800'
-                          : 'bg-[#f1f3f4] text-[#62666b]'
+                      match.matchStatus === "in_progress"
+                        ? "border border-sky-200 bg-sky-100 text-sky-800"
+                        : match.matchStatus === "completed"
+                          ? "border border-emerald-200 bg-emerald-100 text-emerald-800"
+                          : "bg-[#f1f3f4] text-[#62666b]"
                     }`}
                   >
-                    {match.matchStatus === 'in_progress' ? (
+                    {match.matchStatus === "in_progress" ? (
                       <span
                         className="h-[13px] w-[13px] animate-spin rounded-full border-2 border-sky-300 border-t-sky-700 motion-reduce:animate-none"
                         aria-hidden="true"
@@ -155,7 +155,7 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
         >
           <span>
             Spiele {visiblePage * MATCHES_PER_PAGE + 1}–
-            {Math.min((visiblePage + 1) * MATCHES_PER_PAGE, matches.length)} von{' '}
+            {Math.min((visiblePage + 1) * MATCHES_PER_PAGE, matches.length)} von{" "}
             {matches.length}
           </span>
           <span
@@ -166,8 +166,8 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
               <i
                 className={
                   index === visiblePage
-                    ? 'h-[9px] w-[26px] rounded-full bg-[#d6221f]'
-                    : 'h-[9px] w-[9px] rounded-full bg-[#c9cdd1]'
+                    ? "h-[9px] w-[26px] rounded-full bg-[#d6221f]"
+                    : "h-[9px] w-[9px] rounded-full bg-[#c9cdd1]"
                 }
                 key={index}
               />
