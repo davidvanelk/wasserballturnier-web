@@ -5,6 +5,7 @@ import FlyerSurface from '@/lib/components/FlyerSurface';
 import HistoryBackButton from '@/lib/components/HistoryBackButton';
 import PageHero from '@/lib/components/PageHero';
 import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
+import { createBerlinDateTimeFormatter } from '@/lib/date-time';
 import { getMatchById, type StrapiMatch } from '@/lib/strapi/tournament';
 
 export const dynamic = 'force-dynamic';
@@ -77,7 +78,7 @@ export default async function MatchDetailPage({
   const t: Translation = (key) => scopedT(key);
 
   const playedAt = match.playedAt
-    ? new Intl.DateTimeFormat(locale, {
+    ? createBerlinDateTimeFormatter(locale, {
         dateStyle: 'full',
         timeStyle: 'short',
       }).format(new Date(match.playedAt))

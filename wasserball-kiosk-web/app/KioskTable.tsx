@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createBerlinDateTimeFormatter } from '@/lib/date-time';
 import type { Match, MatchStatus } from '@/lib/matches';
 
 const MATCHES_PER_PAGE = 8;
@@ -21,12 +22,12 @@ export default function KioskTable({ matches }: { matches: Match[] }) {
     visiblePage * MATCHES_PER_PAGE,
     (visiblePage + 1) * MATCHES_PER_PAGE,
   );
-  const date = new Intl.DateTimeFormat('de-DE', {
+  const date = createBerlinDateTimeFormatter('de-DE', {
     weekday: 'short',
     day: '2-digit',
     month: '2-digit',
   });
-  const time = new Intl.DateTimeFormat('de-DE', {
+  const time = createBerlinDateTimeFormatter('de-DE', {
     hour: '2-digit',
     minute: '2-digit',
   });

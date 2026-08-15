@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { createBerlinDateTimeFormatter } from '@/lib/date-time';
 import type { StrapiMatch } from '@/lib/strapi/tournament';
 import { cn } from './utils';
 
@@ -24,12 +25,12 @@ export default function MatchTable({
   matches,
   labels,
 }: MatchTableProps) {
-  const dateFormatter = new Intl.DateTimeFormat(locale, {
+  const dateFormatter = createBerlinDateTimeFormatter(locale, {
     weekday: 'short',
     day: '2-digit',
     month: '2-digit',
   });
-  const timeFormatter = new Intl.DateTimeFormat(locale, {
+  const timeFormatter = createBerlinDateTimeFormatter(locale, {
     hour: '2-digit',
     minute: '2-digit',
   });

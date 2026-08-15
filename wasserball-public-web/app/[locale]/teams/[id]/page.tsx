@@ -14,6 +14,7 @@ import FlyerButtonLink from '@/lib/components/FlyerButtonLink';
 import TeamName from '@/lib/components/TeamName';
 import MatchLink from '@/lib/components/MatchLink';
 import SponsorAdvertisement from '@/lib/components/SponsorAdvertisement';
+import { createBerlinDateTimeFormatter } from '@/lib/date-time';
 
 export const dynamic = 'force-dynamic';
 
@@ -61,6 +62,13 @@ function roundLabel(match: MatchEntry, t: TFn): string | null {
   if (match.phase === 'final') return t('round_final');
   if (match.phase === 'lucky_second_playoff') return t('round_playoff');
   return null;
+}
+
+function formatMatchTimestamp(locale: string, value: string) {
+  return createBerlinDateTimeFormatter(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(new Date(value));
 }
 
 // ---------------------------------------------------------------------------
@@ -249,7 +257,7 @@ function MatchRow({
         </p>
         {match.playedAt && (
           <p className="text-xs text-[var(--brand-gray)]">
-            {new Date(match.playedAt).toLocaleString()}
+            {formatMatchTimestamp(locale, match.playedAt)}
           </p>
         )}
       </div>
