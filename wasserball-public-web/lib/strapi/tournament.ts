@@ -56,6 +56,7 @@ export type TeamStanding = {
   points: number;
   penaltyPoints: number;
   isChampion: boolean;
+  finalPosition?: 1 | 2 | 3 | 4 | null;
   matches: MatchEntry[];
 };
 

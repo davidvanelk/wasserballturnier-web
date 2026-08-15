@@ -97,7 +97,7 @@
     "goalDifference": "Goal difference",
     "goalDifference_short": "GD",
     "points_short": "Pts",
-    "ranking_hint": "Sorted by points, penalty points, goal difference and goals scored. All completed group-stage, playoff and knockout matches are included.",
+    "ranking_hint": "Sorted by points, then goal difference. Once the final and third-place match are complete, those matches determine positions 1 to 4.",
     "group_eyebrow": "Group stage",
     "group_title": "Group standings",
     "group_description": "The current ranking within each preliminary-round group."

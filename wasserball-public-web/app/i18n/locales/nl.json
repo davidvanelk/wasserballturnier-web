@@ -97,7 +97,7 @@
     "goalDifference": "Doelsaldo",
     "goalDifference_short": "DS",
     "points_short": "Ptn",
-    "ranking_hint": "Gesorteerd op punten, strafpunten, doelsaldo en gescoorde doelpunten. Alle gespeelde groeps-, beslissings- en knock-outwedstrijden tellen mee.",
+    "ranking_hint": "Gesorteerd op punten en daarna doelsaldo. Zodra de finale en de wedstrijd om de derde plaats zijn gespeeld, bepalen die wedstrijden plaats 1 tot en met 4.",
     "group_eyebrow": "Groepsfase",
     "group_title": "Groepsstanden",
     "group_description": "De actuele rangschikking binnen elke voorrondegroep."
