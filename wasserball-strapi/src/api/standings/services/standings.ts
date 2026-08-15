@@ -72,6 +72,7 @@ export type TeamStanding = {
   points: number;
   penaltyPoints: number;
   isChampion: boolean;
+  finalPosition: 1 | 2 | 3 | 4 | null;
   matches: MatchEntry[];
 };
 
@@ -98,6 +99,7 @@ function emptyStanding(team: TeamRef, group: GroupRef | null): TeamStanding {
     points: 0,
     penaltyPoints: 0,
     isChampion: false,
+    finalPosition: null,
     matches: [],
   };
 }
@@ -182,12 +184,40 @@ function applyScheduledMatch(
 
 function sortStandings(standings: TeamStanding[]): TeamStanding[] {
   return [...standings].sort(
-    (a, b) =>
-      b.points - a.points ||
-      b.goalDifference - a.goalDifference ||
-      b.goalsFor - a.goalsFor ||
-      a.teamName.localeCompare(b.teamName),
+    (a, b) => {
+      if (a.finalPosition !== null || b.finalPosition !== null) {
+        if (a.finalPosition === null) return 1;
+        if (b.finalPosition === null) return -1;
+        return a.finalPosition - b.finalPosition;
+      }
+
+      return (
+        b.points - a.points ||
+        b.goalDifference - a.goalDifference ||
+        b.goalsFor - a.goalsFor ||
+        a.teamName.localeCompare(b.teamName)
+      );
+    },
   );
+}
+
+function getPlacement(
+  match: GroupMatchRecord,
+): { winnerId: number; loserId: number } | null {
+  if (
+    match.matchStatus !== "completed" ||
+    !match.homeTeam ||
+    !match.awayTeam ||
+    match.homeScore === null ||
+    match.awayScore === null ||
+    match.homeScore === match.awayScore
+  ) {
+    return null;
+  }
+
+  return match.homeScore > match.awayScore
+    ? { winnerId: match.homeTeam.id, loserId: match.awayTeam.id }
+    : { winnerId: match.awayTeam.id, loserId: match.homeTeam.id };
 }
 
 type EntityService = {
@@ -353,6 +383,8 @@ export async function computeOverallStandings(
       limit: 500,
     },
   )) as GroupMatchRecord[];
+  let finalPlacement: ReturnType<typeof getPlacement> = null;
+  let thirdPlacePlacement: ReturnType<typeof getPlacement> = null;
 
   for (const match of matches) {
     if (
@@ -390,12 +422,29 @@ export async function computeOverallStandings(
     }
 
     if (match.phase === "final" && match.homeScore !== match.awayScore) {
-      const championId =
-        match.homeScore > match.awayScore
-          ? match.homeTeam.id
-          : match.awayTeam.id;
-      const champion = standings.get(championId);
+      finalPlacement = getPlacement(match);
+      const champion = finalPlacement
+        ? standings.get(finalPlacement.winnerId)
+        : undefined;
       if (champion) champion.isChampion = true;
+    } else if (match.phase === "third_place") {
+      thirdPlacePlacement = getPlacement(match);
+    }
+  }
+
+  if (finalPlacement && thirdPlacePlacement) {
+    const placements = [
+      [finalPlacement.winnerId, 1],
+      [finalPlacement.loserId, 2],
+      [thirdPlacePlacement.winnerId, 3],
+      [thirdPlacePlacement.loserId, 4],
+    ] as const;
+
+    if (new Set(placements.map(([teamId]) => teamId)).size === 4) {
+      for (const [teamId, finalPosition] of placements) {
+        const standing = standings.get(teamId);
+        if (standing) standing.finalPosition = finalPosition;
+      }
     }
   }
 

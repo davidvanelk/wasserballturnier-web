@@ -29,6 +29,7 @@ type OverallStanding = Pick<
   | 'points'
   | 'penaltyPoints'
   | 'isChampion'
+  | 'finalPosition'
 > & {
   documentId: string;
 };
@@ -49,13 +50,22 @@ function emptyStanding(team: StrapiTeam): OverallStanding {
     points: 0,
     penaltyPoints: 0,
     isChampion: false,
+    finalPosition: null,
   };
 }
 
 function compareStandings(first: OverallStanding, second: OverallStanding) {
+  const firstPosition = first.finalPosition ?? null;
+  const secondPosition = second.finalPosition ?? null;
+
+  if (firstPosition !== null || secondPosition !== null) {
+    if (firstPosition === null) return 1;
+    if (secondPosition === null) return -1;
+    return firstPosition - secondPosition;
+  }
+
   return (
     second.points - first.points ||
-    first.penaltyPoints - second.penaltyPoints ||
     second.goalDifference - first.goalDifference ||
     second.goalsFor - first.goalsFor ||
     first.teamName.localeCompare(second.teamName)

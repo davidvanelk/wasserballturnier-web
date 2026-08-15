@@ -97,7 +97,7 @@
     "goalDifference": "Tordifferenz",
     "goalDifference_short": "Diff.",
     "points_short": "Pkt.",
-    "ranking_hint": "Sortierung: Punkte, Strafpunkte, Tordifferenz und erzielte Tore. Berücksichtigt werden alle absolvierten Spiele aus Vorrunde, Stechspielen und KO-Runde.",
+    "ranking_hint": "Sortierung: Punkte und anschließend Tordifferenz. Nach Abschluss von Finale und Spiel um Platz 3 bestimmen diese Spiele verbindlich die Plätze 1 bis 4.",
     "group_eyebrow": "Gruppenphase",
     "group_title": "Gruppentabellen",
     "group_description": "Das aktuelle Ranking innerhalb jeder einzelnen Vorrundengruppe."
